@@ -20,7 +20,6 @@ public sealed class GetEmployeesQueryHandler
         GetEmployeesQuery query, 
         CancellationToken cancellationToken)
     {
-
         return await _employeeRepository.GetEmployeesAsync(cancellationToken);
     }
 }
