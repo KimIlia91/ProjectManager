@@ -1,6 +1,6 @@
 ﻿namespace PM.Contracts.EmployeeContracts.Responses;
 
-public sealed record GetEmployeeResponse(
+public sealed record UpdateEmployeeResponse(
     int Id,
     string FirstName,
     string LastName,

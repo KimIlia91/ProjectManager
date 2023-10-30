@@ -31,7 +31,8 @@ public sealed class CreateEmployeeCommandHandler
         if (employee is not null)
             return Error.Conflict("Employee has already exist", nameof(employee));
 
-        var result = Employee.Create(command.FirstName, command.LastName, command.Email, command.MiddelName);
+        var result = Employee.Create(
+            command.FirstName, command.LastName, command.Email, command.MiddelName);
 
         if (result.IsError)
             return result.FirstError;

@@ -22,6 +22,7 @@ public sealed class CreateEmployeeCommandValidator
 
         RuleFor(command => command.Email)
             .NotEmpty()
+            .EmailAddress()
             .MaximumLength(EntityConstants.Email);
     }
 }
