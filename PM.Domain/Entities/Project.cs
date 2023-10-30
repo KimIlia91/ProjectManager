@@ -4,15 +4,16 @@ using PM.Domain.Common.Errors;
 
 namespace PM.Domain.Entities;
 
-public sealed class Project : BaseEntity
+public class Project : BaseEntity
 {
     private readonly List<Employee> _employees = new();
+    private readonly List<Task> _tasks = new();
 
     public string Name { get; private set; } = null!;
 
-    public Company CustomerCompany { get; private set; } = null!;
+    public Company CustomerCompany { get; private set; }
 
-    public Company ExecutorCompany { get; private set; } = null!;
+    public Company ExecutorCompany { get; private set; }
 
     public int ManagerId { get; private set; }
 
@@ -20,9 +21,13 @@ public sealed class Project : BaseEntity
 
     public DateTime EndDate { get; private set; }
 
-    public PriorityEnum Priority { get; private set; }
+    public Priority Priority { get; private set; }
 
     public IReadOnlyCollection<Employee> Employees => _employees.ToList();
+
+    public IReadOnlyCollection<Task> Tasks => _tasks.ToList();
+
+    private Project() { }
 
     internal Project(
         string name,
@@ -31,7 +36,7 @@ public sealed class Project : BaseEntity
         int managerId,
         DateTime startDate,
         DateTime endDate,
-        PriorityEnum priority)
+        Priority priority)
     {
         Name = name;
         CustomerCompany = customerCompany;
@@ -49,7 +54,7 @@ public sealed class Project : BaseEntity
         int managerId,
         DateTime startDate,
         DateTime endDate,
-        PriorityEnum priority)
+        Priority priority)
     {
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
@@ -71,7 +76,7 @@ public sealed class Project : BaseEntity
         int managerId,
         DateTime startDate,
         DateTime endDate,
-        PriorityEnum priority)
+        Priority priority)
     {
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
@@ -120,8 +125,18 @@ public sealed class Project : BaseEntity
         return EndDate;
     }
 
-    public void ChangePriority(PriorityEnum priority)
+    public void ChangePriority(Priority priority)
     {
         Priority = priority;
+    }
+
+    public void AddTask(Task task)
+    {
+        _tasks.Add(task);
+    }
+
+    public void RemoveTask(Task task)
+    {
+        _tasks.Remove(task);
     }
 }

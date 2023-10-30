@@ -3,31 +3,35 @@ using PM.Domain.Common.Enums;
 
 namespace PM.Domain.Entities;
 
-public sealed class Task : BaseEntity
+public class Task : BaseEntity
 {
     public string Name { get; private set; } = null!;
 
-    public int AuthorId { get; private set; }
+    public Employee Author { get; private set; }
 
-    public int ExecutorId { get; private set; }
+    public Employee Executor { get; private set; }
+
+    public int ProjectId { get; private set; }
 
     public string Comment { get; private set; } = null!;
 
-    public TaskStatusEnum TaskStatus { get; private set; }
+    public Common.Enums.TaskStatus TaskStatus { get; private set; }
 
-    public PriorityEnum Priority { get; private set; }
+    public Priority Priority { get; private set; }
+
+    private Task() { }
 
     internal Task(
         string name,
-        int authorId,
-        int executorId,
+        Employee author,
+        Employee executor,
         string comment,
-        TaskStatusEnum taskStatus,
-        PriorityEnum priority)
+        Common.Enums.TaskStatus taskStatus,
+        Priority priority)
     {
         Name = name;
-        AuthorId = authorId;
-        ExecutorId = executorId;
+        Author = author;
+        Executor = executor;
         Comment = comment;
         TaskStatus = taskStatus;
         Priority = priority;
@@ -35,32 +39,32 @@ public sealed class Task : BaseEntity
 
     public static ErrorOr<Task> Create(
         string name,
-        int authorId,
-        int executorId,
+        Employee author,
+        Employee executor,
         string comment,
-        TaskStatusEnum taskStatus,
-        PriorityEnum priority)
+        Common.Enums.TaskStatus taskStatus,
+        Priority priority)
     {
         return new Task(
             name,
-            authorId,
-            executorId,
+            author,
+            executor,
             comment,
             taskStatus,
             priority);
     }
 
     public ErrorOr<Task> Update(
-     string name,
-     int authorId,
-     int executorId,
-     string comment,
-     TaskStatusEnum taskStatus,
-     PriorityEnum priority)
+        string name,
+        Employee author,
+        Employee executor,
+        string comment,
+        Common.Enums.TaskStatus taskStatus,
+        Priority priority)
     {
         Name = name;
-        AuthorId = authorId;
-        ExecutorId = executorId;
+        Author = author;
+        Executor = executor;
         Comment = comment;
         TaskStatus = taskStatus;
         Priority = priority;
