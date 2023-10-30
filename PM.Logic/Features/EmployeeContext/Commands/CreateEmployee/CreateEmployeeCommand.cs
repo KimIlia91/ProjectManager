@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using MediatR;
+using PM.Application.Features.EmployeeContext.Dtos;
 
 namespace PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 
@@ -8,7 +9,3 @@ public record CreateEmployeeCommand(
     string LastName,
     string? MiddelName,
     string Email) : IRequest<ErrorOr<CreateEmployeeResult>>;
-
-public class CreateEmployeeResult
-{
-}

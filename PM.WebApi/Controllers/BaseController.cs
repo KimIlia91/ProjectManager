@@ -15,6 +15,7 @@ public class BaseController : ControllerBase
     private IMapper _mapper;
 
     protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetService<ISender>()!;
+    protected IMapper Mapper => _mapper ??= HttpContext.RequestServices.GetService<IMapper>()!;
 
     [Route("/error")]
     protected IActionResult Problem(List<Error> errors)
