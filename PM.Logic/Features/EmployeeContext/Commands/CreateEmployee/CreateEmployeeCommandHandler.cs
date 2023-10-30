@@ -3,6 +3,7 @@ using MapsterMapper;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.EmployeeContext.Dtos;
+using PM.Domain.Entities;
 
 namespace PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 
@@ -30,11 +31,14 @@ public sealed class CreateEmployeeCommandHandler
         if (employee is not null)
             return Error.Conflict(nameof(employee), "Employee has already exist");
 
-        _mapper.Map(command, employee);
+        var result = Employee.Create(command.FirstName, command.LastName, command.Email, command.MiddelName);
 
-        await _employeeRepository.AddAsync(employee, cancellationToken);
+        if (result.IsError)
+            return result.FirstError;
+
+        await _employeeRepository.AddAsync(result.Value, cancellationToken);
         await _employeeRepository.SaveChangesAsync(cancellationToken);
 
-        return new CreateEmployeeResult(employee.Id);
+        return new CreateEmployeeResult(result.Value.Id);
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using PM.Application;
 using PM.Infrastructure;
 using PM.WebApi.Common.Errors;
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
 

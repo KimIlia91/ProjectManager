@@ -10,7 +10,7 @@ public static class DependepcyInjection
         this IServiceCollection services, 
         IConfiguration configuration)
     {
-        services.AddApplicationDbContext();
+        services.AddPesistence();
 
         return services;
     }
