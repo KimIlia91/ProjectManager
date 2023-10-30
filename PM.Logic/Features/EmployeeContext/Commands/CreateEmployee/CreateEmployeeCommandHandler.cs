@@ -37,8 +37,6 @@ public sealed class CreateEmployeeCommandHandler
             return result.FirstError;
 
         await _employeeRepository.AddAsync(result.Value, cancellationToken);
-        await _employeeRepository.SaveChangesAsync(cancellationToken);
-
         return new CreateEmployeeResult(result.Value.Id);
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
 using PM.WebApi.Common.Http;
 using System.Diagnostics;
 
@@ -11,6 +12,14 @@ namespace PM.WebApi.Common.Errors
     {
         private readonly ApiBehaviorOptions _options;
         private readonly Action<ProblemDetailsContext>? _configure;
+
+        public PmErrorProblemDitailsFactory(
+            IOptions<ApiBehaviorOptions> options,
+            IOptions<ProblemDetailsOptions>? problemDetailsOptions = null)
+        {
+            _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
+            _configure = problemDetailsOptions?.Value?.CustomizeProblemDetails;
+        }
 
         public override ProblemDetails CreateProblemDetails(
             HttpContext httpContext, 
