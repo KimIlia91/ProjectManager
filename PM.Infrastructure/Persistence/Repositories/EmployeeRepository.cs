@@ -30,4 +30,12 @@ public sealed class EmployeeRepository
             .ProjectToType<GetEmployeeResult>(_mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<List<GetEmployeeResult>> GetEmployeesAsync(
+        CancellationToken cancellationToken)
+    {
+        return await _context.Employees
+            .ProjectToType<GetEmployeeResult>(_mapper.Config)
+            .ToListAsync(cancellationToken);
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
+using PM.Application.Features.EmployeeContext.Commands.DeleteEmployee;
 using PM.Application.Features.EmployeeContext.Commands.UpdateEmployee;
 using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
 using PM.Contracts.EmployeeContracts.Requests;
@@ -42,6 +43,18 @@ public class EmployeeController : BaseController
         var result = await Mediator.Send(command, cancellationToken);
         return result.Match(
            result => Ok(Mapper.Map<GetEmployeeResponse>(result)),
+           errors => Problem(errors));
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteEmployeeAsync(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteEmployeeCommand(id);
+        var result = await Mediator.Send(command, cancellationToken);
+        return result.Match(
+           result => NoContent(),
            errors => Problem(errors));
     }
 }

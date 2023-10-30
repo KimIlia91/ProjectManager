@@ -8,4 +8,7 @@ public interface IEmployeeRepository : IBaseRepository<Employee>
     Task<GetEmployeeResult?> GetEmployeeByIdAsync(
         int employeeId,
         CancellationToken cancellationToken);
+
+    Task<List<GetEmployeeResult>> GetEmployeesAsync(
+        CancellationToken cancellationToken);
 }

@@ -39,6 +39,14 @@ public class BaseRepository<TEntity>
         return await _dbSet.FirstOrDefaultAsync(filter, cancellationToken);
     }
 
+    public async Task RemoveAsync(
+        TEntity entity, 
+        CancellationToken cancellationToken)
+    {
+        _dbSet.Remove(entity);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
     public async Task SaveChangesAsync(
         CancellationToken cancellationToken)
     {
