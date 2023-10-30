@@ -1,4 +1,5 @@
-﻿using PM.Domain.Common.Enums;
+﻿using ErrorOr;
+using PM.Domain.Common.Enums;
 
 namespace PM.Domain.Entities;
 
@@ -32,7 +33,7 @@ public sealed class Task : BaseEntity
         Priority = priority;
     }
 
-    public static Task Create(
+    public static ErrorOr<Task> Create(
         string name,
         int authorId,
         int executorId,
@@ -47,5 +48,23 @@ public sealed class Task : BaseEntity
             comment,
             taskStatus,
             priority);
+    }
+
+    public ErrorOr<Task> Update(
+     string name,
+     int authorId,
+     int executorId,
+     string comment,
+     TaskStatusEnum taskStatus,
+     PriorityEnum priority)
+    {
+        Name = name;
+        AuthorId = authorId;
+        ExecutorId = executorId;
+        Comment = comment;
+        TaskStatus = taskStatus;
+        Priority = priority;
+
+        return this;
     }
 }

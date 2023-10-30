@@ -1,4 +1,6 @@
-﻿namespace PM.Domain.Entities;
+﻿using ErrorOr;
+
+namespace PM.Domain.Entities;
 
 public class Company : BaseEntity
 {
@@ -14,7 +16,7 @@ public class Company : BaseEntity
         Name = name;
     }
 
-    public static Company Create(string name)
+    public static ErrorOr<Company> Create(string name)
     {
         return new Company(name);
     }

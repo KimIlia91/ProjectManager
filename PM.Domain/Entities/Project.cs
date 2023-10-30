@@ -1,4 +1,6 @@
-﻿using PM.Domain.Common.Enums;
+﻿using ErrorOr;
+using PM.Domain.Common.Enums;
+using PM.Domain.Common.Errors;
 
 namespace PM.Domain.Entities;
 
@@ -40,7 +42,7 @@ public sealed class Project : BaseEntity
         Priority = priority;
     }
 
-    public static Project Create(
+    public static ErrorOr<Project> Create(
         string name,
         Company customerCompany,
         Company executorCompany,
@@ -50,7 +52,7 @@ public sealed class Project : BaseEntity
         PriorityEnum priority)
     {
         if (startDate > endDate)
-            throw new ArgumentException();
+            return Errors.Project.InvalidDate;
 
         return new Project(
             name,
@@ -62,7 +64,30 @@ public sealed class Project : BaseEntity
             priority);
     }
 
-    public void AddEmployee(Employee employee) 
+    public ErrorOr<Project> Update(
+        string name,
+        Company customerCompany,
+        Company executorCompany,
+        int managerId,
+        DateTime startDate,
+        DateTime endDate,
+        PriorityEnum priority)
+    {
+        if (startDate > endDate)
+            return Errors.Project.InvalidDate;
+
+        Name = name;
+        CustomerCompany = customerCompany;
+        ExecutorCompany = executorCompany;
+        ManagerId = managerId;
+        StartDate = startDate;
+        EndDate = endDate;
+        Priority = priority;
+
+        return this;
+    }
+
+    public void AddEmployee(Employee employee)
     {
         _employees.Add(employee);
     }
@@ -77,14 +102,22 @@ public sealed class Project : BaseEntity
         ManagerId = managerId;
     }
 
-    public void ChangeStartDate(DateTime date)
+    public ErrorOr<DateTime> ChangeStartDate(DateTime date)
     {
+        if (date > EndDate)
+            return Errors.Project.InvalidDate;
+
         StartDate = date;
+        return StartDate;
     }
 
-    public void ChangeEndDate(DateTime date)
+    public ErrorOr<DateTime> ChangeEndDate(DateTime date)
     {
+        if (date < StartDate)
+            return Errors.Project.InvalidDate;
+
         EndDate = date;
+        return EndDate;
     }
 
     public void ChangePriority(PriorityEnum priority)

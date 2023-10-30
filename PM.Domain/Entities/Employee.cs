@@ -1,4 +1,6 @@
-﻿namespace PM.Domain.Entities;
+﻿using ErrorOr;
+
+namespace PM.Domain.Entities;
 
 public sealed class Employee : BaseEntity
 {
@@ -29,7 +31,7 @@ public sealed class Employee : BaseEntity
         Email = email;
     }
 
-    public static Employee Create(
+    public static ErrorOr<Employee> Create(
         string firstName,
         string lastName,
         string email,
@@ -40,6 +42,20 @@ public sealed class Employee : BaseEntity
             lastName, 
             middleName, 
             email);
+    }
+
+    public ErrorOr<Employee> Update(
+        string firstName,
+        string lastName,
+        string email,
+        string? middleName = null)
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        Email = email;
+
+        return this;
     }
 
     public void AddProject(Project project)
