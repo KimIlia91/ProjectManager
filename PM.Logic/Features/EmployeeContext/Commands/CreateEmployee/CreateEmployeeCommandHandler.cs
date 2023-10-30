@@ -29,7 +29,7 @@ public sealed class CreateEmployeeCommandHandler
             .GetOrDeafaultAsync(e => e.Email == command.Email, cancellationToken);
 
         if (employee is not null)
-            return Error.Conflict(nameof(employee), "Employee has already exist");
+            return Error.Conflict("Employee has already exist", nameof(employee));
 
         var result = Employee.Create(command.FirstName, command.LastName, command.Email, command.MiddelName);
 
