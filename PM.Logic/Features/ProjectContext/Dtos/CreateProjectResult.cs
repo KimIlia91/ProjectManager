@@ -1,6 +1,4 @@
-﻿namespace PM.Application.Features.ProjectContext.Dtos
-{
-    public class CreateProjectResult
-    {
-    }
-}
+﻿namespace PM.Application.Features.ProjectContext.Dtos;
+
+public sealed record CreateProjectResult(
+    int ProjectId);
