@@ -15,7 +15,7 @@ public class Project : BaseEntity
 
     public Company ExecutorCompany { get; private set; }
 
-    public int ManagerId { get; private set; }
+    public Employee Manager { get; private set; }
 
     public DateTime StartDate { get; private set; }
 
@@ -33,7 +33,7 @@ public class Project : BaseEntity
         string name,
         Company customerCompany,
         Company executorCompany,
-        int managerId,
+        Employee manager,
         DateTime startDate,
         DateTime endDate,
         ProjectPriority priority)
@@ -41,7 +41,7 @@ public class Project : BaseEntity
         Name = name;
         CustomerCompany = customerCompany;
         ExecutorCompany = executorCompany;
-        ManagerId = managerId;
+        Manager = manager;
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
@@ -51,7 +51,7 @@ public class Project : BaseEntity
         string name,
         Company customerCompany,
         Company executorCompany,
-        int managerId,
+        Employee manager,
         DateTime startDate,
         DateTime endDate,
         ProjectPriority priority)
@@ -63,7 +63,7 @@ public class Project : BaseEntity
             name,
             customerCompany,
             executorCompany,
-            managerId,
+            manager,
             startDate,
             endDate,
             priority);
@@ -73,7 +73,7 @@ public class Project : BaseEntity
         string name,
         Company customerCompany,
         Company executorCompany,
-        int managerId,
+        Employee manager,
         DateTime startDate,
         DateTime endDate,
         ProjectPriority priority)
@@ -84,7 +84,7 @@ public class Project : BaseEntity
         Name = name;
         CustomerCompany = customerCompany;
         ExecutorCompany = executorCompany;
-        ManagerId = managerId;
+        Manager = manager;
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
@@ -102,9 +102,9 @@ public class Project : BaseEntity
         _employees.Remove(employee);
     }
 
-    public void ChangeManager(int managerId)
+    public void ChangeManager(Employee manager)
     {
-        ManagerId = managerId;
+        Manager = manager;
     }
 
     public ErrorOr<DateTime> ChangeStartDate(DateTime date)

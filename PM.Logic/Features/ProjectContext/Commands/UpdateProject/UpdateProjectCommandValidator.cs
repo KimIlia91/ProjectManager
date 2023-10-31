@@ -70,10 +70,10 @@ internal sealed class UpdateProjectCommandValidator
         int managerId, 
         CancellationToken cancellationToken)
     {
-        var manager = await _employeeRepository
+        command.Manager = await _employeeRepository
             .GetOrDeafaultAsync(e => e.Id == managerId, cancellationToken);
 
-        return manager is not null;
+        return command.Manager is not null;
     }
 
     private async Task<bool> ExecutorCompanyMustBeInDatabase(

@@ -28,7 +28,7 @@ public sealed class UpdateProjectCommandHandler
             command.Name,
             command.CustomerCompany,
             command.ExecutorCompany,
-            command.ManagerId,
+            command.Manager,
             command.StartDate,
             command.EndDate,
             command.Priority);
