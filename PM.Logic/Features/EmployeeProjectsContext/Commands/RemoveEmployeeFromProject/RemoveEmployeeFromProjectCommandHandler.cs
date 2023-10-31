@@ -16,10 +16,14 @@ internal sealed class RemoveEmployeeFromProjectCommandHandler
         _projectRepository = projectRepository;
     }
 
-    public Task<ErrorOr<RemoveEmployeeFromProjectResult>> Handle(
+    public async Task<ErrorOr<RemoveEmployeeFromProjectResult>> Handle(
         RemoveEmployeeFromProjectCommand command, 
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        command.Project!.RemoveEmployee(command.Employee!);
+
+        await _projectRepository.SaveChangesAsync(cancellationToken);
+
+        return new RemoveEmployeeFromProjectResult(command.EmployeeId, command.ProjectId);
     }
 }
