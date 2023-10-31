@@ -16,6 +16,10 @@ public sealed class CompanyConfigurations : IEntityTypeConfiguration<Company>
         builder.Property(c => c.Id)
             .HasColumnName("Id");
 
+        builder.HasIndex(c => c.Name)
+            .IsClustered(false)
+            .IsUnique();
+
         builder.Property(c => c.Name)
             .HasColumnName("Name")
             .HasMaxLength(EntityConstants.CompanyName)

@@ -37,8 +37,7 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
             .IsRequired();
 
         builder.HasOne<Employee>()
-            .WithMany()
-            .HasForeignKey(p => p.ManagerId)
+            .WithMany(e => e.Projects)
             .IsRequired();
 
         builder.HasMany(p => p.Tasks)
@@ -55,6 +54,7 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
             .IsRequired();
 
         builder.HasMany(p => p.Employees)
-            .WithMany(p => p.Projects);
+            .WithMany(p => p.Projects)
+            .UsingEntity(j => j.ToTable("EmployeeProjects"));
     }
 }
