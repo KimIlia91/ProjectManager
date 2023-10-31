@@ -45,7 +45,7 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
             .WithOne(t => t.Executor)
             .IsRequired();
 
-        builder.HasMany(e => e.EmployeeProjects)
+        builder.HasMany(e => e.Projects)
             .WithMany(t => t.Employees)
             .UsingEntity(j => j.ToTable("EmployeeProjects"));
     }
