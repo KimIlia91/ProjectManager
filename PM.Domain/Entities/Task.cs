@@ -1,5 +1,6 @@
 ﻿using ErrorOr;
 using PM.Domain.Common.Enums;
+using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
 
 namespace PM.Domain.Entities;
 
@@ -15,7 +16,7 @@ public class Task : BaseEntity
 
     public string Comment { get; private set; } = null!;
 
-    public Common.Enums.TaskStatus Status { get; private set; }
+    public TaskStatus Status { get; private set; }
 
     public ProjectPriority Priority { get; private set; }
 
