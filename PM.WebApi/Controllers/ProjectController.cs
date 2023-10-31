@@ -13,7 +13,8 @@ public class ProjectController : BaseController
     [HttpPost]
     [ProducesResponseType(typeof(CreateProjectResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateProjectAsync(
-        CreateProjectRequest request, CancellationToken cancellationToken)
+        CreateProjectRequest request, 
+        CancellationToken cancellationToken)
     {
         var command = Mapper.Map<CreateProjectCommand>(request);
         var result = await Mediator.Send(command, cancellationToken);
@@ -26,7 +27,8 @@ public class ProjectController : BaseController
     [HttpPut]
     [ProducesResponseType(typeof(UpdateProjectResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateProjectAsync(
-        UpdateProjectRequest request, CancellationToken cancellationToken)
+        UpdateProjectRequest request, 
+        CancellationToken cancellationToken)
     {
         var command = Mapper.Map<UpdateProjectCommand>(request);
         var result = await Mediator.Send(command, cancellationToken);
@@ -39,7 +41,8 @@ public class ProjectController : BaseController
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetProjectResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
-        int id, CancellationToken cancellationToken)
+        int id, 
+        CancellationToken cancellationToken)
     {
         var query = new GetProjectQuery(id);
         var result = await Mediator.Send(query, cancellationToken);
@@ -53,7 +56,8 @@ public class ProjectController : BaseController
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteProjectAsync(
-        int id, CancellationToken cancellationToken)
+        int id, 
+        CancellationToken cancellationToken)
     {
         var command = new DeleteProjectCommand() { Id = id };
         var result = await Mediator.Send(command, cancellationToken);

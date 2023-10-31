@@ -1,4 +1,6 @@
-﻿namespace PM.Contracts.TaskContracts.Responses;
+﻿using PM.Contracts.ProjectContracts.Responses;
+
+namespace PM.Contracts.TaskContracts.Responses;
 
 public sealed class GetTaskResponse
 {
@@ -15,24 +17,4 @@ public sealed class GetTaskResponse
     public int Status { get; set; }
 
     public int Priority { get; set; }
-}
-
-public class ProjectResponse
-{
-    public int Id { get; set; }
-
-    public string Name { get; set; } = null!;
-}
-
-public class EmployeeResponse
-{
-    public int Id { get; set; }
-
-    public string FirstName { get; set; } = null!;
-
-    public string LastName { get; set; } = null!;
-
-    public string MiddelName { get; set; } = string.Empty;
-
-    public string Email { get; set; } = null!;
 }

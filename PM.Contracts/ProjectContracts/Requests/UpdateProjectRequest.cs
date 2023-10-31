@@ -6,9 +6,9 @@ public sealed class UpdateProjectRequest
 
     public string Name { get; set; } = null!;
 
-    public int CustomerCompanyId { get; set; }
+    public string CustomerCompany { get; set; } = null!;
 
-    public int ExecutorCompanyId { get; set; }
+    public string ExecutorCompany { get; set; } = null!;
 
     public int ManagerId { get; set; }
 
