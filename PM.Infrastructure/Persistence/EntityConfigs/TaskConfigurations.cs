@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PM.Domain.Common.Constants;
 using PM.Domain.Common.Enums;
-using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
@@ -37,9 +36,7 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Domain.Entitie
            .HasConversion(new EnumToStringConverter<ProjectPriority>())
            .IsRequired();
 
-        builder.HasOne<Project>()
-            .WithMany(p => p.Tasks)
-            .HasForeignKey(t => t.ProjectId)
-            .IsRequired();
+        builder.HasOne(t => t.Project)
+            .WithMany(p => p.Tasks);
     }
 }

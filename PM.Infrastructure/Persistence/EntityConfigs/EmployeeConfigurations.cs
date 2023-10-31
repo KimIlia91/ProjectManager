@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PM.Domain.Common.Constants;
 using PM.Domain.Entities;
@@ -38,15 +37,15 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
             .HasMaxLength(EntityConstants.Email);
 
         builder.HasMany(e => e.AuthorTasks)
-            .WithOne(t => t.Author)
-            .IsRequired();
+            .WithOne(t => t.Author);
 
         builder.HasMany(e => e.ExecutorTasks)
-            .WithOne(t => t.Executor)
-            .IsRequired();
+            .WithOne(t => t.Executor);
+
+        builder.HasMany(e => e.ManageProjects)
+            .WithOne(t => t.Manager);
 
         builder.HasMany(e => e.Projects)
-            .WithMany(t => t.Employees)
-            .UsingEntity(j => j.ToTable("EmployeeProjects"));
+            .WithMany(t => t.Employees);
     }
 }

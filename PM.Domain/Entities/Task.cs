@@ -11,7 +11,7 @@ public class Task : BaseEntity
 
     public Employee Executor { get; private set; }
 
-    public int ProjectId { get; private set; }
+    public Project Project { get; private set; }
 
     public string Comment { get; private set; } = null!;
 
@@ -25,6 +25,7 @@ public class Task : BaseEntity
         string name,
         Employee author,
         Employee executor,
+        Project project,
         string comment,
         Common.Enums.TaskStatus taskStatus,
         ProjectPriority priority)
@@ -32,6 +33,7 @@ public class Task : BaseEntity
         Name = name;
         Author = author;
         Executor = executor;
+        Project = project;
         Comment = comment;
         TaskStatus = taskStatus;
         Priority = priority;
@@ -41,6 +43,7 @@ public class Task : BaseEntity
         string name,
         Employee author,
         Employee executor,
+        Project project,
         string comment,
         Common.Enums.TaskStatus taskStatus,
         ProjectPriority priority)
@@ -49,6 +52,7 @@ public class Task : BaseEntity
             name,
             author,
             executor,
+            project,
             comment,
             taskStatus,
             priority);
@@ -58,6 +62,7 @@ public class Task : BaseEntity
         string name,
         Employee author,
         Employee executor,
+        Project project,
         string comment,
         Common.Enums.TaskStatus taskStatus,
         ProjectPriority priority)
@@ -65,6 +70,7 @@ public class Task : BaseEntity
         Name = name;
         Author = author;
         Executor = executor;
+        Project = project;
         Comment = comment;
         TaskStatus = taskStatus;
         Priority = priority;

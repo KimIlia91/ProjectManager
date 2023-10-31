@@ -5,6 +5,7 @@ namespace PM.Domain.Entities;
 public class Employee : BaseEntity
 {
     private readonly List<Project> _projects = new();
+    private readonly List<Project> _manageProjects = new();
     private readonly List<Task> _executorTasks = new();
     private readonly List<Task> _authorTasks = new();
 
@@ -16,7 +17,9 @@ public class Employee : BaseEntity
 
     public string Email { get; private set; } = null!;
 
-    public IReadOnlyCollection<Project> EmployeeProjects => _projects.ToList();
+    public IReadOnlyCollection<Project> Projects => _projects.ToList();
+
+    public IReadOnlyCollection<Project> ManageProjects => _manageProjects.ToList();
 
     public IReadOnlyCollection<Task> ExecutorTasks => _executorTasks.ToList();
 

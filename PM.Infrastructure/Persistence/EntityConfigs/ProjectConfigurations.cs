@@ -36,25 +36,19 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
             .HasConversion(new EnumToStringConverter<ProjectPriority>())
             .IsRequired();
 
-        builder.HasOne<Employee>()
-            .WithMany(e => e.Projects)
-            .IsRequired();
+        builder.HasOne(p => p.Manager)
+            .WithMany(e => e.ManageProjects);
 
         builder.HasMany(p => p.Tasks)
-            .WithOne()
-            .HasForeignKey(p => p.ProjectId)
-            .IsRequired();
+            .WithOne(t => t.Project);
         
         builder.HasOne(p => p.ExecutorCompany)
-            .WithMany(c => c.ExecutedProjects)
-            .IsRequired();
+            .WithMany(c => c.ExecutedProjects);
 
         builder.HasOne(p => p.CustomerCompany)
-            .WithMany(c => c.CustomerProjects)
-            .IsRequired();
+            .WithMany(c => c.CustomerProjects);
 
         builder.HasMany(p => p.Employees)
-            .WithMany(p => p.Projects)
-            .UsingEntity(j => j.ToTable("EmployeeProjects"));
+            .WithMany(p => p.Projects);
     }
 }
