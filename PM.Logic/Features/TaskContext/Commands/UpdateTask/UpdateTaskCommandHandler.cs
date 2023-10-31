@@ -1,4 +1,5 @@
 ﻿using ErrorOr;
+using MapsterMapper;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.TaskContext.Dtos;
@@ -9,10 +10,13 @@ internal sealed class UpdateTaskCommandHandler
     : IRequestHandler<UpdateTaskCommand, ErrorOr<UpdateTaskResult>>
 {
     private readonly ITaskRepository _taskRepository;
+    private readonly IMapper _mapper;
 
     public UpdateTaskCommandHandler(
-        ITaskRepository taskRepository)
+        ITaskRepository taskRepository,
+        IMapper mapper)
     {
+        _mapper = mapper;
         _taskRepository = taskRepository;
     }
 
@@ -24,11 +28,11 @@ internal sealed class UpdateTaskCommandHandler
             command.Name,
             command.Author!,
             command.Executor!,
-            command.Commnet!,
+            command.Comment!,
             command.Status,
             command.Priority);
 
         await _taskRepository.SaveChangesAsync(cancellationToken);
-        return new UpdateTaskResult(command.Task.Id);
+        return _mapper.Map<UpdateTaskResult>(command.Task);
     }
 }

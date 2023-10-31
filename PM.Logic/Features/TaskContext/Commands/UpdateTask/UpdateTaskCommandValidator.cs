@@ -37,7 +37,7 @@ internal sealed class UpdateTaskCommandValidator
             .NotEmpty()
             .MustAsync(ExecutorMustBeInDatabase);
 
-        RuleFor(command => command.Commnet)
+        RuleFor(command => command.Comment)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .MaximumLength(EntityConstants.Comment);

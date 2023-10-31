@@ -25,7 +25,7 @@ public sealed class UpdateTaskCommand : IRequest<ErrorOr<UpdateTaskResult>>
 
     public int ExecutorId { get; set; }
 
-    public string? Commnet { get; set; }
+    public string? Comment { get; set; }
 
     public TaskStatus Status { get; set; }
 
