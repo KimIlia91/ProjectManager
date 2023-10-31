@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Features.ProjectContext.Commands.UpdateProject;
 using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.ProjectContext.Commands.CreateProject;
 
-public sealed class CreateProjectCommandValidator 
+public sealed class CreateProjectCommandValidator
     : AbstractValidator<CreateProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
@@ -25,9 +24,9 @@ public sealed class CreateProjectCommandValidator
             .MustAsync(ProjectNameMustBeUnique);
 
         RuleFor(command => command.CustomerCompany)
-           .Cascade(CascadeMode.StopOnFirstFailure)
-           .NotEmpty()
-           .MaximumLength(EntityConstants.CompanyName);
+            .Cascade(CascadeMode.StopOnFirstFailure)
+            .NotEmpty()
+            .MaximumLength(EntityConstants.CompanyName);
 
         RuleFor(command => command.ExecutorCompany)
             .Cascade(CascadeMode.StopOnFirstFailure)
