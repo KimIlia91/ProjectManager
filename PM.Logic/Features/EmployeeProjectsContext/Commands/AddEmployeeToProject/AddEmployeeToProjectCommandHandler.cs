@@ -1,9 +1,9 @@
 ﻿using ErrorOr;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Features.ProjectContext.Dtos;
+using PM.Application.Features.EmployeeProjectsContext.Dtos;
 
-namespace PM.Application.Features.ProjectContext.Commands.AddEmployeeToProject;
+namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
 internal sealed class AddEmployeeToProjectCommandHandler
     : IRequestHandler<AddEmployeeToProjectCommand, ErrorOr<AddEmployeeToProjectResult>>

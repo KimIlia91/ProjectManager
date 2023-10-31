@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
 
-namespace PM.Application.Features.ProjectContext.Commands.AddEmployeeToProject;
+namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
 internal sealed class AddEmployeeToProjectCommandValidator
     : AbstractValidator<AddEmployeeToProjectCommand>

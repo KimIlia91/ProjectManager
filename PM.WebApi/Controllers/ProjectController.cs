@@ -2,7 +2,7 @@
 using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
-using PM.Application.Features.ProjectContext.Queries;
+using PM.Application.Features.ProjectContext.Queries.GetProject;
 using PM.Contracts.ProjectContracts.Requests;
 using PM.Contracts.ProjectContracts.Responses;
 
