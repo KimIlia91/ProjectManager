@@ -16,10 +16,16 @@ public sealed class GetProjectQueryHandler
         _projectRepository = projectRepository;
     }
 
-    public Task<ErrorOr<GetProjectResult>> Handle(
+    public async Task<ErrorOr<GetProjectResult>> Handle(
         GetProjectQuery query, 
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var project = await _projectRepository
+            .GetProjectByIdAsync(query.Id, cancellationToken);
+
+        if (project is null)
+            return Error.NotFound("Not found", nameof(query.Id));
+
+        return project;
     }
 }
