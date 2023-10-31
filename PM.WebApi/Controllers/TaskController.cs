@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PM.Application.Features.TaskContext.Commands.CreateTask;
+using PM.Application.Features.TaskContext.Commands.DeleteTask;
 using PM.Application.Features.TaskContext.Commands.UpdateTask;
 using PM.Application.Features.TaskContext.Queries.GetTask;
 using PM.Contracts.TaskContracts.Requests;
@@ -40,7 +41,7 @@ public class TaskController : BaseController
 
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetTaskResponse), StatusCodes.Status200OK)]
-    public async Task<IActionResult> UpdateTaskAsync(
+    public async Task<IActionResult> GetTaskAsync(
         int id,
         CancellationToken cancellationToken)
     {
@@ -49,6 +50,21 @@ public class TaskController : BaseController
 
         return result.Match(
             result => Ok(Mapper.Map<GetTaskResponse>(result)),
+            errors => Problem(errors));
+    }
+
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> DeleteTaskAsync(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        var command = new DeleteTaskCommand(id);
+        var result = await Mediator.Send(command, cancellationToken);
+
+        return result.Match(
+            result => NoContent(),
             errors => Problem(errors));
     }
 }
