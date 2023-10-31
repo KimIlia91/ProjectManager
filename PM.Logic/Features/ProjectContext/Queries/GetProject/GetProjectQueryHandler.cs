@@ -3,7 +3,7 @@ using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.ProjectContext.Dtos;
 
-namespace PM.Application.Features.ProjectContext.Queries;
+namespace PM.Application.Features.ProjectContext.Queries.GetProject;
 
 public sealed class GetProjectQueryHandler
     : IRequestHandler<GetProjectQuery, ErrorOr<GetProjectResult>>
@@ -17,7 +17,7 @@ public sealed class GetProjectQueryHandler
     }
 
     public async Task<ErrorOr<GetProjectResult>> Handle(
-        GetProjectQuery query, 
+        GetProjectQuery query,
         CancellationToken cancellationToken)
     {
         var project = await _projectRepository
