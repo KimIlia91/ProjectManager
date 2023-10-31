@@ -10,7 +10,7 @@ public sealed class GetTaskResponse
 
     public ProjectResponse Project { get; set; } = new ProjectResponse();
 
-    public string Commnet { get; set; } = string.Empty;
+    public string Comment { get; set; } = string.Empty;
 
     public int Status { get; set; }
 

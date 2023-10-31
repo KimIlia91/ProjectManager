@@ -13,7 +13,7 @@ public class GetTaskResult
 
     public ProjectResult Project { get; set; } = new ProjectResult();
 
-    public string Commnet { get; set; } = string.Empty;
+    public string Comment { get; set; } = string.Empty;
 
     public TaskStatus Status { get; set; }
 

@@ -33,7 +33,7 @@ internal sealed class CreateTaskCommandHandler
         if (result.IsError)
             return result.Errors;
 
-        await _taskRepository.SaveChangesAsync(cancellationToken);
+        await _taskRepository.AddAsync(result.Value, cancellationToken);
         return new CreateTaskResult(result.Value.Id);
     }
 }

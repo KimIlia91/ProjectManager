@@ -4,7 +4,7 @@ using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 
-internal sealed class CreateTaskCommandValidator
+public sealed class CreateTaskCommandValidator
     : AbstractValidator<CreateTaskCommand>
 {
     private readonly IEmployeeRepository _employeeRepository;

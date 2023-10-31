@@ -33,8 +33,7 @@ public sealed class CreateProjectCommandHandler
         if (result.IsError)
             return result.Errors;
 
-        await _projectRepository.SaveChangesAsync(cancellationToken);
-
+        await _projectRepository.AddAsync(result.Value, cancellationToken);
         return new CreateProjectResult(result.Value.Id);
     }
 }
