@@ -36,7 +36,7 @@ public class ProjectController : BaseController
             errors => Problem(errors));
     }
 
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetProjectResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
         int id, CancellationToken cancellationToken)

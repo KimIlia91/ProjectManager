@@ -4,7 +4,7 @@ public class EntityConstants
 {
     public const short TaskName = 250;
     public const short ProjectName = 250;
-    public const short CompanyName = 250;
+    public const short CompanyName = 1000;
 
     public const short FirstName = 250;
     public const short LastName = 250;

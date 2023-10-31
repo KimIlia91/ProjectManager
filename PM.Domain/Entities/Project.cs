@@ -11,9 +11,9 @@ public class Project : BaseEntity
 
     public string Name { get; private set; } = null!;
 
-    public Company CustomerCompany { get; private set; }
+    public string CustomerCompany { get; private set; }
 
-    public Company ExecutorCompany { get; private set; }
+    public string ExecutorCompany { get; private set; }
 
     public Employee Manager { get; private set; }
 
@@ -31,8 +31,8 @@ public class Project : BaseEntity
 
     internal Project(
         string name,
-        Company customerCompany,
-        Company executorCompany,
+        string customerCompany,
+        string executorCompany,
         Employee manager,
         DateTime startDate,
         DateTime endDate,
@@ -49,8 +49,8 @@ public class Project : BaseEntity
 
     public static ErrorOr<Project> Create(
         string name,
-        Company customerCompany,
-        Company executorCompany,
+        string customerCompany,
+        string executorCompany,
         Employee manager,
         DateTime startDate,
         DateTime endDate,
@@ -71,8 +71,8 @@ public class Project : BaseEntity
 
     public ErrorOr<Project> Update(
         string name,
-        Company customerCompany,
-        Company executorCompany,
+        string customerCompany,
+        string executorCompany,
         Employee manager,
         DateTime startDate,
         DateTime endDate,

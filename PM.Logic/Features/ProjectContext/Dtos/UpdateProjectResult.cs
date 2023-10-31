@@ -25,8 +25,6 @@ public sealed class UpdateProjectResult : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<Project, UpdateProjectResult>()
-            .Map(dest => dest.CustomerCompanyId, src => src.CustomerCompany.Id)
-            .Map(dest => dest.ExecutorCompanyId, src => src.ExecutorCompany.Id)
             .Map(dest => dest.ManagerId, src => src.Manager.Id);
     }
 }

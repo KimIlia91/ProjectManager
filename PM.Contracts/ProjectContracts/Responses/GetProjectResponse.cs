@@ -1,5 +1,4 @@
-﻿using PM.Contracts.CompanyContracts.Reponses;
-using PM.Contracts.EmployeeContracts.Responses;
+﻿using PM.Contracts.EmployeeContracts.Responses;
 
 namespace PM.Contracts.ProjectContracts.Responses;
 
@@ -9,9 +8,9 @@ public sealed class GetProjectResponse
 
     public string Name { get; set; } = null!;
 
-    public GetCompanyResponse CustomerCompany { get; set; } = null!;
+    public string CustomerCompany { get; set; } = null!;
 
-    public GetCompanyResponse ExecutorCompany { get; set; } = null!;
+    public string ExecutorCompany { get; set; } = null!;
 
     public GetEmployeeResponse Manager { get; set; } = null!;
 

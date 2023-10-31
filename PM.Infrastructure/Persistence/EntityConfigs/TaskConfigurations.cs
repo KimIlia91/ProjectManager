@@ -3,12 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PM.Domain.Common.Constants;
 using PM.Domain.Common.Enums;
+using AppTask = PM.Domain.Entities.Task;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
-public sealed class TaskConfigurations : IEntityTypeConfiguration<Domain.Entities.Task>
+public sealed class TaskConfigurations : IEntityTypeConfiguration<AppTask>
 {
-    public void Configure(EntityTypeBuilder<Domain.Entities.Task> builder)
+    public void Configure(EntityTypeBuilder<AppTask> builder)
     {
         builder.ToTable("Tasks");
 

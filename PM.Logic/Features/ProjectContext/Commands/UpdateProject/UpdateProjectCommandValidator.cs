@@ -7,16 +7,13 @@ namespace PM.Application.Features.ProjectContext.Commands.UpdateProject;
 internal sealed class UpdateProjectCommandValidator
     : AbstractValidator<UpdateProjectCommand>
 {
-    private readonly ICompanyRepository _companyRepository;
     private readonly IProjectRepository _projectRepository;
     private readonly IEmployeeRepository _employeeRepository;
 
     public UpdateProjectCommandValidator(
-        ICompanyRepository companyRepository,
         IProjectRepository projectRepository, 
         IEmployeeRepository employeeRepository)
     {
-        _companyRepository = companyRepository;
         _projectRepository = projectRepository;
         _employeeRepository = employeeRepository;
 
@@ -31,15 +28,15 @@ internal sealed class UpdateProjectCommandValidator
             .MaximumLength(EntityConstants.ProjectName)
             .MustAsync(ProjectNameMustBeUnique);
 
-        RuleFor(command => command.CustomerCompanyId)
+        RuleFor(command => command.CustomerCompany)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
-            .MustAsync(CustomerCompanyMustBeInDatabase);
+            .MaximumLength(EntityConstants.CompanyName);
 
-        RuleFor(command => command.ExecutorCompanyId)
+        RuleFor(command => command.ExecutorCompany)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
-            .MustAsync(ExecutorCompanyMustBeInDatabase);
+            .MaximumLength(EntityConstants.CompanyName);
 
         RuleFor(command => command.ManagerId)
             .Cascade(CascadeMode.StopOnFirstFailure)
@@ -74,28 +71,6 @@ internal sealed class UpdateProjectCommandValidator
             .GetOrDeafaultAsync(e => e.Id == managerId, cancellationToken);
 
         return command.Manager is not null;
-    }
-
-    private async Task<bool> ExecutorCompanyMustBeInDatabase(
-        UpdateProjectCommand command,
-        int executorCompanyId, 
-        CancellationToken cancellationToken)
-    {
-        command.ExecutorCompany = await _companyRepository
-            .GetOrDeafaultAsync(c => c.Id == command.ExecutorCompanyId, cancellationToken);
-
-        return command.ExecutorCompany is not null;
-    }
-
-    private async Task<bool> CustomerCompanyMustBeInDatabase(
-        UpdateProjectCommand command,
-        int customerCompanyId, 
-        CancellationToken cancellationToken)
-    {
-        command.CustomerCompany = await _companyRepository
-            .GetOrDeafaultAsync(c => c.Id == customerCompanyId, cancellationToken);
-
-        return command.CustomerCompany is not null;
     }
 
     private async Task<bool> ProjectNameMustBeUnique(

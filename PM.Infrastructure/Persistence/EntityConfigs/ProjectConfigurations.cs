@@ -23,6 +23,16 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
             .IsRequired()
             .HasMaxLength(EntityConstants.ProjectName);
 
+        builder.Property(p => p.CustomerCompany)
+            .HasColumnName("CustomerCompany")
+            .IsRequired()
+            .HasMaxLength(EntityConstants.CompanyName);
+
+        builder.Property(p => p.ExecutorCompany)
+            .HasColumnName("ExecutorCompany")
+            .IsRequired()
+            .HasMaxLength(EntityConstants.CompanyName);
+
         builder.Property(p => p.StartDate)
             .HasColumnName("StartDate")
             .IsRequired();
@@ -41,12 +51,6 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
 
         builder.HasMany(p => p.Tasks)
             .WithOne(t => t.Project);
-        
-        builder.HasOne(p => p.ExecutorCompany)
-            .WithMany(c => c.ExecutedProjects);
-
-        builder.HasOne(p => p.CustomerCompany)
-            .WithMany(c => c.CustomerProjects);
 
         builder.HasMany(p => p.Employees)
             .WithMany(p => p.Projects);

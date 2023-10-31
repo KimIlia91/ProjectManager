@@ -11,19 +11,15 @@ public sealed class UpdateProjectCommand : IRequest<ErrorOr<UpdateProjectResult>
 {
     [JsonIgnore] public Project Project { get; set; } = null!;
 
-    [JsonIgnore] public Company CustomerCompany { get; set; } = null!;
-
-    [JsonIgnore] public Company ExecutorCompany { get; set; } = null!;
-
     [JsonIgnore] public Employee Manager { get; set; } = null!;
 
     public int Id { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public int CustomerCompanyId { get; set; }
+    public string CustomerCompany { get; set; } = null!;
 
-    public int ExecutorCompanyId { get; set; }
+    public string ExecutorCompany { get; set; } = null!;
 
     public int ManagerId { get; set; }
 
