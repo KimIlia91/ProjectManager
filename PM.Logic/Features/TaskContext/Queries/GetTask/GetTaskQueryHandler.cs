@@ -5,7 +5,8 @@ using PM.Application.Features.TaskContext.Dtos;
 
 namespace PM.Application.Features.TaskContext.Queries.GetTask;
 
-internal sealed class GetTaskQueryHandler : IRequestHandler<GetTaskQuery, ErrorOr<GetTaskResult>>
+internal sealed class GetTaskQueryHandler 
+    : IRequestHandler<GetTaskQuery, ErrorOr<GetTaskResult>>
 {
     private readonly ITaskRepository _taskRepository;
 
@@ -15,10 +16,16 @@ internal sealed class GetTaskQueryHandler : IRequestHandler<GetTaskQuery, ErrorO
         _taskRepository = taskRepository;
     }
 
-    public Task<ErrorOr<GetTaskResult>> Handle(
+    public async Task<ErrorOr<GetTaskResult>> Handle(
         GetTaskQuery query, 
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var task = await _taskRepository
+            .GetTaskByIdAsync(query.Id, cancellationToken);
+
+        if (task is null)
+            return Error.NotFound("Not found", nameof(query.Id));
+
+        return task;
     }
 }

@@ -28,7 +28,7 @@ public class Task : BaseEntity
         Employee executor,
         Project project,
         string comment,
-        Common.Enums.TaskStatus taskStatus,
+        TaskStatus taskStatus,
         ProjectPriority priority)
     {
         Name = name;
