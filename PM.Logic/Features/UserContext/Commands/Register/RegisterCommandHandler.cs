@@ -3,6 +3,7 @@ using MapsterMapper;
 using MediatR;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Features.UserContext.Dtos;
+using PM.Domain.Entities;
 
 namespace PM.Application.Features.UserContext.Commands.Register;
 
@@ -24,11 +25,21 @@ public sealed class RegisterCommandHandler
         RegisterCommand command, 
         CancellationToken cancellationToken)
     {
-        var result = await _userService.RegistrAsync(command);
+        var employeeResult = Employee.Create(
+           command.FirstName,
+           command.LastName,
+           command.Email,
+           command.MiddelName);
 
-        if (result.IsError)
-            return result.Errors;
+        if (employeeResult.IsError)
+            return employeeResult.Errors;
 
-        return _mapper.Map<RegisterResult>(result.Value);
+        var registerResult = await _userService
+            .RegistrAsync(command.Password, command.RoleId, employeeResult.Value);
+
+        if (registerResult.IsError)
+            return registerResult.Errors;
+
+        return _mapper.Map<RegisterResult>(employeeResult.Value);
     }
 }

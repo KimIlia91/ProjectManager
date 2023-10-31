@@ -4,7 +4,7 @@ using PM.Application.Common.Interfaces.IRepositories;
 
 namespace PM.Application.Features.ProjectContext.Commands.UpdateProject;
 
-internal sealed class UpdateProjectCommandValidator
+public sealed class UpdateProjectCommandValidator
     : AbstractValidator<UpdateProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;

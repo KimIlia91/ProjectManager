@@ -4,7 +4,7 @@ using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.TaskContext.Commands.UpdateTask;
 
-internal sealed class UpdateTaskCommandValidator 
+public sealed class UpdateTaskCommandValidator 
     : AbstractValidator<UpdateTaskCommand>
 {
     private readonly ITaskRepository _taskRepository;

@@ -12,8 +12,8 @@ public static class DependepcyInjection
         this IServiceCollection services, 
         IConfiguration configuration)
     {
-        services.AddPesistence();
         services.AddIdentityConfig();
+        services.AddPesistence();
         services.AddServices();
         return services;
     }

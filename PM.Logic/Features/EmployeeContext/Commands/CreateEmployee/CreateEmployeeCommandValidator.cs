@@ -18,7 +18,8 @@ public sealed class CreateEmployeeCommandValidator
             .MaximumLength(EntityConstants.LastName);
 
         RuleFor(command => command.MiddelName)
-            .MaximumLength(EntityConstants.MiddelName);
+            .MaximumLength(EntityConstants.MiddelName)
+            .When(command => command.MiddelName is not null);
 
         RuleFor(command => command.Email)
             .NotEmpty()

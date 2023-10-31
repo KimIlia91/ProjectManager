@@ -3,7 +3,7 @@ using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.EmployeeContext.Commands.UpdateEmployee;
 
-internal sealed class UpdateEmployeeCommandValidator 
+public sealed class UpdateEmployeeCommandValidator 
     : AbstractValidator<UpdateEmployeeCommand>
 {
     public UpdateEmployeeCommandValidator()
@@ -20,13 +20,12 @@ internal sealed class UpdateEmployeeCommandValidator
             .MinimumLength(EntityConstants.LastName);
 
         RuleFor(command => command.MiddelName)
-            .Null()
-            .When(command => command.MiddelName != null)
-            .MinimumLength(EntityConstants.MiddelName);
+            .MaximumLength(EntityConstants.MiddelName)
+            .When(command => command.MiddelName is not null);
 
         RuleFor(command => command.Email)
             .NotEmpty()
             .EmailAddress()
-            .MinimumLength(EntityConstants.Email);
+            .MaximumLength(EntityConstants.Email);
     }
 }
