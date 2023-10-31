@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Identity.Models;
 using PM.Domain.Entities;
-using AppTask = PM.Domain.Entities.Task;
+using Task = PM.Domain.Entities.Task;
 
 namespace PM.Infrastructure.Persistence;
 
@@ -17,7 +17,7 @@ public class ApplicationDbContext
 
     public DbSet<Project> Projects { get; set; }
 
-    public DbSet<AppTask> Tasks { get; set; }
+    public DbSet<Task> Tasks { get; set; }
 
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options) : base(options)
