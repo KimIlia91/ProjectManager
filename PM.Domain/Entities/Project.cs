@@ -21,7 +21,7 @@ public class Project : BaseEntity
 
     public DateTime EndDate { get; private set; }
 
-    public Priority Priority { get; private set; }
+    public ProjectPriority Priority { get; private set; }
 
     public IReadOnlyCollection<Employee> Employees => _employees.ToList();
 
@@ -36,7 +36,7 @@ public class Project : BaseEntity
         int managerId,
         DateTime startDate,
         DateTime endDate,
-        Priority priority)
+        ProjectPriority priority)
     {
         Name = name;
         CustomerCompany = customerCompany;
@@ -54,7 +54,7 @@ public class Project : BaseEntity
         int managerId,
         DateTime startDate,
         DateTime endDate,
-        Priority priority)
+        ProjectPriority priority)
     {
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
@@ -76,7 +76,7 @@ public class Project : BaseEntity
         int managerId,
         DateTime startDate,
         DateTime endDate,
-        Priority priority)
+        ProjectPriority priority)
     {
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
@@ -125,7 +125,7 @@ public class Project : BaseEntity
         return EndDate;
     }
 
-    public void ChangePriority(Priority priority)
+    public void ChangePriority(ProjectPriority priority)
     {
         Priority = priority;
     }

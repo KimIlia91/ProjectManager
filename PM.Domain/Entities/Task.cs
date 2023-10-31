@@ -17,7 +17,7 @@ public class Task : BaseEntity
 
     public Common.Enums.TaskStatus TaskStatus { get; private set; }
 
-    public Priority Priority { get; private set; }
+    public ProjectPriority Priority { get; private set; }
 
     private Task() { }
 
@@ -27,7 +27,7 @@ public class Task : BaseEntity
         Employee executor,
         string comment,
         Common.Enums.TaskStatus taskStatus,
-        Priority priority)
+        ProjectPriority priority)
     {
         Name = name;
         Author = author;
@@ -43,7 +43,7 @@ public class Task : BaseEntity
         Employee executor,
         string comment,
         Common.Enums.TaskStatus taskStatus,
-        Priority priority)
+        ProjectPriority priority)
     {
         return new Task(
             name,
@@ -60,7 +60,7 @@ public class Task : BaseEntity
         Employee executor,
         string comment,
         Common.Enums.TaskStatus taskStatus,
-        Priority priority)
+        ProjectPriority priority)
     {
         Name = name;
         Author = author;

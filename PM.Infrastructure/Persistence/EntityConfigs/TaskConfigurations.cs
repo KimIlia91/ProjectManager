@@ -34,7 +34,7 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Domain.Entitie
 
         builder.Property(x => x.Priority)
            .HasColumnName("Priority")
-           .HasConversion(new EnumToStringConverter<Priority>())
+           .HasConversion(new EnumToStringConverter<ProjectPriority>())
            .IsRequired();
 
         builder.HasOne<Project>()

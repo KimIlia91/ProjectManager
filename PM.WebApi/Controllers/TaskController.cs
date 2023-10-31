@@ -8,6 +8,6 @@ public class TaskController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetTasksAsync()
     {
-        return Ok(Priority.Low);
+        return Ok(ProjectPriority.Low);
     }
 }

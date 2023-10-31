@@ -33,7 +33,7 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
 
         builder.Property(p => p.Priority)
             .HasColumnName("Priority")
-            .HasConversion(new EnumToStringConverter<Priority>())
+            .HasConversion(new EnumToStringConverter<ProjectPriority>())
             .IsRequired();
 
         builder.HasOne<Employee>()

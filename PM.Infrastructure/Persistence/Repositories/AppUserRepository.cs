@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PM.Infrastructure.Models;
+using PM.Infrastructure.Identity.Models;
 
 namespace PM.Infrastructure.Persistence.Repositories;
 

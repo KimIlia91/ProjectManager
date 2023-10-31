@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PM.Application.Common.Identity.Models;
 using PM.Domain.Entities;
-using PM.Infrastructure.Models;
 
 namespace PM.Infrastructure.Persistence;
 
@@ -27,7 +27,6 @@ public class ApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }
