@@ -4,39 +4,44 @@ using PM.Domain.Common.Errors;
 
 namespace PM.Domain.Entities;
 
-public sealed class Project : BaseEntity
+public class Project : BaseEntity
 {
     private readonly List<Employee> _employees = new();
+    private readonly List<Task> _tasks = new();
 
     public string Name { get; private set; } = null!;
 
-    public Company CustomerCompany { get; private set; } = null!;
+    public Company CustomerCompany { get; private set; }
 
-    public Company ExecutorCompany { get; private set; } = null!;
+    public Company ExecutorCompany { get; private set; }
 
-    public int ManagerId { get; private set; }
+    public Employee Manager { get; private set; }
 
     public DateTime StartDate { get; private set; }
 
     public DateTime EndDate { get; private set; }
 
-    public PriorityEnum Priority { get; private set; }
+    public ProjectPriority Priority { get; private set; }
 
     public IReadOnlyCollection<Employee> Employees => _employees.ToList();
+
+    public IReadOnlyCollection<Task> Tasks => _tasks.ToList();
+
+    private Project() { }
 
     internal Project(
         string name,
         Company customerCompany,
         Company executorCompany,
-        int managerId,
+        Employee manager,
         DateTime startDate,
         DateTime endDate,
-        PriorityEnum priority)
+        ProjectPriority priority)
     {
         Name = name;
         CustomerCompany = customerCompany;
         ExecutorCompany = executorCompany;
-        ManagerId = managerId;
+        Manager = manager;
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
@@ -46,10 +51,10 @@ public sealed class Project : BaseEntity
         string name,
         Company customerCompany,
         Company executorCompany,
-        int managerId,
+        Employee manager,
         DateTime startDate,
         DateTime endDate,
-        PriorityEnum priority)
+        ProjectPriority priority)
     {
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
@@ -58,7 +63,7 @@ public sealed class Project : BaseEntity
             name,
             customerCompany,
             executorCompany,
-            managerId,
+            manager,
             startDate,
             endDate,
             priority);
@@ -68,10 +73,10 @@ public sealed class Project : BaseEntity
         string name,
         Company customerCompany,
         Company executorCompany,
-        int managerId,
+        Employee manager,
         DateTime startDate,
         DateTime endDate,
-        PriorityEnum priority)
+        ProjectPriority priority)
     {
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
@@ -79,7 +84,7 @@ public sealed class Project : BaseEntity
         Name = name;
         CustomerCompany = customerCompany;
         ExecutorCompany = executorCompany;
-        ManagerId = managerId;
+        Manager = manager;
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
@@ -97,9 +102,9 @@ public sealed class Project : BaseEntity
         _employees.Remove(employee);
     }
 
-    public void ChangeManager(int managerId)
+    public void ChangeManager(Employee manager)
     {
-        ManagerId = managerId;
+        Manager = manager;
     }
 
     public ErrorOr<DateTime> ChangeStartDate(DateTime date)
@@ -120,8 +125,18 @@ public sealed class Project : BaseEntity
         return EndDate;
     }
 
-    public void ChangePriority(PriorityEnum priority)
+    public void ChangePriority(ProjectPriority priority)
     {
         Priority = priority;
+    }
+
+    public void AddTask(Task task)
+    {
+        _tasks.Add(task);
+    }
+
+    public void RemoveTask(Task task)
+    {
+        _tasks.Remove(task);
     }
 }

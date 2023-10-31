@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using PM.Application.Common.Identity.Models;
 using PM.Domain.Entities;
-using PM.Infrastructure.Models;
 
 namespace PM.Infrastructure.Persistence;
 
 public class ApplicationDbContext
     : IdentityDbContext<ApplicationUser, ApplicationRole, int>
 {
-    public DbSet<ApplicationUser> Users { get; set; }
+    public override DbSet<ApplicationUser> Users { get; set; }
 
-    public DbSet<ApplicationRole> Roles { get; set; }
+    public override DbSet<ApplicationRole> Roles { get; set; }
 
     public DbSet<Employee> Employees { get; set; }
 
@@ -23,5 +23,10 @@ public class ApplicationDbContext
     public ApplicationDbContext(
         DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 }

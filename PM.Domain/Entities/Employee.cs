@@ -2,10 +2,11 @@
 
 namespace PM.Domain.Entities;
 
-public sealed class Employee : BaseEntity
+public class Employee : BaseEntity
 {
     private readonly List<Project> _projects = new();
-    private readonly List<Task> _tasks = new();
+    private readonly List<Task> _executorTasks = new();
+    private readonly List<Task> _authorTasks = new();
 
     public string FirstName { get; private set; } = null!;
 
@@ -15,9 +16,13 @@ public sealed class Employee : BaseEntity
 
     public string Email { get; private set; } = null!;
 
-    public IReadOnlyCollection<Project> Projects => _projects.ToList();
+    public IReadOnlyCollection<Project> EmployeeProjects => _projects.ToList();
 
-    public IReadOnlyCollection<Task> Tasks => _tasks.ToList();
+    public IReadOnlyCollection<Task> ExecutorTasks => _executorTasks.ToList();
+
+    public IReadOnlyCollection<Task> AuthorTasks => _authorTasks.ToList();
+
+    private Employee() { }
 
     internal Employee(
         string firstName,
@@ -63,8 +68,13 @@ public sealed class Employee : BaseEntity
         _projects.Add(project);
     }
 
-    public void AddTask(Task task)
+    public void AddExecutorTasks(Task task)
     {
-        _tasks.Add(task);
+        _executorTasks.Add(task);
+    }
+
+    public void AddAuthorTasks(Task task)
+    {
+        _authorTasks.Add(task);
     }
 }

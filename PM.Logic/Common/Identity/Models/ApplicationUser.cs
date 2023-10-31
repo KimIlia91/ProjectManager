@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PM.Domain.Entities;
 
-namespace PM.Infrastructure.Models;
+namespace PM.Application.Common.Identity.Models;
 
-public sealed class ApplicationUser : IdentityUser<int>
+public class ApplicationUser : IdentityUser<int>
 {
     public int EmployeeId { get; set; }
 

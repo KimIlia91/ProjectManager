@@ -1,6 +1,6 @@
 ﻿namespace PM.Domain.Common.Enums;
 
-public enum TaskStatusEnum
+public enum TaskStatus
 {
     ToDo,
     InProgress,
