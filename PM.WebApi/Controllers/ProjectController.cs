@@ -51,7 +51,7 @@ public class ProjectController : BaseController
 
 
     [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(GetProjectResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteProjectAsync(
         int id, CancellationToken cancellationToken)
     {
@@ -59,7 +59,7 @@ public class ProjectController : BaseController
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(
-            result => Ok(Mapper.Map<DeleteProjectResponse>(result)),
+            result => NoContent(),
             errors => Problem(errors));
     }
 }
