@@ -46,7 +46,7 @@ public class Task : BaseEntity
         Employee executor,
         Project project,
         string comment,
-        Common.Enums.TaskStatus taskStatus,
+        TaskStatus taskStatus,
         ProjectPriority priority)
     {
         return new Task(
@@ -63,15 +63,13 @@ public class Task : BaseEntity
         string name,
         Employee author,
         Employee executor,
-        Project project,
         string comment,
-        Common.Enums.TaskStatus taskStatus,
+        TaskStatus taskStatus,
         ProjectPriority priority)
     {
         Name = name;
         Author = author;
         Executor = executor;
-        Project = project;
         Comment = comment;
         Status = taskStatus;
         Priority = priority;
