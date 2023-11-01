@@ -41,7 +41,8 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
            .IsRequired();
 
         builder.HasOne(t => t.Project)
-            .WithMany(p => p.Tasks);
+            .WithMany(p => p.Tasks)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(t => t.Executor)
             .WithMany(e => e.ExecutorTasks)
