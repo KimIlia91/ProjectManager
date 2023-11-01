@@ -26,7 +26,10 @@ public sealed class CreateEmployeeCommandHandler
         CancellationToken cancellationToken)
     {
         var result = Employee.Create(
-            command.FirstName, command.LastName, command.Email, command.MiddelName);
+            command.FirstName, 
+            command.LastName, 
+            command.Email, 
+            command.MiddelName);
 
         if (result.IsError)
             return result.Errors;
