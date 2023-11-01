@@ -48,11 +48,11 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
 
         builder.HasOne(p => p.Manager)
             .WithMany(e => e.ManageProjects)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasMany(p => p.Tasks)
-            .WithOne(t => t.Project)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithOne(t => t.Project);
 
         builder.HasMany(p => p.Employees)
             .WithMany(p => p.Projects);

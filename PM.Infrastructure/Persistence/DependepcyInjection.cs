@@ -13,7 +13,7 @@ public static class DependepcyInjection
         IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseInMemoryDatabase("DefaultConnection"));
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();

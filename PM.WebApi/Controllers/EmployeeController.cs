@@ -58,7 +58,7 @@ public class EmployeeController : BaseController
         int id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteEmployeeCommand(id);
+        var command = new DeleteEmployeeCommand { EmployeeId = id };
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(

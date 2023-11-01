@@ -41,15 +41,16 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
            .IsRequired();
 
         builder.HasOne(t => t.Project)
-            .WithMany(p => p.Tasks)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithMany(p => p.Tasks);
 
         builder.HasOne(t => t.Executor)
             .WithMany(e => e.ExecutorTasks)
+            .IsRequired(false)
             .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasOne(t => t.Author)
             .WithMany(e => e.AuthorTasks)
-            .OnDelete(DeleteBehavior.SetNull);
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.ClientSetNull);
     }
 }

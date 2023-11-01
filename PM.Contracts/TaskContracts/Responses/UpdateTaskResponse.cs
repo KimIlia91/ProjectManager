@@ -5,6 +5,6 @@ public sealed record UpdateTaskResponse(
     string Name,
     int AuthorId,
     int ExecutorId,
-    string? Commnet,
-    int Status,
+    string? Comment,
+    string Status,
     int Priority);

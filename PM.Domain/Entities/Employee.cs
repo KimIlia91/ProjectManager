@@ -46,9 +46,9 @@ public sealed class Employee : IdentityUser<int>
         string? middleName = null)
     {
         return new Employee(
-            firstName, 
-            lastName, 
-            middleName, 
+            firstName,
+            lastName,
+            middleName,
             email);
     }
 

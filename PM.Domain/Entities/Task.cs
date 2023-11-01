@@ -8,9 +8,9 @@ public sealed class Task : BaseEntity
 {
     public string Name { get; private set; } = null!;
 
-    public Employee Author { get; private set; }
+    public Employee? Author { get; private set; }
 
-    public Employee Executor { get; private set; }
+    public Employee? Executor { get; private set; }
 
     public Project Project { get; private set; }
 

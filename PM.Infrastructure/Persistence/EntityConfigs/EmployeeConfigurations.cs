@@ -32,16 +32,13 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
             .HasMaxLength(EntityConstants.MiddelName);
 
         builder.HasMany(e => e.AuthorTasks)
-            .WithOne(t => t.Author)
-            .OnDelete(DeleteBehavior.NoAction);
+            .WithOne(t => t.Author);
 
         builder.HasMany(e => e.ExecutorTasks)
-            .WithOne(t => t.Executor)
-            .OnDelete(DeleteBehavior.NoAction);
+            .WithOne(t => t.Executor);
 
         builder.HasMany(e => e.ManageProjects)
-            .WithOne(t => t.Manager)
-            .OnDelete(DeleteBehavior.NoAction);
+            .WithOne(t => t.Manager);
 
         builder.HasMany(e => e.Projects)
             .WithMany(t => t.Employees);

@@ -1,4 +1,6 @@
-﻿using PM.Domain.Common.Enums;
+﻿using PM.Application.Common.Models.Employee;
+using PM.Application.Common.Models.Project;
+using PM.Domain.Common.Enums;
 using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
 
 namespace PM.Application.Features.TaskContext.Dtos;
@@ -6,6 +8,8 @@ namespace PM.Application.Features.TaskContext.Dtos;
 public class GetTaskResult
 {
     public int Id { get; set; }
+
+    public string Name { get; set; } = null!;
 
     public EmployeeResult Author { get; set; } = new EmployeeResult();
 
@@ -18,24 +22,4 @@ public class GetTaskResult
     public TaskStatus Status { get; set; }
 
     public ProjectPriority Priority { get; set; }
-}
-
-public class ProjectResult
-{
-    public int Id { get; set; }
-
-    public string Name { get; set; } = string.Empty;
-}
-
-public class EmployeeResult
-{
-    public int Id { get; set; }
-
-    public string FirstName { get; set; } = null!;
-
-    public string LastName { get; set; } = null!;
-
-    public string MiddelName { get; set; } = string.Empty;
-
-    public string Email { get; set; } = null!;
 }

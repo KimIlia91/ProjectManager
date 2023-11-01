@@ -15,7 +15,7 @@ public sealed class GetTaskResponse
 
     public string Comment { get; set; } = string.Empty;
 
-    public int Status { get; set; }
+    public string Status { get; set; } = null!;
 
     public int Priority { get; set; }
 }

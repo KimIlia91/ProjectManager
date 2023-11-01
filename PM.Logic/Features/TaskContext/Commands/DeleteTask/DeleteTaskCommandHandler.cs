@@ -20,13 +20,7 @@ internal sealed class DeleteTaskCommandHandler
         DeleteTaskCommand command, 
         CancellationToken cancellationToken)
     {
-        var task = await _taskRepository
-            .GetOrDeafaultAsync(t => t.Id == command.Id, cancellationToken);
-
-        if (task is null)
-            return Error.NotFound("Not found", nameof(command.Id));
-
-        await _taskRepository.RemoveAsync(task, cancellationToken);
+        await _taskRepository.RemoveAsync(command.Task!, cancellationToken);
 
         return new DeleteTaskResult();
     }

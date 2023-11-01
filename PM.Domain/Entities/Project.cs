@@ -15,7 +15,7 @@ public sealed class Project : BaseEntity
 
     public string ExecutorCompany { get; private set; }
 
-    public Employee Manager { get; private set; }
+    public Employee? Manager { get; private set; }
 
     public DateTime StartDate { get; private set; }
 

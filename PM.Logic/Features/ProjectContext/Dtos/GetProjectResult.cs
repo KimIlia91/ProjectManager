@@ -1,5 +1,5 @@
-﻿using PM.Application.Common.Models.Task;
-using PM.Application.Features.EmployeeContext.Dtos;
+﻿using PM.Application.Common.Models.Employee;
+using PM.Application.Common.Models.Task;
 using PM.Domain.Common.Enums;
 
 namespace PM.Application.Features.ProjectContext.Dtos;
@@ -14,7 +14,7 @@ public class GetProjectResult
 
     public string ExecutorCompany { get; set; } = null!;
 
-    public GetEmployeeResult Manager { get; set; } = null!;
+    public EmployeeResult Manager { get; set; } = null!;
 
     public DateTime StartDate { get; set; }
 

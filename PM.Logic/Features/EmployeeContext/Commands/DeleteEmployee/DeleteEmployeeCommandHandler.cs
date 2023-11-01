@@ -20,13 +20,9 @@ public sealed class DeleteEmployeeCommandHandler
         DeleteEmployeeCommand command, 
         CancellationToken cancellationToken)
     {
-        var employee = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Id == command.EmployeeId, cancellationToken);
+        await _employeeRepository
+            .RemoveAsync(command.Employee!, cancellationToken);
 
-        if (employee is null)
-            return Error.NotFound("Not found", nameof(command.EmployeeId));
-
-        await _employeeRepository.RemoveAsync(employee, cancellationToken);
         return new DeleteEmployeeResult();
     }
 }
