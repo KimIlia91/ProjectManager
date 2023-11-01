@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
@@ -10,10 +11,11 @@ namespace PM.Infrastructure.Persistence;
 public static class DependepcyInjection
 {
     public static IServiceCollection AddPesistence(
-        this IServiceCollection services)
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddDbContext<ApplicationDbContext>(options => 
-            options.UseInMemoryDatabase("DataBase"));
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();

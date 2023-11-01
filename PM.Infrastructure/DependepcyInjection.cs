@@ -9,11 +9,11 @@ namespace PM.Infrastructure;
 public static class DependepcyInjection
 {
     public static IServiceCollection AddInfrastructure(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         IConfiguration configuration)
     {
         services.AddIdentityConfig();
-        services.AddPesistence();
+        services.AddPesistence(configuration);
         services.AddServices();
         return services;
     }

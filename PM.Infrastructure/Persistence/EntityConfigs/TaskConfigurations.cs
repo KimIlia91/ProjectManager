@@ -26,19 +26,18 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<AppTask>
 
         builder.Property(x => x.Comment)
             .HasColumnName("Comment")
+            .HasMaxLength(EntityConstants.Comment)
             .IsRequired(false);
 
         builder.Property(x => x.Status)
             .HasColumnName("Status")
             .HasConversion(new EnumToStringConverter<AppTaskStatus>())
+            .HasMaxLength(EntityConstants.EnumStatusLength)
             .IsRequired();
 
         builder.Property(x => x.Priority)
            .HasColumnName("Priority")
-           .HasConversion(new EnumToStringConverter<ProjectPriority>())
+           .HasConversion(new EnumToNumberConverter<ProjectPriority, int>())
            .IsRequired();
-
-        builder.HasOne(t => t.Project)
-            .WithMany(p => p.Tasks);
     }
 }

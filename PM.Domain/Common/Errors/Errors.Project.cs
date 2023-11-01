@@ -7,7 +7,7 @@ public static partial class Errors
     public static class Project
     {
         public static Error InvalidDate => Error.Validation(
-          code: "",
+          code: "Invalid date",
           description: "InvalidDate");
     }
 }

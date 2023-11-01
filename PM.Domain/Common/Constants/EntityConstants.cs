@@ -14,4 +14,5 @@ public class EntityConstants
     public const short Email = 255;
     public const short PasswordMinLength = 8;
     public const short PasswordMaxLength = 255;
+    public const short EnumStatusLength = 255;
 }
