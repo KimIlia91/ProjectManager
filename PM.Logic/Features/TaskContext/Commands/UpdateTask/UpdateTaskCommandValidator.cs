@@ -39,7 +39,6 @@ public sealed class UpdateTaskCommandValidator
 
         RuleFor(command => command.Comment)
             .Cascade(CascadeMode.StopOnFirstFailure)
-            .NotEmpty()
             .MaximumLength(EntityConstants.Comment);
 
         RuleFor(command => command.Status)

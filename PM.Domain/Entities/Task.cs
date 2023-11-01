@@ -24,8 +24,8 @@ public sealed class Task : BaseEntity
 
     internal Task(
         string name,
-        Employee author,
-        Employee executor,
+        Employee? author,
+        Employee? executor,
         Project project,
         string comment,
         TaskStatus taskStatus,
@@ -42,8 +42,8 @@ public sealed class Task : BaseEntity
 
     public static ErrorOr<Task> Create(
         string name,
-        Employee author,
-        Employee executor,
+        Employee? author,
+        Employee? executor,
         Project project,
         string comment,
         TaskStatus taskStatus,
@@ -75,5 +75,11 @@ public sealed class Task : BaseEntity
         Priority = priority;
 
         return this;
+    }
+
+
+    public void RemoveAuthor()
+    {
+        Author = null;
     }
 }

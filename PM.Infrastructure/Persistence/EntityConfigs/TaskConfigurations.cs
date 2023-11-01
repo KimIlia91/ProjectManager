@@ -50,7 +50,6 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
 
         builder.HasOne(t => t.Author)
             .WithMany(e => e.AuthorTasks)
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.ClientSetNull);
+            .IsRequired(false);
     }
 }

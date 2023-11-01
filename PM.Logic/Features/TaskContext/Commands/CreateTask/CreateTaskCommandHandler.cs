@@ -23,8 +23,8 @@ internal sealed class CreateTaskCommandHandler
     {
         var result = Task.Create(
             command.Name, 
-            command.Author!, 
-            command.Executor!, 
+            command.Author, 
+            command.Executor, 
             command.Project!,
             command.Commnet!,
             command.Status,

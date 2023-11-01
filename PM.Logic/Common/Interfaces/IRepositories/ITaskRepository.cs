@@ -1,9 +1,15 @@
 ﻿using PM.Application.Features.TaskContext.Dtos;
-using AppTask = PM.Domain.Entities.Task;
+using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Interfaces.IRepositories;
 
-public interface ITaskRepository : IBaseRepository<AppTask>
+public interface ITaskRepository : IBaseRepository<Task>
 {
-    Task<GetTaskResult?> GetTaskByIdAsync(int id, CancellationToken cancellationToken);
+    Task<GetTaskResult?> GetTaskByIdAsync(
+        int id, 
+        CancellationToken cancellationToken);
+
+    Task<List<Task>?> GetTaskByAuthorIdAsync(
+       int id,
+       CancellationToken cancellationToken);
 }

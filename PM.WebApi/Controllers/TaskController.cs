@@ -60,7 +60,7 @@ public class TaskController : BaseController
         int id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteTaskCommand(id);
+        var command = new DeleteTaskCommand { Id = id };
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(

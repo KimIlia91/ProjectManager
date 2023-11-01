@@ -25,10 +25,11 @@ public class BaseRepository<TEntity>
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(
+        Expression<Func<TEntity, bool>> filter,
         CancellationToken cancellationToken)
     {
         IQueryable<TEntity> query = _dbSet.AsNoTracking();
-
+        query.Where(filter);
         return await query.ToListAsync(cancellationToken);
     }
 

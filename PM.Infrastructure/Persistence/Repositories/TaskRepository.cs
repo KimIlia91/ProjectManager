@@ -30,4 +30,14 @@ public sealed class TaskRepository
             .ProjectToType<GetTaskResult>(_mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public async Task<List<Task>?> GetTaskByAuthorIdAsync(
+       int id,
+       CancellationToken cancellationToken)
+    {
+        return await _context.Tasks
+            .Include(t => t.Author)
+            .Where(t => t.Author.Id == id)
+            .ToListAsync(cancellationToken);
+    }
 }
