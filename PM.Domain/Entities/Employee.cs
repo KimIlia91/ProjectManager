@@ -68,16 +68,19 @@ public class Employee : BaseEntity
 
     public void AddProject(Project project)
     {
+        UpdatedAt = DateTime.UtcNow;
         _projects.Add(project);
     }
 
     public void AddExecutorTasks(Task task)
     {
+        UpdatedAt = DateTime.UtcNow;
         _executorTasks.Add(task);
     }
 
     public void AddAuthorTasks(Task task)
     {
+        UpdatedAt = DateTime.UtcNow;
         _authorTasks.Add(task);
     }
 }

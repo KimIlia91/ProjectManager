@@ -67,6 +67,7 @@ public class Task : BaseEntity
         TaskStatus taskStatus,
         ProjectPriority priority)
     {
+        UpdatedAt = DateTime.UtcNow;
         Name = name;
         Author = author;
         Executor = executor;
