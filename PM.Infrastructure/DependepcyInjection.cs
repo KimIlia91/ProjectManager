@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using PM.Infrastructure.Identity;
 using PM.Infrastructure.Persistence;
-using PM.Infrastructure.Services;
 
 namespace PM.Infrastructure;
 
@@ -12,9 +11,8 @@ public static class DependepcyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddIdentityConfig();
         services.AddPesistence(configuration);
-        services.AddServices();
+        services.AddIdentity();
         return services;
     }
 }

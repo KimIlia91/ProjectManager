@@ -2,6 +2,6 @@
 
 namespace PM.Domain.Entities;
 
-public sealed class ApplicationRole : IdentityRole<int>
+public sealed class Role : IdentityRole<int>
 {
 }

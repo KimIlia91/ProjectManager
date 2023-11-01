@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.EmployeeContext.Commands.UpdateEmployee;
@@ -9,14 +8,14 @@ public sealed class UpdateEmployeeCommandValidator
     : AbstractValidator<UpdateEmployeeCommand>
 {
     private readonly IEmployeeRepository _employeeRepository;
-    private readonly IIdentityService _identityService;
+    private readonly IRoleRepository _roleRepository;
 
     public UpdateEmployeeCommandValidator(
         IEmployeeRepository employeeRepository,
-        IIdentityService identityService)
+        IRoleRepository roleRepository)
     {
         _employeeRepository = employeeRepository;
-        _identityService = identityService;
+        _roleRepository = roleRepository;
 
         RuleFor(command => command.Id)
             .NotEmpty()
@@ -38,18 +37,37 @@ public sealed class UpdateEmployeeCommandValidator
             .NotEmpty()
             .MaximumLength(EntityConstants.RoleNameLength)
             .MustAsync(MustBeInDatabase);
+
+        RuleFor(command => command.RoleName)
+            .NotEmpty()
+            .MaximumLength(EntityConstants.RoleNameLength)
+            .MustAsync(EmailMustBeInUnique);
+    }
+
+    private async Task<bool> EmailMustBeInUnique(
+        UpdateEmployeeCommand command,
+        string email,
+        CancellationToken cancellationToken)
+    {
+        var emailExist = await _employeeRepository
+            .GetOrDeafaultAsync(e => e.Email == email && e.Id != command.Id, cancellationToken);
+
+        return emailExist is null;
     }
 
     private async Task<bool> MustBeInDatabase(
-        string roleName, 
-        CancellationToken token)
+        string roleName,
+        CancellationToken cancellationToken)
     {
-        return await _identityService.IsRoleExistAsync(roleName);
+        var role = await _roleRepository
+            .GetOrDeafaultAsync(r => r.Name == roleName, cancellationToken);
+
+        return role is not null;
     }
 
     private async Task<bool> EmployeeMustBeInDatabase(
         UpdateEmployeeCommand command,
-        int id, 
+        int id,
         CancellationToken cancellationToken)
     {
         command.Employee = await _employeeRepository

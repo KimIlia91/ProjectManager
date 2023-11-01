@@ -26,8 +26,8 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
             .IsRequired()
             .HasMaxLength(EntityConstants.LastName);
 
-        builder.Property(e => e.MiddleName)
-            .HasColumnName("MiddleName")
+        builder.Property(e => e.MiddelName)
+            .HasColumnName("MiddelName")
             .IsRequired(false)
             .HasMaxLength(EntityConstants.MiddelName);
 

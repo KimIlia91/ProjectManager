@@ -5,17 +5,17 @@ using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Entities;
 using PM.Infrastructure.Persistence;
 
-namespace PM.Infrastructure.Services;
+namespace PM.Infrastructure.Identity.Services;
 
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<Employee> _userManager;
-    private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly RoleManager<Role> _roleManager;
     private readonly ApplicationDbContext _context;
 
     public IdentityService(
         UserManager<Employee> userManager,
-        RoleManager<ApplicationRole> roleManager,
+        RoleManager<Role> roleManager,
         ApplicationDbContext context)
     {
         _userManager = userManager;
@@ -30,15 +30,15 @@ public class IdentityService : IIdentityService
 
     public async Task<bool> IsRoleExistAsync(string roleName)
     {
-        if (await _roleManager.RoleExistsAsync(roleName))
-            return true;
-
-        var newRole = new ApplicationRole()
+        if (!await _roleManager.RoleExistsAsync(roleName))
         {
-            Name = roleName
-        };
+            var newRole = new Role()
+            {
+                Name = roleName
+            };
 
-        await _roleManager.CreateAsync(newRole);
+            await _roleManager.CreateAsync(newRole);
+        }
 
         return true;
     }
@@ -53,15 +53,23 @@ public class IdentityService : IIdentityService
         if (!resultUser.Succeeded)
             return Error.Failure("User could not be created");
 
-        var resultRole = await _userManager.AddToRoleAsync(employee, roleName);
-
-        if (!resultRole.Succeeded)
+        if (!await _roleManager.RoleExistsAsync(roleName))
         {
-            await _userManager.DeleteAsync(employee);
-            return Error.Failure("User could not be created");
+            var newRole = new Role()
+            {
+                Name = roleName
+            };
+
+            await _roleManager.CreateAsync(newRole);
         }
 
-        return employee;
+        var resultRole = await _userManager.AddToRoleAsync(employee, roleName);
+
+        if (resultRole.Succeeded)
+            return employee;
+
+        await _userManager.DeleteAsync(employee);
+        return Error.Failure("User could not be created");
     }
 
     public async Task<ErrorOr<Employee>> UpdateAsync(

@@ -14,7 +14,7 @@ public sealed class Employee : IdentityUser<int>
 
     public string LastName { get; private set; } = null!;
 
-    public string? MiddleName { get; private set; }
+    public string? MiddelName { get; private set; }
 
     public IReadOnlyCollection<Project> Projects => _projects.ToList();
 
@@ -34,7 +34,7 @@ public sealed class Employee : IdentityUser<int>
     {
         FirstName = firstName;
         LastName = lastName;
-        MiddleName = middleName;
+        MiddelName = middleName;
         UserName = email;
         Email = email;
     }
@@ -52,7 +52,7 @@ public sealed class Employee : IdentityUser<int>
             email);
     }
 
-    public ErrorOr<Employee> Update(
+    public void Update(
         string firstName,
         string lastName,
         string? middleName,
@@ -60,9 +60,8 @@ public sealed class Employee : IdentityUser<int>
     {
         FirstName = firstName;
         LastName = lastName;
-        MiddleName = middleName;
+        MiddelName = middleName;
         Email = email;
-        return this;
     }
 
     public void AddProject(Project project)

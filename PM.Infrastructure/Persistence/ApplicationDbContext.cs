@@ -6,9 +6,9 @@ using Task = PM.Domain.Entities.Task;
 namespace PM.Infrastructure.Persistence;
 
 public class ApplicationDbContext 
-    : IdentityDbContext<Employee, ApplicationRole, int>
+    : IdentityDbContext<Employee, Role, int>
 {
-    public override DbSet<ApplicationRole> Roles { get; set; }
+    public override DbSet<Role> Roles { get; set; }
 
     public DbSet<Employee> Employees { get; set; }
 

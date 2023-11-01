@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
 using MapsterMapper;
 using MediatR;
-using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Features.EmployeeContext.Dtos;
 
@@ -37,6 +36,6 @@ public sealed class UpdateEmployeeCommandHandler
         if (result.IsError)
             return result.Errors;
 
-        return _mapper.Map<UpdateEmployeeResult>(result.Value);
+        return _mapper.Map<UpdateEmployeeResult>((result.Value, command.RoleName));
     }
 }
