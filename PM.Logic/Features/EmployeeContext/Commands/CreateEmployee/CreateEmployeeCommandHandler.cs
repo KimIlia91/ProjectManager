@@ -25,17 +25,11 @@ public sealed class CreateEmployeeCommandHandler
         CreateEmployeeCommand command,
         CancellationToken cancellationToken)
     {
-        var employee = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Email == command.Email, cancellationToken);
-
-        if (employee is not null)
-            return Error.Conflict("Employee has already exist", nameof(employee));
-
         var result = Employee.Create(
             command.FirstName, command.LastName, command.Email, command.MiddelName);
 
         if (result.IsError)
-            return result.FirstError;
+            return result.Errors;
 
         await _employeeRepository.AddAsync(result.Value, cancellationToken);
         return new CreateEmployeeResult(result.Value.Id);

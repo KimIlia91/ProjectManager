@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PM.Domain.Common.Constants;
 using PM.Domain.Common.Enums;
-using AppTask = PM.Domain.Entities.Task;
+using Task = PM.Domain.Entities.Task;
 using AppTaskStatus = PM.Domain.Common.Enums.TaskStatus;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
-public sealed class TaskConfigurations : IEntityTypeConfiguration<AppTask>
+public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
 {
-    public void Configure(EntityTypeBuilder<AppTask> builder)
+    public void Configure(EntityTypeBuilder<Task> builder)
     {
         builder.ToTable("Tasks");
 
@@ -39,5 +39,16 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<AppTask>
            .HasColumnName("Priority")
            .HasConversion(new EnumToNumberConverter<ProjectPriority, int>())
            .IsRequired();
+
+        builder.HasOne(t => t.Project)
+            .WithMany(p => p.Tasks);
+
+        builder.HasOne(t => t.Executor)
+            .WithMany(e => e.ExecutorTasks)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(t => t.Author)
+            .WithMany(e => e.AuthorTasks)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

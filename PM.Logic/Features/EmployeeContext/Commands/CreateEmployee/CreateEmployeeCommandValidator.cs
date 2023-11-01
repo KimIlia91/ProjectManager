@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 using PM.Domain.Common.Constants;
 
@@ -7,8 +8,13 @@ namespace PM.Application.Features.EmployeeContext.Commands.CreateEmployeel;
 public sealed class CreateEmployeeCommandValidator
     : AbstractValidator<CreateEmployeeCommand>
 {
-    public CreateEmployeeCommandValidator()
+    private readonly IEmployeeRepository _employeeRepository;
+
+    public CreateEmployeeCommandValidator(
+        IEmployeeRepository employeeRepository)
     {
+        _employeeRepository = employeeRepository;
+
         RuleFor(command => command.FirstName)
             .NotEmpty()
             .MaximumLength(EntityConstants.FirstName);
@@ -24,6 +30,17 @@ public sealed class CreateEmployeeCommandValidator
         RuleFor(command => command.Email)
             .NotEmpty()
             .EmailAddress()
-            .MaximumLength(EntityConstants.Email);
+            .MaximumLength(EntityConstants.Email)
+            .MustAsync(MustBeUnique);
+    }
+
+    private async Task<bool> MustBeUnique(
+        string email, 
+        CancellationToken cancellationToken)
+    {
+        var employee = await _employeeRepository
+            .GetOrDeafaultAsync(e => e.Email == email, cancellationToken);
+
+        return employee is null;
     }
 }

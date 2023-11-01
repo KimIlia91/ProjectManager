@@ -3,7 +3,7 @@ using PM.Application.Common.Interfaces.IRepositories;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
-internal sealed class AddEmployeeToProjectCommandValidator
+public sealed class AddEmployeeToProjectCommandValidator
     : AbstractValidator<AddEmployeeToProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;

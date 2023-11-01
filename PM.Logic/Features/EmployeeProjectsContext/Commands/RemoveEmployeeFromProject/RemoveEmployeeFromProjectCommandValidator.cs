@@ -3,7 +3,7 @@ using PM.Application.Common.Interfaces.IRepositories;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 
-internal sealed class RemoveEmployeeFromProjectCommandValidator
+public sealed class RemoveEmployeeFromProjectCommandValidator
     : AbstractValidator<RemoveEmployeeFromProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;

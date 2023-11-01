@@ -33,17 +33,20 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
 
         builder.Property(e => e.Email)
             .HasColumnName("Email")
-            .IsRequired()
+            .IsRequired() 
             .HasMaxLength(EntityConstants.Email);
 
         builder.HasMany(e => e.AuthorTasks)
-            .WithOne(t => t.Author);
+            .WithOne(t => t.Author)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(e => e.ExecutorTasks)
-            .WithOne(t => t.Executor);
+            .WithOne(t => t.Executor)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(e => e.ManageProjects)
-            .WithOne(t => t.Manager);
+            .WithOne(t => t.Manager)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(e => e.Projects)
             .WithMany(t => t.Employees);

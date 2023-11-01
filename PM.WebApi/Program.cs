@@ -13,8 +13,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddSingleton<ProblemDetailsFactory, PmErrorProblemDitailsFactory>();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-
-builder.Services.AddCustomSwaggerGen(Assembly.GetExecutingAssembly());
+builder.Services.AddSwaggerGen();
+//builder.Services.AddCustomSwaggerGen(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

@@ -10,7 +10,6 @@ namespace PM.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class BaseController : ControllerBase
 {
     private ISender _mediator;
