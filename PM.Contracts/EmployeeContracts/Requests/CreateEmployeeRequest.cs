@@ -4,4 +4,6 @@ public record CreateEmployeeRequest(
     string FirstName,
     string LastName,
     string? MiddelName,
-    string Email);
+    string Email,
+    string Password,
+    string RoleName);

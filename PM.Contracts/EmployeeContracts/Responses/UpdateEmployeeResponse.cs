@@ -5,4 +5,5 @@ public sealed record UpdateEmployeeResponse(
     string FirstName,
     string LastName,
     string? MiddelName,
-    string Email);
+    string Email,
+    string RoleName);

@@ -2,6 +2,7 @@
 using MapsterMapper;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Features.EmployeeContext.Dtos;
 
 namespace PM.Application.Features.EmployeeContext.Commands.UpdateEmployee;
@@ -10,29 +11,32 @@ public sealed class UpdateEmployeeCommandHandler
     : IRequestHandler<UpdateEmployeeCommand, ErrorOr<UpdateEmployeeResult>>
 {
     private readonly IMapper _mapper;
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IIdentityService _identityService;
 
     public UpdateEmployeeCommandHandler(
         IMapper mapper,
-        IEmployeeRepository employeeRepository)
+        IIdentityService identityService)
     {
         _mapper = mapper;
-        _employeeRepository = employeeRepository;
+        _identityService = identityService;
     }
 
     public async Task<ErrorOr<UpdateEmployeeResult>> Handle(
-        UpdateEmployeeCommand command, 
+        UpdateEmployeeCommand command,
         CancellationToken cancellationToken)
     {
-        var employee = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Id == command.Id, cancellationToken);
+        command.Employee!.Update(
+            command.FirstName,
+            command.LastName,
+            command.MiddelName,
+            command.Email);
 
-        if (employee is null)
-            return Error.NotFound("Not found", nameof(command.Id));
+        var result = await _identityService
+            .UpdateAsync(command.Employee, cancellationToken);
 
-        employee.Update(command.FirstName, command.LastName, command.Email, command.MiddelName);
+        if (result.IsError)
+            return result.Errors;
 
-        await _employeeRepository.SaveChangesAsync(cancellationToken);
-        return _mapper.Map<UpdateEmployeeResult>(employee);
+        return _mapper.Map<UpdateEmployeeResult>(result.Value);
     }
 }

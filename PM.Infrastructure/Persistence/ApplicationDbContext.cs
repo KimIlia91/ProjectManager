@@ -1,16 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PM.Application.Common.Identity.Models;
 using PM.Domain.Entities;
 using Task = PM.Domain.Entities.Task;
 
 namespace PM.Infrastructure.Persistence;
 
-public class ApplicationDbContext
-    : IdentityDbContext<ApplicationUser, ApplicationRole, int>
+public class ApplicationDbContext 
+    : IdentityDbContext<Employee, ApplicationRole, int>
 {
-    public override DbSet<ApplicationUser> Users { get; set; }
-
     public override DbSet<ApplicationRole> Roles { get; set; }
 
     public DbSet<Employee> Employees { get; set; }

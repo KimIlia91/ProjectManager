@@ -31,11 +31,6 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
             .IsRequired(false)
             .HasMaxLength(EntityConstants.MiddelName);
 
-        builder.Property(e => e.Email)
-            .HasColumnName("Email")
-            .IsRequired() 
-            .HasMaxLength(EntityConstants.Email);
-
         builder.HasMany(e => e.AuthorTasks)
             .WithOne(t => t.Author)
             .OnDelete(DeleteBehavior.NoAction);

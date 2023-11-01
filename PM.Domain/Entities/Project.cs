@@ -4,7 +4,7 @@ using PM.Domain.Common.Errors;
 
 namespace PM.Domain.Entities;
 
-public class Project : BaseEntity
+public sealed class Project : BaseEntity
 {
     private readonly List<Employee> _employees = new();
     private readonly List<Task> _tasks = new();
@@ -81,7 +81,6 @@ public class Project : BaseEntity
         if (startDate > endDate)
             return Errors.Project.InvalidDate;
 
-        UpdatedAt = DateTime.UtcNow;
         Name = name;
         CustomerCompany = customerCompany;
         ExecutorCompany = executorCompany;
@@ -95,57 +94,31 @@ public class Project : BaseEntity
 
     public void AddEmployee(Employee employee)
     {
-        UpdatedAt = DateTime.UtcNow;
         _employees.Add(employee);
     }
 
     public void RemoveEmployee(Employee employee)
     {
-        UpdatedAt = DateTime.UtcNow;
         _employees.Remove(employee);
     }
 
     public void ChangeManager(Employee manager)
     {
-        UpdatedAt = DateTime.UtcNow;
         Manager = manager;
-    }
-
-    public ErrorOr<DateTime> ChangeStartDate(DateTime date)
-    {
-        if (date > EndDate)
-            return Errors.Project.InvalidDate;
-
-        UpdatedAt = DateTime.UtcNow;
-        StartDate = date;
-        return StartDate;
-    }
-
-    public ErrorOr<DateTime> ChangeEndDate(DateTime date)
-    {
-        if (date < StartDate)
-            return Errors.Project.InvalidDate;
-
-        UpdatedAt = DateTime.UtcNow;
-        EndDate = date;
-        return EndDate;
     }
 
     public void ChangePriority(ProjectPriority priority)
     {
-        UpdatedAt = DateTime.UtcNow;
         Priority = priority;
     }
 
     public void AddTask(Task task)
     {
-        UpdatedAt = DateTime.UtcNow;
         _tasks.Add(task);
     }
 
     public void RemoveTask(Task task)
     {
-        UpdatedAt = DateTime.UtcNow;
         _tasks.Remove(task);
     }
 }

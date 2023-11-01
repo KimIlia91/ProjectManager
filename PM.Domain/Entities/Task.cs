@@ -4,7 +4,7 @@ using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
 
 namespace PM.Domain.Entities;
 
-public class Task : BaseEntity
+public sealed class Task : BaseEntity
 {
     public string Name { get; private set; } = null!;
 
@@ -67,7 +67,6 @@ public class Task : BaseEntity
         TaskStatus taskStatus,
         ProjectPriority priority)
     {
-        UpdatedAt = DateTime.UtcNow;
         Name = name;
         Author = author;
         Executor = executor;

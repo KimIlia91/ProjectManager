@@ -1,7 +1,6 @@
 ﻿using ErrorOr;
-using MapsterMapper;
 using MediatR;
-using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Features.EmployeeContext.Dtos;
 using PM.Domain.Entities;
 
@@ -10,15 +9,12 @@ namespace PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 public sealed class CreateEmployeeCommandHandler
     : IRequestHandler<CreateEmployeeCommand, ErrorOr<CreateEmployeeResult>>
 {
-    private readonly IMapper _mapper;
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IIdentityService _employeeService;
 
     public CreateEmployeeCommandHandler(
-        IMapper mapper,
-        IEmployeeRepository employeeRepository)
+        IIdentityService employeeService)
     {
-        _mapper = mapper;
-        _employeeRepository = employeeRepository;
+        _employeeService = employeeService;
     }
 
     public async Task<ErrorOr<CreateEmployeeResult>> Handle(
@@ -26,15 +22,20 @@ public sealed class CreateEmployeeCommandHandler
         CancellationToken cancellationToken)
     {
         var result = Employee.Create(
-            command.FirstName, 
-            command.LastName, 
-            command.Email, 
+            command.FirstName,
+            command.LastName,
+            command.Email,
             command.MiddelName);
 
         if (result.IsError)
             return result.Errors;
 
-        await _employeeRepository.AddAsync(result.Value, cancellationToken);
-        return new CreateEmployeeResult(result.Value.Id);
+        var registerResult = await _employeeService
+            .RegisterAsync(command.Password, command.RoleName, result.Value);
+
+        if (registerResult.IsError)
+            return registerResult.Errors;
+
+        return new CreateEmployeeResult(registerResult.Value.Id);
     }
 }

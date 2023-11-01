@@ -8,4 +8,6 @@ public record CreateEmployeeCommand(
     string FirstName,
     string LastName,
     string? MiddelName,
-    string Email) : IRequest<ErrorOr<CreateEmployeeResult>>;
+    string Email,
+    string Password,
+    string RoleName) : IRequest<ErrorOr<CreateEmployeeResult>>;

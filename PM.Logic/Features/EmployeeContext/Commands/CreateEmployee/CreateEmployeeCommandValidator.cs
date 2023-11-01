@@ -1,19 +1,19 @@
 ﻿using FluentValidation;
-using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 using PM.Domain.Common.Constants;
+using PM.Application.Common.Interfaces.ISercices;
+using PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 
 namespace PM.Application.Features.EmployeeContext.Commands.CreateEmployeel;
 
 public sealed class CreateEmployeeCommandValidator
     : AbstractValidator<CreateEmployeeCommand>
 {
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IIdentityService _identityService;
 
     public CreateEmployeeCommandValidator(
-        IEmployeeRepository employeeRepository)
+        IIdentityService identityService)
     {
-        _employeeRepository = employeeRepository;
+        _identityService = identityService;
 
         RuleFor(command => command.FirstName)
             .NotEmpty()
@@ -32,15 +32,24 @@ public sealed class CreateEmployeeCommandValidator
             .EmailAddress()
             .MaximumLength(EntityConstants.Email)
             .MustAsync(MustBeUnique);
+
+        RuleFor(command => command.RoleName)
+            .NotEmpty()
+            .MaximumLength(EntityConstants.RoleNameLength)
+            .MustAsync(MustBeInDatabase);
+    }
+
+    private async Task<bool> MustBeInDatabase(
+        string roleName,
+        CancellationToken token)
+    {
+        return await _identityService.IsRoleExistAsync(roleName);
     }
 
     private async Task<bool> MustBeUnique(
-        string email, 
+        string email,
         CancellationToken cancellationToken)
     {
-        var employee = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Email == email, cancellationToken);
-
-        return employee is null;
+        return !await _identityService.IsEmailExistAsync(email);
     }
 }

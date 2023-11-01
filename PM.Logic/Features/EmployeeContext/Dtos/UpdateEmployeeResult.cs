@@ -6,3 +6,8 @@ public record UpdateEmployeeResult(
      string LastName,
      string? MiddelName,
      string Email);
+
+public sealed class UpdateEmployeeResult
+{
+
+}
