@@ -1,6 +1,6 @@
 ﻿using PM.Application.Common.Enums;
+using PM.Application.Common.Models.Project;
 using PM.Application.Common.Specifications.ProjectSpecifications;
-using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 using PM.Domain.Entities;
 
 namespace PM.Application.Common.Extensions;
