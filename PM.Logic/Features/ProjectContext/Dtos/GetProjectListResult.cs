@@ -1,7 +1,7 @@
 ﻿using PM.Application.Common.Models.Employee;
 using PM.Domain.Common.Enums;
 
-namespace PM.Application.Features.ProjectContext.Queries.GetProjectList;
+namespace PM.Application.Features.ProjectContext.Dtos;
 
 public sealed class GetProjectListResult
 {

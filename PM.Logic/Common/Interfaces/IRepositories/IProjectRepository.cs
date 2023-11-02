@@ -1,5 +1,4 @@
 ﻿using PM.Application.Features.ProjectContext.Dtos;
-using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 using PM.Domain.Entities;
 
 namespace PM.Application.Common.Interfaces.IRepositories;

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.ProjectContext.Dtos;
-using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.Repositories;
