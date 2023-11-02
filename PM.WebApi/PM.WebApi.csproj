@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PM.Contracts\PM.Contracts.csproj" />
     <ProjectReference Include="..\PM.Infrastructure\PM.Infrastructure.csproj" />
     <ProjectReference Include="..\PM.Logic\PM.Application.csproj" />
   </ItemGroup>

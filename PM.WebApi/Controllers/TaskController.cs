@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PM.Application.Features.TaskContext.Commands.CreateTask;
 using PM.Application.Features.TaskContext.Commands.DeleteTask;
 using PM.Application.Features.TaskContext.Commands.UpdateTask;
+using PM.Application.Features.TaskContext.Dtos;
 using PM.Application.Features.TaskContext.Queries.GetTask;
 using PM.Application.Features.TaskContext.Queries.GetTaskList;
 using PM.Contracts.TaskContracts.Requests;
@@ -12,39 +13,37 @@ using PM.Domain.Common.Enums;
 
 namespace PM.WebApi.Controllers;
 
-public class TaskController : BaseController
+public class TaskController : ApiBaseController
 {
     [HttpPost]
-    [ProducesResponseType(typeof(CreateTaskResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CreateTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateTaskAsync(
-        CreateTaskRequest request,
+        CreateTaskCommand command,
         CancellationToken cancellationToken)
     {
-        var command = Mapper.Map<CreateTaskCommand>(request);
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(
-            result => Ok(Mapper.Map<CreateTaskResponse>(result)),
+            result => Ok(result),
             errors => Problem(errors));
     }
 
 
     [HttpPut]
-    [ProducesResponseType(typeof(UpdateTaskResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UpdateTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateTaskAsync(
-        UpdateTaskRequest request,
+        UpdateTaskCommand command,
         CancellationToken cancellationToken)
     {
-        var command = Mapper.Map<UpdateTaskCommand>(request);
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(
-            result => Ok(Mapper.Map<UpdateTaskResponse>(result)),
+            result => Ok(result),
             errors => Problem(errors));
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(GetTaskResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskAsync(
         int id,
         CancellationToken cancellationToken)
@@ -53,7 +52,7 @@ public class TaskController : BaseController
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(
-            result => Ok(Mapper.Map<GetTaskResponse>(result)),
+            result => Ok(result),
             errors => Problem(errors));
     }
 
@@ -74,7 +73,7 @@ public class TaskController : BaseController
 
 
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(List<GetTaskListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskListAsync(
         [FromQuery] GetTaskListQuery query,
         CancellationToken cancellationToken)
