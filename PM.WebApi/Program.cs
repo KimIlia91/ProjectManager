@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using PM.Application;
 using PM.Infrastructure;
+using PM.Infrastructure.Persistence.Seeds;
 using PM.WebApi.Common.Congifuratuions.Swagger;
 using PM.WebApi.Common.Errors;
 using System.Reflection;
@@ -31,5 +32,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+await DataBaseSeeds.AddSeeds(services);
 
 app.Run();

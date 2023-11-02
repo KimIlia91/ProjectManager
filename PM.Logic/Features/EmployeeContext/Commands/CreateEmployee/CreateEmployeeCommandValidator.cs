@@ -50,12 +50,7 @@ public sealed class CreateEmployeeCommandValidator
         string roleName,
         CancellationToken cancellationToken)
     {
-        await _identityService.IsRoleExistAsync(roleName);
-
-        var role = await _roleRepository
-          .GetOrDeafaultAsync(r => r.Name == roleName, cancellationToken);
-
-        return role is not null;
+        return await _identityService.IsRoleExistAsync(roleName);
     }
 
     private async Task<bool> MustBeUnique(
