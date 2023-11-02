@@ -5,7 +5,7 @@ using PM.Domain.Common.Enums;
 using PM.Domain.Entities;
 using System.Text.Json.Serialization;
 using Task = PM.Domain.Entities.Task;
-using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
+using Status = PM.Domain.Common.Enums.Status;
 
 namespace PM.Application.Features.TaskContext.Commands.UpdateTask;
 
@@ -27,7 +27,7 @@ public sealed class UpdateTaskCommand : IRequest<ErrorOr<UpdateTaskResult>>
 
     public string? Comment { get; set; }
 
-    public TaskStatus Status { get; set; }
+    public Status Status { get; set; }
 
-    public ProjectPriority Priority { get; set; }
+    public Priority Priority { get; set; }
 }

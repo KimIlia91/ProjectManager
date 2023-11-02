@@ -27,5 +27,5 @@ public sealed class UpdateProjectCommand : IRequest<ErrorOr<UpdateProjectResult>
 
     public DateTime EndDate { get; set; }
 
-    public ProjectPriority Priority { get; set; }
+    public Priority Priority { get; set; }
 }

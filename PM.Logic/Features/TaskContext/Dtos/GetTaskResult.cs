@@ -1,7 +1,7 @@
 ﻿using PM.Application.Common.Models.Employee;
 using PM.Application.Common.Models.Project;
 using PM.Domain.Common.Enums;
-using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
+using Status = PM.Domain.Common.Enums.Status;
 
 namespace PM.Application.Features.TaskContext.Dtos;
 
@@ -19,7 +19,7 @@ public class GetTaskResult
 
     public string Comment { get; set; } = string.Empty;
 
-    public TaskStatus Status { get; set; }
+    public Status Status { get; set; }
 
-    public ProjectPriority Priority { get; set; }
+    public Priority Priority { get; set; }
 }

@@ -20,7 +20,7 @@ public sealed class UpdateProjectResult : IRegister
 
     public DateTime EndDate { get; set; }
 
-    public ProjectPriority Priority { get; set; }
+    public Priority Priority { get; set; }
 
     public void Register(TypeAdapterConfig config)
     {

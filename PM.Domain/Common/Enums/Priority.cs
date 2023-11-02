@@ -1,6 +1,6 @@
 ﻿namespace PM.Domain.Common.Enums;
 
-public enum ProjectPriority
+public enum Priority
 {
     Low = 1,
     Medium = 2,

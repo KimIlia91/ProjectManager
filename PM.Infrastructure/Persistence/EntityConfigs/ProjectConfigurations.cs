@@ -43,7 +43,7 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
 
         builder.Property(p => p.Priority)
             .HasColumnName("Priority")
-            .HasConversion(new EnumToNumberConverter<ProjectPriority, int>())
+            .HasConversion(new EnumToNumberConverter<Priority, int>())
             .IsRequired();
 
         builder.HasOne(p => p.Manager)

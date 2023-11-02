@@ -1,8 +1,10 @@
 ﻿using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.ProjectContext.Dtos;
+using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.Repositories;
@@ -19,6 +21,24 @@ public sealed class ProjectRepository
     {
         _mapper = mapper;
         _context = context;
+    }
+
+    public IQueryable<Project> GetProjectQuiery(
+        bool asNoTracking = false)
+    {
+        if (asNoTracking)
+            return _context.Projects.AsNoTracking();
+
+        return _context.Projects;
+    }
+
+    public async Task<List<GetProjectListResult>> ToProjectListResultAsync(
+        IQueryable<Project> projectQuery, 
+        CancellationToken cancellationToken)
+    {
+        return await projectQuery
+            .ProjectToType<GetProjectListResult>(_mapper.Config)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<GetProjectResult?> GetProjectByIdAsync(
