@@ -4,7 +4,7 @@ using PM.Application.Features.TaskContext.Dtos;
 using PM.Domain.Common.Enums;
 using PM.Domain.Entities;
 using System.Text.Json.Serialization;
-using AppTaskStatus = PM.Domain.Common.Enums.TaskStatus;
+using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 
@@ -27,7 +27,7 @@ public sealed class CreateTaskCommand
 
     public string? Commnet { get; set; }
 
-    public AppTaskStatus Status { get; set; }
+    public TaskStatus Status { get; set; }
 
     public ProjectPriority Priority { get; set; }
 }

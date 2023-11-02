@@ -26,9 +26,9 @@ internal sealed class UpdateTaskCommandHandler
     {
         command.Task!.Update(
             command.Name,
-            command.Author!,
-            command.Executor!,
-            command.Comment!,
+            command.Author,
+            command.Executor,
+            command.Comment,
             command.Status,
             command.Priority);
 

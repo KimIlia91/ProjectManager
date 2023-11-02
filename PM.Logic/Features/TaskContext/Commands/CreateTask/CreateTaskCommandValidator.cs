@@ -27,13 +27,10 @@ public sealed class CreateTaskCommandValidator
             .MaximumLength(EntityConstants.TaskName);
 
         RuleFor(command => command.AuthorId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
-            .NotEmpty()
-            .When(command => command.AuthorId > 0)
-            .MustAsync(AuthorMustBeInDatabase);
+            .MustAsync(AuthorMustBeInDatabase)
+            .When(command => command.AuthorId > 0);
 
         RuleFor(command => command.ExecutorId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
             .MustAsync(ExecutorMustBeInDatabase)
             .When(command => command.ExecutorId > 0);
 

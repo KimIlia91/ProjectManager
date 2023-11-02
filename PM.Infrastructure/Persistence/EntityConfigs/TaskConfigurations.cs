@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PM.Domain.Common.Constants;
 using PM.Domain.Common.Enums;
 using Task = PM.Domain.Entities.Task;
-using AppTaskStatus = PM.Domain.Common.Enums.TaskStatus;
+using TaskStatus = PM.Domain.Common.Enums.TaskStatus;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
@@ -31,7 +31,7 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
 
         builder.Property(x => x.Status)
             .HasColumnName("Status")
-            .HasConversion(new EnumToStringConverter<AppTaskStatus>())
+            .HasConversion(new EnumToStringConverter<TaskStatus>())
             .HasMaxLength(EntityConstants.EnumStatusLength)
             .IsRequired();
 

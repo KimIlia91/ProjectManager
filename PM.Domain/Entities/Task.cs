@@ -14,7 +14,7 @@ public sealed class Task : BaseEntity
 
     public Project Project { get; private set; }
 
-    public string Comment { get; private set; } = null!;
+    public string? Comment { get; private set; }
 
     public TaskStatus Status { get; private set; }
 
@@ -27,7 +27,7 @@ public sealed class Task : BaseEntity
         Employee? author,
         Employee? executor,
         Project project,
-        string comment,
+        string? comment,
         TaskStatus taskStatus,
         ProjectPriority priority)
     {
@@ -45,7 +45,7 @@ public sealed class Task : BaseEntity
         Employee? author,
         Employee? executor,
         Project project,
-        string comment,
+        string? comment,
         TaskStatus taskStatus,
         ProjectPriority priority)
     {
@@ -61,9 +61,9 @@ public sealed class Task : BaseEntity
 
     public ErrorOr<Task> Update(
         string name,
-        Employee author,
-        Employee executor,
-        string comment,
+        Employee? author,
+        Employee? executor,
+        string? comment,
         TaskStatus taskStatus,
         ProjectPriority priority)
     {
