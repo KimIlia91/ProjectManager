@@ -2,8 +2,6 @@
 using PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 using PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 using PM.Application.Features.EmployeeProjectsContext.Dtos;
-using PM.Contracts.EmployeeProjectsContracts.Requests;
-using PM.Contracts.EmployeeProjectsContracts.Responses;
 
 namespace PM.WebApi.Controllers
 {
@@ -29,9 +27,10 @@ namespace PM.WebApi.Controllers
             int employeeId,
             CancellationToken cancellationToken)
         {
-            var command = new RemoveEmployeeFromProjectCommand() 
-            { 
-                ProjectId = projectId, EmployeeId = employeeId 
+            var command = new RemoveEmployeeFromProjectCommand()
+            {
+                ProjectId = projectId,
+                EmployeeId = employeeId
             };
 
             var result = await Mediator.Send(command, cancellationToken);

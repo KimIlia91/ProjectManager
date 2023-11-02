@@ -1,15 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PM.Application.Features.TaskContext.Commands.CreateTask;
 using PM.Application.Features.TaskContext.Commands.DeleteTask;
 using PM.Application.Features.TaskContext.Commands.UpdateTask;
 using PM.Application.Features.TaskContext.Dtos;
 using PM.Application.Features.TaskContext.Queries.GetTask;
 using PM.Application.Features.TaskContext.Queries.GetTaskList;
-using PM.Contracts.TaskContracts.Requests;
-using PM.Contracts.TaskContracts.Responses;
-using PM.Domain.Common.Enums;
 
 namespace PM.WebApi.Controllers;
 
