@@ -5,9 +5,6 @@ namespace PM.Application.Common.Interfaces.IRepositories;
 
 public interface IProjectRepository : IBaseRepository<Project>
 {
-    IQueryable<Project> GetProjectQuiery(
-        bool asNoTracking = false);
-
     Task<List<GetProjectListResult>> ToProjectListResultAsync(
         IQueryable<Project> projectQuery,
         CancellationToken cancellationToken);

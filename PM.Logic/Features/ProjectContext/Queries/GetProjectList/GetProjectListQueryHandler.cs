@@ -22,11 +22,11 @@ internal sealed class GetProjectListQueryHandler
         CancellationToken cancellationToken)
     {
         var projectQuery = _projectRepository
-            .GetProjectQuiery(asNoTracking: true)
+            .GetQuiery(asNoTracking: true)
             .Where(query.Filter)
             .SortProject(query.SortBy);
 
         return await _projectRepository
-            .ToProjectListResultAsync(projectQuery, cancellationToken);
+            .ToListResultAsync<GetProjectListResult>(projectQuery, cancellationToken);
     }
 }

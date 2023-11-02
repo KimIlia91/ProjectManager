@@ -11,14 +11,12 @@ public sealed class TaskRepository
     : BaseRepository<Task>, ITaskRepository
 {
     private readonly ApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
     public TaskRepository(
         ApplicationDbContext context,
-        IMapper mapper) : base(context)
+        IMapper mapper) : base(context, mapper)
     {
         _context = context;
-        _mapper = mapper;
     }
 
     public async Task<GetTaskResult?> GetTaskByIdAsync(

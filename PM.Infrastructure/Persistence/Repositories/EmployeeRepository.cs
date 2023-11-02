@@ -11,13 +11,11 @@ public sealed class EmployeeRepository
     : BaseRepository<Employee>, IEmployeeRepository
 {
     private readonly ApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
     public EmployeeRepository(
         ApplicationDbContext context,
-        IMapper mapper) : base(context)
+        IMapper mapper) : base(context, mapper)
     {
-        _mapper = mapper;
         _context = context;
     }
 

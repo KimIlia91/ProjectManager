@@ -12,23 +12,12 @@ public sealed class ProjectRepository
     : BaseRepository<Project>, IProjectRepository
 {
     private readonly ApplicationDbContext _context;
-    private readonly IMapper _mapper;
 
     public ProjectRepository(
         ApplicationDbContext context,
-        IMapper mapper) : base(context)
+        IMapper mapper) : base(context, mapper)
     {
-        _mapper = mapper;
         _context = context;
-    }
-
-    public IQueryable<Project> GetProjectQuiery(
-        bool asNoTracking = false)
-    {
-        if (asNoTracking)
-            return _context.Projects.AsNoTracking();
-
-        return _context.Projects;
     }
 
     public async Task<List<GetProjectListResult>> ToProjectListResultAsync(

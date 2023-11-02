@@ -1,19 +1,43 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+﻿using Mapster;
+using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Interfaces.IRepositories;
+using System.Linq.Expressions;
 
 namespace PM.Infrastructure.Persistence.Repositories;
 
-public class BaseRepository<TEntity> 
+public class BaseRepository<TEntity>
     : IBaseRepository<TEntity> where TEntity : class
 {
     private readonly ApplicationDbContext _context;
     private readonly DbSet<TEntity> _dbSet;
+    protected readonly IMapper _mapper;
 
-    public BaseRepository(ApplicationDbContext context)
+    public BaseRepository(
+        ApplicationDbContext context,
+        IMapper mapper)
     {
         _context = context;
         _dbSet = _context.Set<TEntity>();
+        _mapper = mapper;
+    }
+
+    public async Task<List<TResult>> ToListResultAsync<TResult>(
+        IQueryable<TEntity> projectQuery,
+        CancellationToken cancellationToken)
+    {
+        return await projectQuery
+            .ProjectToType<TResult>(_mapper.Config)
+            .ToListAsync(cancellationToken);
+    }
+
+    public IQueryable<TEntity> GetQuiery(
+      bool asNoTracking = false)
+    {
+        if (asNoTracking)
+            return _dbSet.AsNoTracking();
+
+        return _dbSet;
     }
 
     public async Task AddAsync(
@@ -41,7 +65,7 @@ public class BaseRepository<TEntity>
     }
 
     public async Task RemoveAsync(
-        TEntity entity, 
+        TEntity entity,
         CancellationToken cancellationToken)
     {
         _dbSet.Remove(entity);
