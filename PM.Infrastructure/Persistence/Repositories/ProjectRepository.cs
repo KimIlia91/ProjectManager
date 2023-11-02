@@ -25,7 +25,7 @@ public sealed class ProjectRepository
         CancellationToken cancellationToken)
     {
         return await projectQuery
-            .ProjectToType<GetProjectListResult>(_mapper.Config)
+            .ProjectToType<GetProjectListResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }
 
@@ -35,7 +35,7 @@ public sealed class ProjectRepository
     {
         return await _context.Projects
             .Where(p => p.Id == id)
-            .ProjectToType<GetProjectResult>(_mapper.Config)
+            .ProjectToType<GetProjectResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
 }

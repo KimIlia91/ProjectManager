@@ -6,7 +6,7 @@ using PM.Application.Features.TaskContext.Dtos;
 namespace PM.Application.Features.TaskContext.Queries.GetTaskList;
 
 public sealed class GetTaskListQuery
-    : IRequest<ErrorOr<List<GetTaskResult>>>
+    : IRequest<ErrorOr<List<GetTaskListResult>>>
 {
     public TaskFilter Filter { get; set; } = new();
 

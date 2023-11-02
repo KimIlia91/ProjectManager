@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 using PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
+using PM.Application.Features.EmployeeProjectsContext.Dtos;
 using PM.Contracts.EmployeeProjectsContracts.Requests;
 using PM.Contracts.EmployeeProjectsContracts.Responses;
 
@@ -9,16 +10,15 @@ namespace PM.WebApi.Controllers
     public class EmployeeProjectsController : BaseController
     {
         [HttpPost]
-        [ProducesResponseType(typeof(AddEmployeeToProjectResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(AddEmployeeToProjectResult), StatusCodes.Status200OK)]
         public async Task<IActionResult> AddEmployeeToProjectAsync(
-            AddEmployeeToProjectRequest request,
+            AddEmployeeToProjectCommand command,
             CancellationToken cancellationToken)
         {
-            var command = Mapper.Map<AddEmployeeToProjectCommand>(request);
             var result = await Mediator.Send(command, cancellationToken);
 
             return result.Match(
-                result => Ok(Mapper.Map<AddEmployeeToProjectResponse>(result)),
+                result => Ok(result),
                 errors => Problem(errors));
         }
 

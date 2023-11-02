@@ -14,9 +14,9 @@ public static class RoleSeed
 
         foreach (var role in roles)
         {
-            if (!await roleManager.RoleExistsAsync(role.Name))
+            if (!await roleManager.RoleExistsAsync(role.Description))
             {
-                await roleManager.CreateAsync(new Role { Name = role.Name });
+                await roleManager.CreateAsync(new Role { Name = role.Description });
             }
         }
     }

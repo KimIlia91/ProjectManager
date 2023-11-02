@@ -9,12 +9,12 @@ namespace PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 public sealed class CreateEmployeeCommandHandler
     : IRequestHandler<CreateEmployeeCommand, ErrorOr<CreateEmployeeResult>>
 {
-    private readonly IIdentityService _employeeService;
+    private readonly IIdentityService _identityService;
 
     public CreateEmployeeCommandHandler(
-        IIdentityService employeeService)
+        IIdentityService identityService)
     {
-        _employeeService = employeeService;
+        _identityService = identityService;
     }
 
     public async Task<ErrorOr<CreateEmployeeResult>> Handle(
@@ -30,7 +30,7 @@ public sealed class CreateEmployeeCommandHandler
         if (result.IsError)
             return result.Errors;
 
-        var registerResult = await _employeeService
+        var registerResult = await _identityService
             .RegisterAsync(command.Password, command.RoleName, result.Value);
 
         if (registerResult.IsError)

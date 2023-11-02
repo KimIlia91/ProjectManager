@@ -2,12 +2,13 @@
 using MediatR;
 using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Models.Project;
 using PM.Application.Features.TaskContext.Dtos;
 
 namespace PM.Application.Features.TaskContext.Queries.GetTaskList;
 
 internal sealed class GetTaskListQueryHandler
-    : IRequestHandler<GetTaskListQuery, ErrorOr<List<GetTaskResult>>>
+    : IRequestHandler<GetTaskListQuery, ErrorOr<List<GetTaskListResult>>>
 {
     private readonly ITaskRepository _taskRepository;
 
@@ -17,7 +18,7 @@ internal sealed class GetTaskListQueryHandler
         _taskRepository = taskRepository;
     }
 
-    public async Task<ErrorOr<List<GetTaskResult>>> Handle(
+    public async Task<ErrorOr<List<GetTaskListResult>>> Handle(
         GetTaskListQuery query, 
         CancellationToken cancellationToken)
     {
@@ -27,6 +28,6 @@ internal sealed class GetTaskListQueryHandler
             .Sort(query.SortBy);
 
         return await _taskRepository
-            .ToListResultAsync<GetTaskResult>(taskQuery, cancellationToken);
+            .ToListResultAsync<GetTaskListResult>(taskQuery, cancellationToken);
     }
 }
