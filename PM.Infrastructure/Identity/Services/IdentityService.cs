@@ -30,17 +30,7 @@ public class IdentityService : IIdentityService
 
     public async Task<bool> IsRoleExistAsync(string roleName)
     {
-        if (!await _roleManager.RoleExistsAsync(roleName))
-        {
-            var newRole = new Role()
-            {
-                Name = roleName
-            };
-
-            await _roleManager.CreateAsync(newRole);
-        }
-
-        return true;
+        return await _roleManager.RoleExistsAsync(roleName);
     }
 
     public async Task<ErrorOr<Employee>> RegisterAsync(
@@ -52,16 +42,6 @@ public class IdentityService : IIdentityService
 
         if (!resultUser.Succeeded)
             return Error.Failure("User could not be created");
-
-        if (!await _roleManager.RoleExistsAsync(roleName))
-        {
-            var newRole = new Role()
-            {
-                Name = roleName
-            };
-
-            await _roleManager.CreateAsync(newRole);
-        }
 
         var resultRole = await _userManager.AddToRoleAsync(employee, roleName);
 

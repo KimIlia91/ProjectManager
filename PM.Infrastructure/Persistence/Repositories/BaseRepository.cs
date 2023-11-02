@@ -10,16 +10,18 @@ public class BaseRepository<TEntity>
     : IBaseRepository<TEntity> where TEntity : class
 {
     private readonly ApplicationDbContext _context;
-    private readonly DbSet<TEntity> _dbSet;
-    protected readonly IMapper _mapper;
+
+    protected DbSet<TEntity> DbSet { get; }
+
+    protected IMapper Mapper { get; }
 
     public BaseRepository(
         ApplicationDbContext context,
         IMapper mapper)
     {
         _context = context;
-        _dbSet = _context.Set<TEntity>();
-        _mapper = mapper;
+        DbSet = _context.Set<TEntity>();
+        Mapper = mapper;
     }
 
     public async Task<List<TResult>> ToListResultAsync<TResult>(
@@ -27,7 +29,7 @@ public class BaseRepository<TEntity>
         CancellationToken cancellationToken)
     {
         return await projectQuery
-            .ProjectToType<TResult>(_mapper.Config)
+            .ProjectToType<TResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }
 
@@ -35,16 +37,16 @@ public class BaseRepository<TEntity>
       bool asNoTracking = false)
     {
         if (asNoTracking)
-            return _dbSet.AsNoTracking();
+            return DbSet.AsNoTracking();
 
-        return _dbSet;
+        return DbSet;
     }
 
     public async Task AddAsync(
         TEntity entity,
         CancellationToken cancellationToken)
     {
-        await _dbSet.AddAsync(entity, cancellationToken);
+        await DbSet.AddAsync(entity, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
     }
 
@@ -52,7 +54,7 @@ public class BaseRepository<TEntity>
         Expression<Func<TEntity, bool>> filter,
         CancellationToken cancellationToken)
     {
-        IQueryable<TEntity> query = _dbSet.AsNoTracking();
+        IQueryable<TEntity> query = DbSet.AsNoTracking();
         query.Where(filter);
         return await query.ToListAsync(cancellationToken);
     }
@@ -61,14 +63,14 @@ public class BaseRepository<TEntity>
         Expression<Func<TEntity, bool>> filter,
         CancellationToken cancellationToken)
     {
-        return await _dbSet.FirstOrDefaultAsync(filter, cancellationToken);
+        return await DbSet.FirstOrDefaultAsync(filter, cancellationToken);
     }
 
     public async Task RemoveAsync(
         TEntity entity,
         CancellationToken cancellationToken)
     {
-        _dbSet.Remove(entity);
+        DbSet.Remove(entity);
         await _context.SaveChangesAsync(cancellationToken);
     }
 

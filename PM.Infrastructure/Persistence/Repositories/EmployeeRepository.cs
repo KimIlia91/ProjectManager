@@ -25,7 +25,7 @@ public sealed class EmployeeRepository
     {
         return await _context.Employees
             .Where(e => e.Id == employeeId)
-            .ProjectToType<GetEmployeeResult>(_mapper.Config)
+            .ProjectToType<GetEmployeeResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
@@ -33,7 +33,7 @@ public sealed class EmployeeRepository
         CancellationToken cancellationToken)
     {
         return await _context.Employees
-            .ProjectToType<GetEmployeeResult>(_mapper.Config)
+            .ProjectToType<GetEmployeeResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }
 }

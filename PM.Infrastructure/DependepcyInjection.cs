@@ -13,6 +13,7 @@ public static class DependepcyInjection
     {
         services.AddPesistence(configuration);
         services.AddIdentity();
+
         return services;
     }
 }

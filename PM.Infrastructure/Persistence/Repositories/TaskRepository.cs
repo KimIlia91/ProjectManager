@@ -25,7 +25,7 @@ public sealed class TaskRepository
     {
         return await _context.Tasks
             .Where(t => t.Id == id)
-            .ProjectToType<GetTaskResult>(_mapper.Config)
+            .ProjectToType<GetTaskResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
 

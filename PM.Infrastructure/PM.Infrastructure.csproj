@@ -21,8 +21,4 @@
     <ProjectReference Include="..\PM.Logic\PM.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistence\Seeds\" />
-  </ItemGroup>
-
 </Project>
