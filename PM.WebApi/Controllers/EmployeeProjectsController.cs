@@ -7,7 +7,7 @@ using PM.Contracts.EmployeeProjectsContracts.Responses;
 
 namespace PM.WebApi.Controllers
 {
-    public class EmployeeProjectsController : BaseController
+    public class EmployeeProjectsController : ApiBaseController
     {
         [HttpPost]
         [ProducesResponseType(typeof(AddEmployeeToProjectResult), StatusCodes.Status200OK)]

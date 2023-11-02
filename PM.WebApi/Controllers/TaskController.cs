@@ -13,7 +13,7 @@ using PM.Domain.Common.Enums;
 
 namespace PM.WebApi.Controllers;
 
-public class TaskController : BaseController
+public class TaskController : ApiBaseController
 {
     [HttpPost]
     [ProducesResponseType(typeof(CreateTaskResult), StatusCodes.Status200OK)]

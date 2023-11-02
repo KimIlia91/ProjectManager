@@ -4,7 +4,7 @@ using PM.Application.Features.RoleContext.Dtos;
 
 namespace PM.WebApi.Controllers
 {
-    public class RoleController : BaseController
+    public class RoleController : ApiBaseController
     {
         [HttpGet]
         [ProducesResponseType(typeof(List<GetRoleListResult>), StatusCodes.Status200OK)]

@@ -9,7 +9,7 @@ namespace PM.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BaseController : ControllerBase
+public class ApiBaseController : ControllerBase
 {
     private ISender _mediator;
     private IMapper _mapper;

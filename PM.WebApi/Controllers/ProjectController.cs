@@ -8,7 +8,7 @@ using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 
 namespace PM.WebApi.Controllers;
 
-public class ProjectController : BaseController
+public class ProjectController : ApiBaseController
 {
     [HttpPost]
     [ProducesResponseType(typeof(CreateProjectResult), StatusCodes.Status200OK)]

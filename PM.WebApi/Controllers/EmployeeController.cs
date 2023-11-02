@@ -7,7 +7,7 @@ using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
 
 namespace PM.WebApi.Controllers;
 
-public class EmployeeController : BaseController
+public class EmployeeController : ApiBaseController
 {
     [HttpPost]
     [ProducesResponseType(typeof(CreateEmployeeResult), StatusCodes.Status200OK)]
