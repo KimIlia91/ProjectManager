@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.ProjectContext.Dtos;
@@ -6,7 +7,7 @@ using PM.Application.Features.ProjectContext.Dtos;
 namespace PM.Application.Features.ProjectContext.Queries.GetProjectList;
 
 internal sealed class GetProjectListQueryHandler
-    : IRequestHandler<GetProjectListQuery, List<GetProjectListResult>>
+    : IRequestHandler<GetProjectListQuery, ErrorOr<List<GetProjectListResult>>>
 {
     private readonly IProjectRepository _projectRepository;
 
@@ -16,7 +17,7 @@ internal sealed class GetProjectListQueryHandler
         _projectRepository = projectRepository;
     }
 
-    public async Task<List<GetProjectListResult>> Handle(
+    public async Task<ErrorOr<List<GetProjectListResult>>> Handle(
         GetProjectListQuery query,
         CancellationToken cancellationToken)
     {

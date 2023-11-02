@@ -16,6 +16,8 @@ internal sealed class ProjectManagerSpecification : ISpecification<Project>
 
     public Expression<Func<Project, bool>> ToExpression()
     {
-        return p => (_managerId.HasValue || p.Manager.Id == _managerId);
+        return p => (!_managerId.HasValue 
+            || (_managerId.HasValue && _managerId == 0 && p.Manager == null) 
+            || p.Manager.Id == _managerId);
     }
 }

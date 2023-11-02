@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 using PM.Application.Common.Models.Project;
-using PM.Application.Features.ProjectContext.Queries.GetProjectList;
+using PM.Application.Features.ProjectContext.Dtos;
 
-namespace PM.Application.Features.ProjectContext.Dtos;
+namespace PM.Application.Features.ProjectContext.Queries.GetProjectList;
 
 public sealed class GetProjectListQuery
-    : IRequest<List<GetProjectListResult>>
+    : IRequest<ErrorOr<List<GetProjectListResult>>>
 {
     public ProjectFilter Filter { get; set; } = new();
 

@@ -19,7 +19,7 @@ internal sealed class ProjectDateSpecification : ISpecification<Project>
 
     public Expression<Func<Project, bool>> ToExpression()
     {
-        return p => (!_startDate.HasValue || p.StartDate >= _startDate) &&
-                    (!_endDate.HasValue || p.EndDate >= _endDate);
+        return p => (!_startDate.HasValue || p.StartDate.Date >= _startDate) &&
+                    (!_endDate.HasValue || p.EndDate.Date <= _endDate);
     }
 }

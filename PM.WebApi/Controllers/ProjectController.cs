@@ -2,7 +2,9 @@
 using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
+using PM.Application.Features.ProjectContext.Dtos;
 using PM.Application.Features.ProjectContext.Queries.GetProject;
+using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 using PM.Contracts.ProjectContracts.Requests;
 using PM.Contracts.ProjectContracts.Responses;
 
@@ -64,6 +66,19 @@ public class ProjectController : BaseController
 
         return result.Match(
             result => NoContent(),
+            errors => Problem(errors));
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetProjectListAsync(
+        [FromQuery] GetProjectListQuery query,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+            result => Ok(result),
             errors => Problem(errors));
     }
 }
