@@ -5,6 +5,7 @@ using PM.Application.Features.TaskContext.Commands.CreateTask;
 using PM.Application.Features.TaskContext.Commands.DeleteTask;
 using PM.Application.Features.TaskContext.Commands.UpdateTask;
 using PM.Application.Features.TaskContext.Queries.GetTask;
+using PM.Application.Features.TaskContext.Queries.GetTaskList;
 using PM.Contracts.TaskContracts.Requests;
 using PM.Contracts.TaskContracts.Responses;
 using PM.Domain.Common.Enums;
@@ -69,5 +70,19 @@ public class TaskController : BaseController
         return result.Match(
             result => NoContent(),
             errors => Problem(errors));
+    }
+
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> GetTaskListAsync(
+        [FromQuery] GetTaskListQuery query,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+           result => Ok(result),
+           errors => Problem(errors));
     }
 }

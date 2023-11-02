@@ -5,7 +5,7 @@ using PM.Domain.Entities;
 
 namespace PM.Application.Common.Extensions;
 
-public static class ProjectQueryExtentions
+public static class ProjectQueryExtensions
 {
     public static IQueryable<Project> Where(
        this IQueryable<Project> projects,
@@ -14,10 +14,10 @@ public static class ProjectQueryExtentions
         return projects
             .Where(new ProjectDateSpecification(filter.StartDate, filter.EndDate).ToExpression())
             .Where(new ProjectManagerSpecification(filter.ManagerId).ToExpression())
-            .Where(new ProjectPrioretySpecification(filter.Priority).ToExpression());
+            .Where(new ProjectPrioritySpecification(filter.Priority).ToExpression());
     }
 
-    public static IQueryable<Project> SortProject(
+    public static IQueryable<Project> Sort(
         this IQueryable<Project> projectsQuery,
         string? sortBy)
     {
@@ -40,43 +40,49 @@ public static class ProjectQueryExtentions
 
             switch (property)
             {
-                case "Priority":
+                case "priority":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                         ? sortedProjectsQuery.ThenByDescending(p => p.Priority)
                         : sortedProjectsQuery.ThenBy(p => p.Priority);
                     break;
 
-                case "Name":
+                case "name":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                         ? sortedProjectsQuery.ThenByDescending(p => p.Name)
                         : sortedProjectsQuery.ThenBy(p => p.Name);
                     break;
 
-                case "StartDate":
+                case "startDate":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                        ? sortedProjectsQuery.ThenByDescending(p => p.StartDate)
                        : sortedProjectsQuery.ThenBy(p => p.StartDate);
                     break;
 
-                case "EndDate":
+                case "endDate":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                        ? sortedProjectsQuery.ThenByDescending(p => p.EndDate)
                        : sortedProjectsQuery.ThenBy(p => p.EndDate);
                     break;
 
-                case "ManagerId":
+                case "lastName":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
-                       ? sortedProjectsQuery.ThenByDescending(p => p.Manager.Id)
-                       : sortedProjectsQuery.ThenBy(p => p.Manager.Id);
+                       ? sortedProjectsQuery.ThenByDescending(p => p.Manager.LastName)
+                       : sortedProjectsQuery.ThenBy(p => p.Manager.LastName);
                     break;
 
-                case "ExecutorCompany":
+                case "firstName":
+                    sortedProjectsQuery = sortOrder == SortStates.Descending
+                       ? sortedProjectsQuery.ThenByDescending(p => p.Manager.FirstName)
+                       : sortedProjectsQuery.ThenBy(p => p.Manager.FirstName);
+                    break;
+
+                case "executorCompany":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                        ? sortedProjectsQuery.ThenByDescending(p => p.ExecutorCompany)
                        : sortedProjectsQuery.ThenBy(p => p.ExecutorCompany);
                     break;
 
-                case "CustomerCompany":
+                case "customerCompany":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                        ? sortedProjectsQuery.ThenByDescending(p => p.CustomerCompany)
                        : sortedProjectsQuery.ThenBy(p => p.CustomerCompany);
@@ -87,6 +93,6 @@ public static class ProjectQueryExtentions
             }
         }
 
-        return sortedProjectsQuery.AsQueryable();
+        return sortedProjectsQuery;
     }
 }

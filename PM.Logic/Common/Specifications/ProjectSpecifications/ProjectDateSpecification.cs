@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using PM.Application.Common.Specifications.ISpecifications;
 using PM.Domain.Entities;
-using PM.Application.Common.Specifications.ISpecifications;
+using System.Linq.Expressions;
 
 namespace PM.Application.Common.Specifications.ProjectSpecifications;
 

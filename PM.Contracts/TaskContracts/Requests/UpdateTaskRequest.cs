@@ -4,7 +4,7 @@ public sealed record UpdateTaskRequest(
     int Id,
     string Name,
     int AuthorId,
-    int ExecutorId,
+    int? ExecutorId,
     string? Comment,
     string Status,
     int Priority);

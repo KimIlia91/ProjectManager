@@ -1,21 +1,21 @@
 ﻿using PM.Application.Common.Specifications.ISpecifications;
 using PM.Domain.Common.Enums;
-using PM.Domain.Entities;
 using System.Linq.Expressions;
+using Task = PM.Domain.Entities.Task;
 
-namespace PM.Application.Common.Specifications.ProjectSpecifications;
+namespace PM.Application.Common.Specifications.TaskSpecifications;
 
-internal class ProjectPrioretySpecification : ISpecification<Project>
+internal sealed class TaskPrioritySpecification : ISpecification<Task>
 {
     private readonly Priority? _priority;
 
-    public ProjectPrioretySpecification(
+    public TaskPrioritySpecification(
         Priority? priority)
     {
         _priority = priority;
     }
 
-    public Expression<Func<Project, bool>> ToExpression()
+    public Expression<Func<Task, bool>> ToExpression()
     {
         return p => (!_priority.HasValue || p.Priority == _priority);
     }

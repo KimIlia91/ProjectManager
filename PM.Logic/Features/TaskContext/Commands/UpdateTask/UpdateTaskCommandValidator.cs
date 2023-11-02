@@ -34,8 +34,8 @@ public sealed class UpdateTaskCommandValidator
 
         RuleFor(command => command.ExecutorId)
             .Cascade(CascadeMode.StopOnFirstFailure)
-            .NotEmpty()
-            .MustAsync(ExecutorMustBeInDatabase);
+            .MustAsync(ExecutorMustBeInDatabase)
+            .When(command => command.ExecutorId != 0);
 
         RuleFor(command => command.Comment)
             .Cascade(CascadeMode.StopOnFirstFailure)
