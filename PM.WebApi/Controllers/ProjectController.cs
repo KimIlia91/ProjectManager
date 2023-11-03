@@ -3,9 +3,9 @@ using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
 using PM.Application.Features.ProjectContext.Dtos;
-using PM.Application.Features.ProjectContext.Queries.GetManagerProjects;
 using PM.Application.Features.ProjectContext.Queries.GetProject;
 using PM.Application.Features.ProjectContext.Queries.GetProjectList;
+using PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
 using PM.Domain.Common.Enums;
 
 namespace PM.WebApi.Controllers;
@@ -80,11 +80,11 @@ public class ProjectController : ApiBaseController
             errors => Problem(errors));
     }
 
-    [HttpGet("Manager")]
+    [HttpGet("Projects")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectListAsync(
-     [FromQuery] GetProjectUserListQuery query,
-     CancellationToken cancellationToken)
+        [FromQuery] GetUserProjectListQuery query,
+        CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(query, cancellationToken);
 

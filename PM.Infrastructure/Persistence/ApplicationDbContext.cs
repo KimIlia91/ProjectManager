@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PM.Domain.Entities;
 using Task = PM.Domain.Entities.Task;
@@ -6,9 +7,12 @@ using Task = PM.Domain.Entities.Task;
 namespace PM.Infrastructure.Persistence;
 
 public class ApplicationDbContext 
-    : IdentityDbContext<User, Role, int>
+    : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, UserRole, 
+        IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
 {
     public override DbSet<Role> Roles { get; set; }
+
+    public override DbSet<UserRole> UserRoles { get; set; }
 
     public DbSet<User> Employees { get; set; }
 

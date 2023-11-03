@@ -5,15 +5,15 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Features.ProjectContext.Dtos;
 
-namespace PM.Application.Features.ProjectContext.Queries.GetManagerProjects;
+namespace PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
 
-internal sealed class GetProjectUserListQueryHandler
-    : IRequestHandler<GetProjectUserListQuery, ErrorOr<List<GetProjectListResult>>>
+internal sealed class GetUserProjectListQueryHandler
+    : IRequestHandler<GetUserProjectListQuery, ErrorOr<List<GetProjectListResult>>>
 {
     private readonly ICurrentUserService _currentUser;
     private readonly IProjectRepository _projectRepository;
 
-    public GetProjectUserListQueryHandler(
+    public GetUserProjectListQueryHandler(
         ICurrentUserService currentUser,
         IProjectRepository projectRepository)
     {
@@ -22,7 +22,7 @@ internal sealed class GetProjectUserListQueryHandler
     }
 
     public async Task<ErrorOr<List<GetProjectListResult>>> Handle(
-        GetProjectUserListQuery query, 
+        GetUserProjectListQuery query,
         CancellationToken cancellationToken)
     {
         var projectQuery = _projectRepository
