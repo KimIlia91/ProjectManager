@@ -8,13 +8,13 @@ namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 public sealed class CreateTaskCommandValidator
     : AbstractValidator<CreateTaskCommand>
 {
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IProjectRepository _projectRepository;
 
     public CreateTaskCommandValidator(
         IUserRepository employeeRepository, IProjectRepository projectRepository)
     {
-        _employeeRepository = employeeRepository;
+        _userRepository = employeeRepository;
         _projectRepository = projectRepository;
 
         RuleFor(command => command.ProjectId)
@@ -28,11 +28,6 @@ public sealed class CreateTaskCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .MaximumLength(EntityConstants.TaskName);
-
-        RuleFor(command => command.AuthorId)
-            .MustAsync(AuthorMustBeInDatabase)
-            .When(command => command.AuthorId > 0)
-            .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.ExecutorId)
             .MustAsync(ExecutorMustBeInDatabase)
@@ -75,20 +70,9 @@ public sealed class CreateTaskCommandValidator
         int id,
         CancellationToken cancellationToken)
     {
-        command.Executor = await _employeeRepository
+        command.Executor = await _userRepository
            .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
 
         return command.Executor is not null;
-    }
-
-    private async Task<bool> AuthorMustBeInDatabase(
-        CreateTaskCommand command,
-        int id, 
-        CancellationToken cancellationToken)
-    {
-        command.Author = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
-
-        return command.Author is not null;
     }
 }

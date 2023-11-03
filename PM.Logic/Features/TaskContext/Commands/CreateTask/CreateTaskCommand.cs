@@ -11,8 +11,6 @@ namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 public sealed class CreateTaskCommand 
     : IRequest<ErrorOr<CreateTaskResult>>
 {
-    [JsonIgnore] public User? Author { get; set; }
-
     [JsonIgnore] public User? Executor { get; set; }
 
     [JsonIgnore] public Project? Project { get; set; }
@@ -20,8 +18,6 @@ public sealed class CreateTaskCommand
     public int ProjectId { get; set; }
 
     public string Name { get; set; } = null!;
-
-    public int AuthorId { get; set; }
 
     public int ExecutorId { get; set; }
 

@@ -9,7 +9,7 @@ public sealed class User : IdentityUser<int>
     private readonly List<Project> _manageProjects = new();
     private readonly List<Task> _executorTasks = new();
     private readonly List<Task> _authorTasks = new();
-    private readonly List<UserRole> _employeeRoles = new();
+    private readonly List<UserRole> _userRoles = new();
 
     public string FirstName { get; private set; } = null!;
 
@@ -25,7 +25,7 @@ public sealed class User : IdentityUser<int>
 
     public IReadOnlyCollection<Task> AuthorTasks => _authorTasks.ToList();
 
-    public IReadOnlyCollection<UserRole> EmployeeRoles => _employeeRoles.ToList();
+    public IReadOnlyCollection<UserRole> UserRoles => _userRoles.ToList();
 
     private User() { }
 

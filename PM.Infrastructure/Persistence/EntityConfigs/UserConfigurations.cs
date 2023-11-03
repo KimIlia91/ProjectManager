@@ -5,11 +5,11 @@ using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
-public sealed class EmployeeConfigurations : IEntityTypeConfiguration<User>
+public sealed class UserConfigurations : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Employees");
+        builder.ToTable("Users");
 
         builder.HasKey(e => e.Id);
 
@@ -43,8 +43,8 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<User>
         builder.HasMany(e => e.Projects)
             .WithMany(t => t.Employees);
 
-        builder.HasMany(e => e.EmployeeRoles)
-            .WithOne(t => t.Employee)
+        builder.HasMany(e => e.UserRoles)
+            .WithOne(t => t.User)
             .HasForeignKey(t => t.UserId);
     }
 }

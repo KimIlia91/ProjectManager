@@ -4,18 +4,18 @@ using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
-public sealed class EmployeeRoleConfigurations : IEntityTypeConfiguration<UserRole>
+public sealed class UserRoleConfigurations : IEntityTypeConfiguration<UserRole>
 {
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {
-        builder.ToTable("EmployeeRoles");
+        builder.ToTable("UserRoles");
 
         builder.HasOne(er => er.Role)
             .WithMany(r => r.EmployeeRoles)
             .HasForeignKey(er => er.RoleId);
 
-        builder.HasOne(er => er.Employee)
-            .WithMany(r => r.EmployeeRoles)
+        builder.HasOne(er => er.User)
+            .WithMany(r => r.UserRoles)
             .HasForeignKey(er => er.UserId);
     }
 }

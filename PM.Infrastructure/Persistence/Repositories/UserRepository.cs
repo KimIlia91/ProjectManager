@@ -43,7 +43,7 @@ public sealed class UserRepository
         CancellationToken cancellationToken)
     {
         return await DbSet
-            .Where(u => u.EmployeeRoles.Any(ur => ur.Role.Name == roleName))
+            .Where(u => u.UserRoles.Any(ur => ur.Role.Name == roleName))
             .ProjectToType<UserResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }
