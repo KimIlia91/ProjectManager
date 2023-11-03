@@ -5,8 +5,8 @@ using PM.Application.Features.ProjectContext.Dtos;
 
 namespace PM.Application.Features.ProjectContext.Queries.GetManagerProjects;
 
-public sealed class GetManagerProjectListQuery
-    : IRequest<ErrorOr<List<GetManagerProjectListResult>>>
+public sealed class GetUserProjectListQuery
+    : IRequest<ErrorOr<List<GetProjectListResult>>>
 {
     public ProjectFilter Filetr { get; set; } = new();
 

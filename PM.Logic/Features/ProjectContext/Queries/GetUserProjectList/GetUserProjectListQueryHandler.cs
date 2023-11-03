@@ -7,13 +7,13 @@ using PM.Application.Features.ProjectContext.Dtos;
 
 namespace PM.Application.Features.ProjectContext.Queries.GetManagerProjects;
 
-internal sealed class GetManagerProjectListQueryHandler
-    : IRequestHandler<GetManagerProjectListQuery, ErrorOr<List<GetManagerProjectListResult>>>
+internal sealed class GetUserProjectListQueryHandler
+    : IRequestHandler<GetUserProjectListQuery, ErrorOr<List<GetProjectListResult>>>
 {
     private readonly ICurrentUserService _currentUser;
     private readonly IProjectRepository _projectRepository;
 
-    public GetManagerProjectListQueryHandler(
+    public GetUserProjectListQueryHandler(
         ICurrentUserService currentUser,
         IProjectRepository projectRepository)
     {
@@ -21,17 +21,18 @@ internal sealed class GetManagerProjectListQueryHandler
         _projectRepository = projectRepository;
     }
 
-    public async Task<ErrorOr<List<GetManagerProjectListResult>>> Handle(
-        GetManagerProjectListQuery query, 
+    public async Task<ErrorOr<List<GetProjectListResult>>> Handle(
+        GetUserProjectListQuery query, 
         CancellationToken cancellationToken)
     {
         var projectQuery = _projectRepository
             .GetQuiery(asNoTracking: true)
-            .Where(p => p.Manager.Id == _currentUser.UserId)
+            .Where(p => p.Manager.Id == _currentUser.UserId ||
+                        p.Employees.Any(e => e.Id == _currentUser.UserId))
             .Filter(query.Filetr)
             .Sort(query.SotrBy);
 
         return await _projectRepository
-            .ToListResultAsync<GetManagerProjectListResult>(projectQuery, cancellationToken);
+            .ToListResultAsync<GetProjectListResult>(projectQuery, cancellationToken);
     }
 }
