@@ -5,7 +5,7 @@ using PM.Application.Features.ProjectContext.Dtos;
 
 namespace PM.Application.Features.ProjectContext.Queries.GetManagerProjects;
 
-public sealed class GetUserProjectListQuery
+public sealed class GetProjectUserListQuery
     : IRequest<ErrorOr<List<GetProjectListResult>>>
 {
     public ProjectFilter Filetr { get; set; } = new();

@@ -7,13 +7,13 @@ using PM.Application.Features.ProjectContext.Dtos;
 
 namespace PM.Application.Features.ProjectContext.Queries.GetManagerProjects;
 
-internal sealed class GetUserProjectListQueryHandler
-    : IRequestHandler<GetUserProjectListQuery, ErrorOr<List<GetProjectListResult>>>
+internal sealed class GetProjectUserListQueryHandler
+    : IRequestHandler<GetProjectUserListQuery, ErrorOr<List<GetProjectListResult>>>
 {
     private readonly ICurrentUserService _currentUser;
     private readonly IProjectRepository _projectRepository;
 
-    public GetUserProjectListQueryHandler(
+    public GetProjectUserListQueryHandler(
         ICurrentUserService currentUser,
         IProjectRepository projectRepository)
     {
@@ -22,7 +22,7 @@ internal sealed class GetUserProjectListQueryHandler
     }
 
     public async Task<ErrorOr<List<GetProjectListResult>>> Handle(
-        GetUserProjectListQuery query, 
+        GetProjectUserListQuery query, 
         CancellationToken cancellationToken)
     {
         var projectQuery = _projectRepository

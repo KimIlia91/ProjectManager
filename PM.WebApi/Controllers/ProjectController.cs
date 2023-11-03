@@ -83,7 +83,7 @@ public class ProjectController : ApiBaseController
     [HttpGet("Manager")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectListAsync(
-     [FromQuery] GetUserProjectListQuery query,
+     [FromQuery] GetProjectUserListQuery query,
      CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(query, cancellationToken);

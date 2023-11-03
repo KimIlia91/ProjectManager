@@ -5,7 +5,7 @@ using PM.Application.Features.EmployeeProjectsContext.Dtos;
 
 namespace PM.WebApi.Controllers
 {
-    public class EmployeeProjectsController : ApiBaseController
+    public class UserProjectsController : ApiBaseController
     {
         [HttpPost]
         [ProducesResponseType(typeof(AddEmployeeToProjectResult), StatusCodes.Status200OK)]
