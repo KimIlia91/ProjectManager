@@ -13,9 +13,9 @@ public sealed class UpdateTaskCommand : IRequest<ErrorOr<UpdateTaskResult>>
 {
     [JsonIgnore] public Task? Task { get; set; }
 
-    [JsonIgnore] public Employee? Author { get; set; }
+    [JsonIgnore] public User? Author { get; set; }
 
-    [JsonIgnore] public Employee? Executor { get; set; }
+    [JsonIgnore] public User? Executor { get; set; }
 
     public int Id { get; set; }
 

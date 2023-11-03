@@ -8,11 +8,11 @@ public sealed class UpdateTaskCommandValidator
     : AbstractValidator<UpdateTaskCommand>
 {
     private readonly ITaskRepository _taskRepository;
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IUserRepository _employeeRepository;
 
     public UpdateTaskCommandValidator(
         ITaskRepository taskRepository,
-        IEmployeeRepository employeeRepository)
+        IUserRepository employeeRepository)
     {
         _employeeRepository = employeeRepository;
         _taskRepository = taskRepository;

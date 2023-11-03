@@ -11,7 +11,7 @@ public sealed class UpdateProjectCommand : IRequest<ErrorOr<UpdateProjectResult>
 {
     [JsonIgnore] public Project Project { get; set; } = null!;
 
-    [JsonIgnore] public Employee Manager { get; set; } = null!;
+    [JsonIgnore] public User Manager { get; set; } = null!;
 
     public int Id { get; set; }
 

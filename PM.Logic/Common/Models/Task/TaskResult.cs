@@ -10,9 +10,9 @@ public class TaskResult
 
     public string Name { get; set; } = null!;
 
-    public EmployeeResult Author { get; set; } = null!;
+    public UserResult Author { get; set; } = null!;
 
-    public EmployeeResult Executor { get; set; } = null!;
+    public UserResult Executor { get; set; } = null!;
 
     public Status Status { get; set; }
 

@@ -9,12 +9,12 @@ public interface IIdentityService
 
     Task<bool> IsRoleExistAsync(string email);
 
-    Task<ErrorOr<Employee>> RegisterAsync(
+    Task<ErrorOr<User>> RegisterAsync(
         string password,
         string roleName,
-        Employee employee);
+        User employee);
 
-    Task<ErrorOr<Employee>> UpdateAsync(
-        Employee employee,
+    Task<ErrorOr<User>> UpdateAsync(
+        User employee,
         CancellationToken cancellationToken);
 }

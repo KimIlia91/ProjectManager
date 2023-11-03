@@ -9,9 +9,9 @@ public class GetTaskListResult
 
     public string Name { get; set; } = null!;
 
-    public EmployeeResult Author { get; set; } = new EmployeeResult();
+    public UserResult Author { get; set; } = new UserResult();
 
-    public EmployeeResult Executor { get; set; } = new EmployeeResult();
+    public UserResult Executor { get; set; } = new UserResult();
 
     public string Comment { get; set; } = string.Empty;
 

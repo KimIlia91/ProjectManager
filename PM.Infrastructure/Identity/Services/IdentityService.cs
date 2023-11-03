@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Entities;
 using PM.Infrastructure.Persistence;
@@ -9,12 +8,12 @@ namespace PM.Infrastructure.Identity.Services;
 
 public class IdentityService : IIdentityService
 {
-    private readonly UserManager<Employee> _userManager;
+    private readonly UserManager<User> _userManager;
     private readonly RoleManager<Role> _roleManager;
     private readonly ApplicationDbContext _context;
 
     public IdentityService(
-        UserManager<Employee> userManager,
+        UserManager<User> userManager,
         RoleManager<Role> roleManager,
         ApplicationDbContext context)
     {
@@ -33,10 +32,10 @@ public class IdentityService : IIdentityService
         return await _roleManager.RoleExistsAsync(roleName);
     }
 
-    public async Task<ErrorOr<Employee>> RegisterAsync(
+    public async Task<ErrorOr<User>> RegisterAsync(
         string password,
         string roleName,
-        Employee employee)
+        User employee)
     {
         var resultUser = await _userManager.CreateAsync(employee, password);
 
@@ -52,8 +51,8 @@ public class IdentityService : IIdentityService
         return Error.Failure("User could not be created");
     }
 
-    public async Task<ErrorOr<Employee>> UpdateAsync(
-        Employee employee,
+    public async Task<ErrorOr<User>> UpdateAsync(
+        User employee,
         CancellationToken cancellationToken)
     {
         var resultUser = await _userManager.UpdateAsync(employee);

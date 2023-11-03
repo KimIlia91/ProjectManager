@@ -8,11 +8,11 @@ public sealed class CreateProjectCommandValidator
     : AbstractValidator<CreateProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IUserRepository _employeeRepository;
 
     public CreateProjectCommandValidator(
         IProjectRepository projectRepository,
-        IEmployeeRepository employeeRepository)
+        IUserRepository employeeRepository)
     {
         _projectRepository = projectRepository;
         _employeeRepository = employeeRepository;

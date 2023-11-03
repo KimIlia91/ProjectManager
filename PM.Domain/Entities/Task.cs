@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using PM.Domain.Common.Enums;
-using Status = PM.Domain.Common.Enums.Status;
 
 namespace PM.Domain.Entities;
 
@@ -8,9 +7,9 @@ public sealed class Task : BaseEntity
 {
     public string Name { get; private set; } = null!;
 
-    public Employee? Author { get; private set; }
+    public User? Author { get; private set; }
 
-    public Employee? Executor { get; private set; }
+    public User? Executor { get; private set; }
 
     public Project Project { get; private set; }
 
@@ -24,8 +23,8 @@ public sealed class Task : BaseEntity
 
     internal Task(
         string name,
-        Employee? author,
-        Employee? executor,
+        User? author,
+        User? executor,
         Project project,
         string? comment,
         Status taskStatus,
@@ -42,8 +41,8 @@ public sealed class Task : BaseEntity
 
     public static ErrorOr<Task> Create(
         string name,
-        Employee? author,
-        Employee? executor,
+        User? author,
+        User? executor,
         Project project,
         string? comment,
         Status taskStatus,
@@ -61,8 +60,8 @@ public sealed class Task : BaseEntity
 
     public ErrorOr<Task> Update(
         string name,
-        Employee? author,
-        Employee? executor,
+        User? author,
+        User? executor,
         string? comment,
         Status taskStatus,
         Priority priority)

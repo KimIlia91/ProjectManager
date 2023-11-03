@@ -6,11 +6,11 @@ using Task = PM.Domain.Entities.Task;
 namespace PM.Infrastructure.Persistence;
 
 public class ApplicationDbContext 
-    : IdentityDbContext<Employee, Role, int>
+    : IdentityDbContext<User, Role, int>
 {
     public override DbSet<Role> Roles { get; set; }
 
-    public DbSet<Employee> Employees { get; set; }
+    public DbSet<User> Employees { get; set; }
 
     public DbSet<Project> Projects { get; set; }
 

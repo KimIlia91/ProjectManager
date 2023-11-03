@@ -6,7 +6,7 @@ namespace PM.Domain.Entities;
 
 public sealed class Project : BaseEntity
 {
-    private readonly List<Employee> _employees = new();
+    private readonly List<User> _employees = new();
     private readonly List<Task> _tasks = new();
 
     public string Name { get; private set; } = null!;
@@ -15,7 +15,7 @@ public sealed class Project : BaseEntity
 
     public string ExecutorCompany { get; private set; }
 
-    public Employee? Manager { get; private set; }
+    public User? Manager { get; private set; }
 
     public DateTime StartDate { get; private set; }
 
@@ -23,7 +23,7 @@ public sealed class Project : BaseEntity
 
     public Priority Priority { get; private set; }
 
-    public IReadOnlyCollection<Employee> Employees => _employees.ToList();
+    public IReadOnlyCollection<User> Employees => _employees.ToList();
 
     public IReadOnlyCollection<Task> Tasks => _tasks.ToList();
 
@@ -33,7 +33,7 @@ public sealed class Project : BaseEntity
         string name,
         string customerCompany,
         string executorCompany,
-        Employee manager,
+        User manager,
         DateTime startDate,
         DateTime endDate,
         Priority priority)
@@ -51,7 +51,7 @@ public sealed class Project : BaseEntity
         string name,
         string customerCompany,
         string executorCompany,
-        Employee manager,
+        User manager,
         DateTime startDate,
         DateTime endDate,
         Priority priority)
@@ -73,7 +73,7 @@ public sealed class Project : BaseEntity
         string name,
         string customerCompany,
         string executorCompany,
-        Employee manager,
+        User manager,
         DateTime startDate,
         DateTime endDate,
         Priority priority)
@@ -92,17 +92,17 @@ public sealed class Project : BaseEntity
         return this;
     }
 
-    public void AddEmployee(Employee employee)
+    public void AddEmployee(User employee)
     {
         _employees.Add(employee);
     }
 
-    public void RemoveEmployee(Employee employee)
+    public void RemoveEmployee(User employee)
     {
         _employees.Remove(employee);
     }
 
-    public void ChangeManager(Employee manager)
+    public void ChangeManager(User manager)
     {
         Manager = manager;
     }

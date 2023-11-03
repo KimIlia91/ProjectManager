@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PM.Application.Features.EmployeeContext.Commands.CreateEmployee;
 using PM.Application.Features.EmployeeContext.Commands.DeleteEmployee;
-using PM.Application.Features.EmployeeContext.Commands.UpdateEmployee;
 using PM.Application.Features.EmployeeContext.Dtos;
 using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
 using PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
+using PM.Application.Features.UserContext.Commands.CreateUser;
+using PM.Application.Features.UserContext.Commands.UpdateUser;
 
 namespace PM.WebApi.Controllers;
 
 public class EmployeeController : ApiBaseController
 {
     [HttpPost]
-    [ProducesResponseType(typeof(CreateEmployeeResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CreateUserResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateEmployeeAsync(
-        CreateEmployeeCommand command,
+        CreateUserCommand command,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(command, cancellationToken);
@@ -24,12 +24,12 @@ public class EmployeeController : ApiBaseController
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(GetEmployeeResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetUserResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetEmployeeAsync(
         int id,
         CancellationToken cancellationToken)
     {
-        var query = new GetEmployeeQuery(id);
+        var query = new GetUserQuery(id);
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(
@@ -38,9 +38,9 @@ public class EmployeeController : ApiBaseController
     }
 
     [HttpPut]
-    [ProducesResponseType(typeof(UpdateEmployeeResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UpdateUserResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateEmployeeAsync(
-        UpdateEmployeeCommand command,
+        UpdateUserCommand command,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(command, cancellationToken);
@@ -56,7 +56,7 @@ public class EmployeeController : ApiBaseController
         int id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteEmployeeCommand { EmployeeId = id };
+        var command = new DeleteUserCommand { EmployeeId = id };
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(
@@ -65,7 +65,7 @@ public class EmployeeController : ApiBaseController
     }
 
     [HttpGet("project/{projectId}")]
-    [ProducesResponseType(typeof(UpdateEmployeeResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(UpdateUserResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectEmployeesAsync(
        int projectId,
        CancellationToken cancellationToken)

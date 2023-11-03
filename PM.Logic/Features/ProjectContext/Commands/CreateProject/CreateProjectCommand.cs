@@ -9,7 +9,7 @@ namespace PM.Application.Features.ProjectContext.Commands.CreateProject;
 
 public sealed class CreateProjectCommand : IRequest<ErrorOr<CreateProjectResult>>
 {
-    [JsonIgnore] public Employee Manager { get; set; } = null!;
+    [JsonIgnore] public User Manager { get; set; } = null!;
 
     public string Name { get; set; } = null!;
 

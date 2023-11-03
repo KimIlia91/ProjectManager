@@ -14,7 +14,7 @@ public class GetProjectResult
 
     public string ExecutorCompany { get; set; } = null!;
 
-    public EmployeeResult? Manager { get; set; }
+    public UserResult? Manager { get; set; }
 
     public DateTime StartDate { get; set; }
 

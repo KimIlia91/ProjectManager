@@ -12,7 +12,7 @@ public static class DependepcyInjection
     public static IServiceCollection AddIdentity(
         this IServiceCollection services)
     {
-        services.AddIdentity<Employee, Role>()
+        services.AddIdentity<User, Role>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 

@@ -13,7 +13,7 @@ public sealed class GetProjectListResult
 
     public string ExecutorCompany { get; set; } = null!;
 
-    public EmployeeResult Manager { get; set; } = null!;
+    public UserResult Manager { get; set; } = null!;
 
     public DateTime StartDate { get; set; }
 

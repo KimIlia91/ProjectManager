@@ -7,11 +7,11 @@ namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 public sealed class CreateTaskCommandValidator
     : AbstractValidator<CreateTaskCommand>
 {
-    private readonly IEmployeeRepository _employeeRepository;
+    private readonly IUserRepository _employeeRepository;
     private readonly IProjectRepository _projectRepository;
 
     public CreateTaskCommandValidator(
-        IEmployeeRepository employeeRepository, IProjectRepository projectRepository)
+        IUserRepository employeeRepository, IProjectRepository projectRepository)
     {
         _employeeRepository = employeeRepository;
         _projectRepository = projectRepository;

@@ -4,9 +4,9 @@ using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
-public sealed class EmployeeRoleConfigurations : IEntityTypeConfiguration<EmployeeRole>
+public sealed class EmployeeRoleConfigurations : IEntityTypeConfiguration<UserRole>
 {
-    public void Configure(EntityTypeBuilder<EmployeeRole> builder)
+    public void Configure(EntityTypeBuilder<UserRole> builder)
     {
         builder.ToTable("EmployeeRoles");
 
