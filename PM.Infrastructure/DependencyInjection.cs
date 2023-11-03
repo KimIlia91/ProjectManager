@@ -18,7 +18,7 @@ namespace PM.Infrastructure
         {
             services.AddPesistence(configuration);
             services.AddServices();
-            services.AddAuth();
+            services.AddAuth(configuration);
 
             return services;
         }
