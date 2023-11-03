@@ -8,32 +8,32 @@ using PM.Application.Common.Models.Employee;
 
 namespace PM.Infrastructure.Persistence.Repositories;
 
-public sealed class EmployeeRepository
+public sealed class UserRepository
     : BaseRepository<User>, IUserRepository
 {
     private readonly ApplicationDbContext _context;
 
-    public EmployeeRepository(
+    public UserRepository(
         ApplicationDbContext context,
         IMapper mapper) : base(context, mapper)
     {
         _context = context;
     }
 
-    public async Task<GetUserResult?> GetEmployeeByIdAsync(
+    public async Task<GetUserResult?> GetUserByIdAsync(
         int employeeId,
         CancellationToken cancellationToken)
     {
-        return await _context.Employees
+        return await DbSet
             .Where(e => e.Id == employeeId)
             .ProjectToType<GetUserResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<List<GetUserResult>> GetEmployeesAsync(
+    public async Task<List<GetUserResult>> GetUsersAsync(
         CancellationToken cancellationToken)
     {
-        return await _context.Employees
+        return await DbSet
             .ProjectToType<GetUserResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }
@@ -44,6 +44,16 @@ public sealed class EmployeeRepository
     {
         return await DbSet
             .Where(u => u.EmployeeRoles.Any(ur => ur.Role.Name == roleName))
+            .ProjectToType<UserResult>(Mapper.Config)
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<List<UserResult>> GetProjectUserResultListAsync(
+        int projectId, 
+        CancellationToken cancellationToken)
+    {
+        return await DbSet
+            .Where(p => p.Projects.Any(e => e.Id == projectId))
             .ProjectToType<UserResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }

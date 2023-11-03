@@ -8,18 +8,18 @@ namespace PM.Application.Features.EmployeeContext.Queries.GetEmployees;
 public sealed class GetUsersQueryHandler
     : IRequestHandler<GetUsersQuery, ErrorOr<List<GetUserResult>>>
 {
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     public GetUsersQueryHandler(
-        IUserRepository employeeRepository)
+        IUserRepository userRepository)
     {
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<ErrorOr<List<GetUserResult>>> Handle(
         GetUsersQuery query, 
         CancellationToken cancellationToken)
     {
-        return await _employeeRepository.GetEmployeesAsync(cancellationToken);
+        return await _userRepository.GetUsersAsync(cancellationToken);
     }
 }

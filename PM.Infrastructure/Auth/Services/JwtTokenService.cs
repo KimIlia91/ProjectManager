@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Entities;
@@ -14,7 +15,9 @@ public class JwtTokenService : IJwtTokenService
     private readonly JwtSettings _jwtSettings;
     private readonly IDateTimeService _dateTimeProvider;
 
-    public JwtTokenService(IDateTimeService dateTimeProvider, IOptions<JwtSettings> jwtOptions)
+    public JwtTokenService(
+        IDateTimeService dateTimeProvider, 
+        IOptions<JwtSettings> jwtOptions)
     {
         _dateTimeProvider = dateTimeProvider;
         _jwtSettings = jwtOptions.Value;
@@ -37,6 +40,7 @@ public class JwtTokenService : IJwtTokenService
         var securiryToken = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
+            notBefore: _dateTimeProvider.UtcNow,
             expires: _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
             claims: claims,
             signingCredentials: signingCredentials);

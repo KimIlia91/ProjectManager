@@ -9,7 +9,7 @@ public static class ServicesDi
     {
 
         services.AddScoped<ICurrentUserService, CurrentUserService>();
-        services.AddScoped<IDateTimeService, DateTimeService>();
+        services.AddSingleton<IDateTimeService, DateTimeService>();
 
         return services;
     }

@@ -80,7 +80,7 @@ public class ProjectController : ApiBaseController
             errors => Problem(errors));
     }
 
-    [HttpGet("Projects")]
+    [HttpGet("User")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectListAsync(
         [FromQuery] GetUserProjectListQuery query,

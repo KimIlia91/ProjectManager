@@ -9,13 +9,11 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers();
-
-builder.Services.AddAuthorization();
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddSingleton<ProblemDetailsFactory, PmErrorProblemDitailsFactory>();
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddSwaggerGen();
-//builder.Services.AddCustomSwaggerGen(Assembly.GetExecutingAssembly());
+//builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGen(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

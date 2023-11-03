@@ -6,11 +6,15 @@ namespace PM.Application.Common.Interfaces.IRepositories;
 
 public interface IUserRepository : IBaseRepository<User>
 {
-    Task<GetUserResult?> GetEmployeeByIdAsync(
+    Task<GetUserResult?> GetUserByIdAsync(
         int employeeId,
         CancellationToken cancellationToken);
 
-    Task<List<GetUserResult>> GetEmployeesAsync(
+    Task<List<GetUserResult>> GetUsersAsync(
+        CancellationToken cancellationToken);
+
+    Task<List<UserResult>> GetProjectUserResultListAsync(
+        int projectId,
         CancellationToken cancellationToken);
 
     Task<List<UserResult>> GetUserResultListByRoleAsync(

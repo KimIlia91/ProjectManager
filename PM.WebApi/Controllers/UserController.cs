@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PM.Application.Common.Models.Employee;
 using PM.Application.Features.EmployeeContext.Dtos;
+using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
+using PM.Application.Features.EmployeeContext.Queries.GetEmployees;
+using PM.Application.Features.EmployeeContext.Queries.GetManagers;
+using PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
 using PM.Application.Features.UserContext.Commands.CreateUser;
 using PM.Application.Features.UserContext.Commands.DeleteUser;
 using PM.Application.Features.UserContext.Commands.UpdateUser;
-using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
-using PM.Application.Features.EmployeeContext.Queries.GetManagers;
-using PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
 
 namespace PM.WebApi.Controllers;
 
@@ -99,6 +100,19 @@ public class UserController : ApiBaseController
         CancellationToken cancellationToken)
     {
         var query = new GetEmployeeQuery();
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+          result => Ok(result),
+          errors => Problem(errors));
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(List<GetUserResult>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUsersListAsync(
+       CancellationToken cancellationToken)
+    {
+        var query = new GetUsersQuery();
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(

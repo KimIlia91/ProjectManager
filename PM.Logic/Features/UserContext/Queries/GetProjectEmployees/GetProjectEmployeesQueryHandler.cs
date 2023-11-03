@@ -8,23 +8,19 @@ namespace PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
 internal sealed class GetProjectEmployeesQueryHandler
     : IRequestHandler<GetProjectEmployeesQuery, ErrorOr<List<UserResult>>>
 {
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     public GetProjectEmployeesQueryHandler(
-        IUserRepository employeeRepository)
+        IUserRepository userRepository)
     {
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<ErrorOr<List<UserResult>>> Handle(
         GetProjectEmployeesQuery query,
         CancellationToken cancellationToken)
     {
-        var employeeQuery = _employeeRepository
-            .GetQuiery()
-            .Where(p => p.Projects.Any(e => e.Id == query.ProjctId));
-
-        return await _employeeRepository
-            .ToListResultAsync<UserResult>(employeeQuery, cancellationToken);
+        return await _userRepository
+            .GetProjectUserResultListAsync(query.ProjctId, cancellationToken);
     }
 }

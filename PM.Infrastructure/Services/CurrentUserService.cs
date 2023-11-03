@@ -7,9 +7,9 @@ namespace PM.Infrastructure.Services
     public sealed class CurrentUserService : ICurrentUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private int? _userId;
+        private int _userId;
 
-        public int? UserId
+        public int UserId
         {
             get
             {

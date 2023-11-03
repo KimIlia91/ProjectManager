@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Entities;
+using PM.Infrastructure.Auth.Services;
 using PM.Infrastructure.Identity;
 using PM.Infrastructure.Identity.Services;
 using PM.Infrastructure.Identity.Settings;
@@ -32,18 +33,31 @@ public static class AuthDi
         services.AddSingleton(Options.Create(tokenValidationSettings));
 
         services
-            .AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+            .AddAuthentication(options =>
             {
-                ValidateIssuer = tokenValidationSettings.ValidateIssuer,
-                ValidateAudience = tokenValidationSettings.ValidateAudience,
-                ValidateLifetime = tokenValidationSettings.ValidateLifetime,
-                ValidateIssuerSigningKey = tokenValidationSettings.ValidateIssuerSigningKey,
-                ValidIssuer = jwtSettings.Issuer,
-                ValidAudience = jwtSettings.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = true;
+                options.SaveToken = true;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = tokenValidationSettings.ValidateIssuer,
+                    ValidateAudience = tokenValidationSettings.ValidateAudience,
+                    ValidateLifetime = tokenValidationSettings.ValidateLifetime,
+                    ValidateIssuerSigningKey = tokenValidationSettings.ValidateIssuerSigningKey,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                };
             });
 
+        services.AddAuthorization();
+        services.AddScoped<RefreshTokenService>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddSingleton<IJwtTokenService, JwtTokenService>();
 

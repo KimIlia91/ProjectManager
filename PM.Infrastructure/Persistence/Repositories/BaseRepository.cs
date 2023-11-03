@@ -50,15 +50,6 @@ public class BaseRepository<TEntity>
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<TEntity>> GetAllAsync(
-        Expression<Func<TEntity, bool>> filter,
-        CancellationToken cancellationToken)
-    {
-        IQueryable<TEntity> query = DbSet.AsNoTracking();
-        query.Where(filter);
-        return await query.ToListAsync(cancellationToken);
-    }
-
     public async Task<TEntity?> GetOrDeafaultAsync(
         Expression<Func<TEntity, bool>> filter,
         CancellationToken cancellationToken)
