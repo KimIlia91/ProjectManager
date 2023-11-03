@@ -9,6 +9,7 @@ public sealed class Employee : IdentityUser<int>
     private readonly List<Project> _manageProjects = new();
     private readonly List<Task> _executorTasks = new();
     private readonly List<Task> _authorTasks = new();
+    private readonly List<EmployeeRole> _employeeRoles = new();
 
     public string FirstName { get; private set; } = null!;
 
@@ -23,6 +24,8 @@ public sealed class Employee : IdentityUser<int>
     public IReadOnlyCollection<Task> ExecutorTasks => _executorTasks.ToList();
 
     public IReadOnlyCollection<Task> AuthorTasks => _authorTasks.ToList();
+
+    public IReadOnlyCollection<EmployeeRole> EmployeeRoles => _employeeRoles.ToList();
 
     private Employee() { }
 

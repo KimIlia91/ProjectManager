@@ -7,7 +7,7 @@ namespace PM.Application.Common.Extensions;
 
 internal static class TaskQueryExtensions
 {
-    public static IQueryable<Task> Where(
+    public static IQueryable<Task> Filter(
       this IQueryable<Task> tasks,
       TaskFilter filter)
     {

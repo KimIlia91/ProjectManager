@@ -1,5 +1,4 @@
 ﻿using ErrorOr;
-using Mapster;
 using MediatR;
 using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
@@ -24,7 +23,7 @@ internal sealed class GetProjectListQueryHandler
     {
         var projectQuery = _projectRepository
             .GetQuiery(asNoTracking: true)
-            .Where(query.Filter)
+            .Filter(query.Filter)
             .Sort(query.SortBy);
 
         return await _projectRepository

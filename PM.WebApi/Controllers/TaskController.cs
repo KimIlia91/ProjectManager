@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PM.Application.Common.Models.Task;
 using PM.Application.Features.TaskContext.Commands.CreateTask;
 using PM.Application.Features.TaskContext.Commands.DeleteTask;
 using PM.Application.Features.TaskContext.Commands.UpdateTask;
 using PM.Application.Features.TaskContext.Dtos;
+using PM.Application.Features.TaskContext.Queries.GetProjectTasks;
 using PM.Application.Features.TaskContext.Queries.GetTask;
 using PM.Application.Features.TaskContext.Queries.GetTaskList;
 
@@ -79,4 +81,30 @@ public class TaskController : ApiBaseController
            result => Ok(result),
            errors => Problem(errors));
     }
+
+    [HttpGet("Project/{projectId}")]
+    [ProducesResponseType(typeof(List<TaskResult>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetProjectTasksAsync(
+        int projectId,
+        [FromQuery] GetProjectTasksRequest request,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetProjectTasksQuery(
+            projectId, 
+            request.Filter,
+            request.SortBy);
+
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+           result => Ok(result),
+           errors => Problem(errors));
+    }
+}
+
+public class GetProjectTasksRequest
+{
+    public TaskFilter Filter { get; set; } = new();
+
+    public string? SortBy { get; set; }
 }

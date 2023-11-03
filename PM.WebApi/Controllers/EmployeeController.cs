@@ -4,6 +4,7 @@ using PM.Application.Features.EmployeeContext.Commands.DeleteEmployee;
 using PM.Application.Features.EmployeeContext.Commands.UpdateEmployee;
 using PM.Application.Features.EmployeeContext.Dtos;
 using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
+using PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
 
 namespace PM.WebApi.Controllers;
 
@@ -61,5 +62,19 @@ public class EmployeeController : ApiBaseController
         return result.Match(
            result => NoContent(),
            errors => Problem(errors));
+    }
+
+    [HttpGet("project/{projectId}")]
+    [ProducesResponseType(typeof(UpdateEmployeeResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetProjectEmployeesAsync(
+       int projectId,
+       CancellationToken cancellationToken)
+    {
+        var query = new GetProjectEmployeesQuery(projectId);
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+          result => Ok(result),
+          errors => Problem(errors));
     }
 }

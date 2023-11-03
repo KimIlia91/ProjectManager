@@ -7,13 +7,12 @@ namespace PM.Application.Common.Extensions;
 
 public static class ProjectQueryExtensions
 {
-    public static IQueryable<Project> Where(
+    public static IQueryable<Project> Filter(
        this IQueryable<Project> projects,
        ProjectFilter filter)
     {
         return projects
             .Where(new ProjectDateSpecification(filter.StartDate, filter.EndDate).ToExpression())
-            .Where(new ProjectManagerSpecification(filter.ManagerId).ToExpression())
             .Where(new ProjectPrioritySpecification(filter.Priority).ToExpression());
     }
 

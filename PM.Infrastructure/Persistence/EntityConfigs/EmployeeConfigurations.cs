@@ -42,5 +42,9 @@ public sealed class EmployeeConfigurations : IEntityTypeConfiguration<Employee>
 
         builder.HasMany(e => e.Projects)
             .WithMany(t => t.Employees);
+
+        builder.HasMany(e => e.EmployeeRoles)
+            .WithOne(t => t.Employee)
+            .HasForeignKey(t => t.UserId);
     }
 }

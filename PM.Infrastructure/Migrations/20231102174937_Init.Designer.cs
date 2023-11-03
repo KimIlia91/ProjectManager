@@ -12,7 +12,7 @@ using PM.Infrastructure.Persistence;
 namespace PM.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231101171925_Init")]
+    [Migration("20231102174937_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -119,9 +119,9 @@ namespace PM.Infrastructure.Migrations
 
                     b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -305,7 +305,7 @@ namespace PM.Infrastructure.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("PM.Domain.Entities.Task", b =>
@@ -358,6 +358,15 @@ namespace PM.Infrastructure.Migrations
                     b.ToTable("Tasks", (string)null);
                 });
 
+            modelBuilder.Entity("PM.Domain.Entities.EmployeeRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<int>");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("EmployeeRoles", (string)null);
+                });
+
             modelBuilder.Entity("EmployeeProject", b =>
                 {
                     b.HasOne("PM.Domain.Entities.Employee", null)
@@ -393,21 +402,6 @@ namespace PM.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("PM.Domain.Entities.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.HasOne("PM.Domain.Entities.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PM.Domain.Entities.Employee", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -458,9 +452,36 @@ namespace PM.Infrastructure.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("PM.Domain.Entities.EmployeeRole", b =>
+                {
+                    b.HasOne("PM.Domain.Entities.Role", "Role")
+                        .WithMany("EmployeeRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PM.Domain.Entities.Employee", "Employee")
+                        .WithMany("EmployeeRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", null)
+                        .WithOne()
+                        .HasForeignKey("PM.Domain.Entities.EmployeeRole", "UserId", "RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("PM.Domain.Entities.Employee", b =>
                 {
                     b.Navigation("AuthorTasks");
+
+                    b.Navigation("EmployeeRoles");
 
                     b.Navigation("ExecutorTasks");
 
@@ -470,6 +491,11 @@ namespace PM.Infrastructure.Migrations
             modelBuilder.Entity("PM.Domain.Entities.Project", b =>
                 {
                     b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("PM.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("EmployeeRoles");
                 });
 #pragma warning restore 612, 618
         }
