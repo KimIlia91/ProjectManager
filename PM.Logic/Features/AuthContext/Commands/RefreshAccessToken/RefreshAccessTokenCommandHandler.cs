@@ -6,7 +6,7 @@ using PM.Application.Features.AuthContext.Dtos;
 namespace PM.Application.Features.AuthContext.Commands.RefreshAccessToken;
 
 internal sealed class RefreshAccessTokenCommandHandler
-    : IRequestHandler<RefreshAccessTokenCommand, ErrorOr<LoginResult>>
+    : IRequestHandler<RefreshAccessTokenCommand, ErrorOr<AuthResult>>
 {
     private readonly IIdentityService _identityService;
 
@@ -16,7 +16,7 @@ internal sealed class RefreshAccessTokenCommandHandler
         _identityService = identityService;
     }
 
-    public async Task<ErrorOr<LoginResult>> Handle(
+    public async Task<ErrorOr<AuthResult>> Handle(
         RefreshAccessTokenCommand command, 
         CancellationToken cancellationToken)
     {

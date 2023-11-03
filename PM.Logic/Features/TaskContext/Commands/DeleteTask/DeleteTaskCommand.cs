@@ -6,6 +6,9 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Features.TaskContext.Commands.DeleteTask;
 
+/// <summary>
+/// 
+/// </summary>
 public sealed class DeleteTaskCommand : IRequest<ErrorOr<DeleteTaskResult>>
 {
     [JsonIgnore] public Task? Task { get; set; }

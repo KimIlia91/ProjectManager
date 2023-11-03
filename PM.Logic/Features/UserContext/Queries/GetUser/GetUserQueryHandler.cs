@@ -2,6 +2,7 @@
 using MapsterMapper;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Resources;
 using PM.Application.Features.EmployeeContext.Dtos;
 
 namespace PM.Application.Features.EmployeeContext.Queries.GetEmployee;
@@ -28,7 +29,7 @@ public sealed class GetUserQueryHandler
             .GetUserByIdAsync(query.EmployeeId, cancellationToken);
 
         if (employee is null)
-            return Error.NotFound("Not found", nameof(query.EmployeeId));
+            return Error.NotFound(ErrorsResource.NotFound, nameof(query.EmployeeId));
 
         return employee;
     }

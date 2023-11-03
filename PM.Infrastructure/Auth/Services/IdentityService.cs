@@ -68,7 +68,7 @@ public class IdentityService : IIdentityService
         return user;
     }
 
-    public async Task<ErrorOr<LoginResult>> LoginAsync(
+    public async Task<ErrorOr<AuthResult>> LoginAsync(
         string email,
         string password)
     {
@@ -80,7 +80,7 @@ public class IdentityService : IIdentityService
 
         var accessToken = _jwtTokenService.GenerateToken(user);
         var refreshToken = await _refreshTokenService.GenerateAsync(user);
-        return new LoginResult(user.Email!, accessToken, refreshToken);
+        return new AuthResult(user.Email!, accessToken, refreshToken);
     }
 
     public async Task LogOutAsync(int userId)
@@ -89,7 +89,7 @@ public class IdentityService : IIdentityService
         await _userManager.UpdateSecurityStampAsync(user);
     }
 
-    public async Task<ErrorOr<LoginResult>> RefreshAccessTokenAsync(string refreshToken)
+    public async Task<ErrorOr<AuthResult>> RefreshAccessTokenAsync(string refreshToken)
     {
         var validationResult = await _refreshTokenService.ValidateAsync(refreshToken);
 
@@ -99,6 +99,6 @@ public class IdentityService : IIdentityService
         var user = validationResult.Value;
         var accessToken = _jwtTokenService.GenerateToken(user);
         var newRefreshToken = await _refreshTokenService.GenerateAsync(user);
-        return new LoginResult(user.Email!, accessToken, newRefreshToken);
+        return new AuthResult(user.Email!, accessToken, newRefreshToken);
     }
 }

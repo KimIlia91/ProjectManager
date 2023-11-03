@@ -26,7 +26,7 @@ internal sealed class CreateTaskCommandHandler
             command.Author, 
             command.Executor, 
             command.Project!,
-            command.Commnet!,
+            command.Comment!,
             command.Status,
             command.Priority);
 

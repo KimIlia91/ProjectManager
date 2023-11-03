@@ -7,7 +7,11 @@ using System.Text.Json.Serialization;
 
 namespace PM.Application.Features.ProjectContext.Commands.UpdateProject;
 
-public sealed class UpdateProjectCommand : IRequest<ErrorOr<UpdateProjectResult>>
+/// <summary>
+/// Represents a command for updating a project.
+/// </summary>
+public sealed class UpdateProjectCommand 
+    : IRequest<ErrorOr<UpdateProjectResult>>
 {
     [JsonIgnore] public Project Project { get; set; } = null!;
 

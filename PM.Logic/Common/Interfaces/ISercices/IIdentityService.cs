@@ -20,11 +20,11 @@ public interface IIdentityService
         User employee,
         CancellationToken cancellationToken);
 
-    Task<ErrorOr<LoginResult>> LoginAsync(
+    Task<ErrorOr<AuthResult>> LoginAsync(
         string email,
         string password);
 
     Task LogOutAsync(int userId);
 
-    Task<ErrorOr<LoginResult>> RefreshAccessTokenAsync(string refreshToken);
+    Task<ErrorOr<AuthResult>> RefreshAccessTokenAsync(string refreshToken);
 }

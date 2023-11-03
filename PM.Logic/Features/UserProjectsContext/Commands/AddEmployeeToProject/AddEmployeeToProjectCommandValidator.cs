@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Resources;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
@@ -19,12 +20,16 @@ public sealed class AddEmployeeToProjectCommandValidator
         RuleFor(command => command.EmployeeId)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
-            .MustAsync(EmployeeMustBeInDatabase);
+            .WithMessage(ErrorsResource.Required)
+            .MustAsync(EmployeeMustBeInDatabase)
+            .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.ProjectId)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
-            .MustAsync(ProjectMustBeInDatabase);
+            .WithMessage(ErrorsResource.Required)
+            .MustAsync(ProjectMustBeInDatabase)
+            .WithMessage(ErrorsResource.NotFound);
     }
 
     private async Task<bool> ProjectMustBeInDatabase(

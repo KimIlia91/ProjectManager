@@ -9,6 +9,9 @@ using Status = PM.Domain.Common.Enums.Status;
 
 namespace PM.Application.Features.TaskContext.Commands.UpdateTask;
 
+/// <summary>
+/// 
+/// </summary>
 public sealed class UpdateTaskCommand : IRequest<ErrorOr<UpdateTaskResult>>
 {
     [JsonIgnore] public Task? Task { get; set; }

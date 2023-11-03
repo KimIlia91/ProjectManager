@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using PM.Application.Common.Resources;
 
 namespace PM.Application.Features.AuthContext.Commands.RefreshAccessToken;
 
@@ -8,6 +9,7 @@ public sealed class RefreshAccessTokenCommandValidator
     public RefreshAccessTokenCommandValidator()
     {
         RuleFor(command => command.RefreshToken)
-            .NotEmpty();
+            .NotEmpty()
+            .WithMessage(ErrorsResource.Required);
     }
 }

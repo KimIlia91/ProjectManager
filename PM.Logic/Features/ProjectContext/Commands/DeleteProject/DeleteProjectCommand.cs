@@ -6,6 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace PM.Application.Features.ProjectContext.Commands.DeleteProject;
 
+/// <summary>
+/// Represents a command to delete a project.
+/// </summary>
 public sealed class DeleteProjectCommand : IRequest<ErrorOr<DeleteProjectResult>>
 {
     [JsonIgnore] public Project? Project { get; set; }

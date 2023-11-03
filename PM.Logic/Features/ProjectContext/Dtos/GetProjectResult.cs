@@ -4,6 +4,9 @@ using PM.Domain.Common.Enums;
 
 namespace PM.Application.Features.ProjectContext.Dtos;
 
+/// <summary>
+/// Represents the result of retrieving detailed information about a project.
+/// </summary>
 public class GetProjectResult
 {
     public int Id { get; set; }

@@ -25,7 +25,7 @@ public sealed class CreateTaskCommand
 
     public int ExecutorId { get; set; }
 
-    public string? Commnet { get; set; }
+    public string? Comment { get; set; }
 
     public Status Status { get; set; }
 

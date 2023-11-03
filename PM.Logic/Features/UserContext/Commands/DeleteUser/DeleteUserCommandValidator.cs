@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Resources;
 
 namespace PM.Application.Features.UserContext.Commands.DeleteUser;
 
@@ -15,7 +16,9 @@ public sealed class DeleteUserCommandValidator
 
         RuleFor(command => command.EmployeeId)
             .NotEmpty()
-            .MustAsync(MustBeInDatabase);
+            .WithMessage(ErrorsResource.Required)
+            .MustAsync(MustBeInDatabase)
+            .WithMessage(ErrorsResource.NotFound);
     }
 
     private async Task<bool> MustBeInDatabase(

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Resources;
 
 namespace PM.Application.Features.TaskContext.Commands.DeleteTask;
 
@@ -15,7 +16,9 @@ public sealed class DeleteTaskCommandValidator
 
         RuleFor(command => command.Id)
             .NotEmpty()
-            .MustAsync(MustBeInDatabase);
+            .WithMessage(ErrorsResource.Required)
+            .MustAsync(MustBeInDatabase)
+            .WithMessage(ErrorsResource.NotFound);
     }
 
     private async Task<bool> MustBeInDatabase(

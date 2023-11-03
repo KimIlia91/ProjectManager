@@ -1,4 +1,6 @@
 ﻿namespace PM.Application.Features.ProjectContext.Dtos;
 
-public sealed record CreateProjectResult(
-    int Id);
+/// <summary>
+/// Represents the result of creating a new project.
+/// </summary>
+public sealed record CreateProjectResult(int Id);

@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Resources;
 using PM.Application.Features.TaskContext.Dtos;
 
 namespace PM.Application.Features.TaskContext.Queries.GetTask;
@@ -24,7 +25,7 @@ internal sealed class GetTaskQueryHandler
             .GetTaskByIdAsync(query.Id, cancellationToken);
 
         if (task is null)
-            return Error.NotFound("Not found", nameof(query.Id));
+            return Error.NotFound(ErrorsResource.NotFound, nameof(query.Id));
 
         return task;
     }

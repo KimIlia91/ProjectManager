@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
+using PM.Application.Common.Resources;
 using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.UserContext.Commands.CreateUser;
@@ -23,26 +24,38 @@ public sealed class CreateUserCommandValidator
 
         RuleFor(command => command.FirstName)
             .NotEmpty()
-            .MaximumLength(EntityConstants.FirstName);
+            .WithMessage(ErrorsResource.Required)
+            .MaximumLength(EntityConstants.FirstName)
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.FirstName));
 
         RuleFor(command => command.LastName)
             .NotEmpty()
-            .MaximumLength(EntityConstants.LastName);
+            .WithMessage(ErrorsResource.Required)
+            .MaximumLength(EntityConstants.LastName)
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.LastName));
 
         RuleFor(command => command.MiddelName)
             .MaximumLength(EntityConstants.MiddelName)
-            .When(command => command.MiddelName is not null);
+            .When(command => command.MiddelName is not null)
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.MiddelName));
 
         RuleFor(command => command.Email)
             .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
             .EmailAddress()
+            .WithMessage(ErrorsResource.InvalidEmail)
             .MaximumLength(EntityConstants.Email)
-            .MustAsync(MustBeUnique);
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.Email))
+            .MustAsync(MustBeUnique)
+            .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.RoleName)
             .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
             .MaximumLength(EntityConstants.RoleNameLength)
-            .MustAsync(MustBeInDatabase);
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.RoleNameLength))
+            .MustAsync(MustBeInDatabase)
+            .WithMessage(ErrorsResource.NotFound);
     }
 
     private async Task<bool> MustBeInDatabase(

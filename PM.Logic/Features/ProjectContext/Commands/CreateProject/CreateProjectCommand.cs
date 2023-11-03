@@ -7,9 +7,13 @@ using System.Text.Json.Serialization;
 
 namespace PM.Application.Features.ProjectContext.Commands.CreateProject;
 
-public sealed class CreateProjectCommand : IRequest<ErrorOr<CreateProjectResult>>
+/// <summary>
+/// Represents a command for creating a new project.
+/// </summary>
+public sealed class CreateProjectCommand 
+    : IRequest<ErrorOr<CreateProjectResult>>
 {
-    [JsonIgnore] public User Manager { get; set; } = null!;
+    [JsonIgnore] public User? Manager { get; set; }
 
     public string Name { get; set; } = null!;
 
