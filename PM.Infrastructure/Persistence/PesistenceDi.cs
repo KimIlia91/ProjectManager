@@ -6,7 +6,7 @@ using PM.Infrastructure.Persistence.Repositories;
 
 namespace PM.Infrastructure.Persistence;
 
-public static class DependepcyInjection
+public static class PesistenceDi
 {
     public static IServiceCollection AddPesistence(
         this IServiceCollection services,

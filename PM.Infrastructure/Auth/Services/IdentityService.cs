@@ -35,31 +35,31 @@ public class IdentityService : IIdentityService
     public async Task<ErrorOr<User>> RegisterAsync(
         string password,
         string roleName,
-        User employee)
+        User user)
     {
-        var resultUser = await _userManager.CreateAsync(employee, password);
+        var resultUser = await _userManager.CreateAsync(user, password);
 
         if (!resultUser.Succeeded)
             return Error.Failure("User could not be created");
 
-        var resultRole = await _userManager.AddToRoleAsync(employee, roleName);
+        var resultRole = await _userManager.AddToRoleAsync(user, roleName);
 
         if (resultRole.Succeeded)
-            return employee;
+            return user;
 
-        await _userManager.DeleteAsync(employee);
+        await _userManager.DeleteAsync(user);
         return Error.Failure("User could not be created");
     }
 
     public async Task<ErrorOr<User>> UpdateAsync(
-        User employee,
+        User user,
         CancellationToken cancellationToken)
     {
-        var resultUser = await _userManager.UpdateAsync(employee);
+        var resultUser = await _userManager.UpdateAsync(user);
 
         if (!resultUser.Succeeded)
             return Error.Failure("Employee could not be created");
 
-        return employee;
+        return user;
     }
 }

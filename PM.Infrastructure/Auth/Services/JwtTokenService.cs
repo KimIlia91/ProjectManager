@@ -9,7 +9,7 @@ using System.Text;
 
 namespace PM.Infrastructure.Identity;
 
-public class JwtTokenService : ITokenService
+public class JwtTokenService : IJwtTokenService
 {
     private readonly JwtSettings _jwtSettings;
     private readonly IDateTimeService _dateTimeProvider;

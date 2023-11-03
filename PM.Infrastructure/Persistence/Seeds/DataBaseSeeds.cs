@@ -11,7 +11,9 @@ public static class DataBaseSeeds
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
         var roleManager = services.GetRequiredService<RoleManager<Role>>();
+        var userManager = services.GetRequiredService<UserManager<User>>();
 
         await RoleSeed.SeedAsync(roleManager);
+        await UserSeed.SeedAsync(userManager, roleManager);
     }
 }
