@@ -66,6 +66,7 @@ public static class AuthDi
             });
 
         services.AddAuthorization();
+
         services.AddScoped<RefreshTokenService>();
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddSingleton<IJwtTokenService, JwtTokenService>();

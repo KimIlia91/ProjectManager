@@ -5,16 +5,16 @@ using PM.WebApi.Common.Congifuratuions.Constants;
 namespace PM.WebApi.Common.Congifuratuions.Swagger;
 
 /// <summary>
-/// 
+/// Static class containing settings and extension methods for configuring Swagger documentation.
 /// </summary>
 public static class SwaggerSettings
 {
     /// <summary>
-    /// 
+    /// Adds custom Swagger generation settings to the specified service collection.
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="executingAssembly"></param>
-    /// <returns></returns>
+    /// <param name="services">The service collection to configure.</param>
+    /// <param name="executingAssembly">The assembly from which the Swagger settings are executed.</param>
+    /// <returns>The modified service collection.</returns>
     public static IServiceCollection AddCustomSwaggerGen(
         this IServiceCollection services,
         Assembly executingAssembly)
@@ -34,7 +34,7 @@ public static class SwaggerSettings
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = DomainApiConstants.AuthScheme,
                 In = ParameterLocation.Header
-            }); ;
+            });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
@@ -64,15 +64,15 @@ public static class SwaggerSettings
                 {
                     c.IncludeXmlComments(relatedXmlPath, true);
                 }
-            };
+            }
         });
     }
 
     /// <summary>
-    /// 
+    /// Configures and adds Swagger middleware to the specified web application.
     /// </summary>
-    /// <param name="app"></param>
-    /// <returns></returns>
+    /// <param name="app">The web application to configure for Swagger.</param>
+    /// <returns>The configured web application.</returns>
     public static WebApplication UseCustomSwaggerConfiguration(this WebApplication app)
     {
         app.UseSwagger();

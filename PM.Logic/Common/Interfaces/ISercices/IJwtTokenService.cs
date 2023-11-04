@@ -12,5 +12,5 @@ public interface IJwtTokenService
     /// </summary>
     /// <param name="user">The user for whom the token is generated.</param>
     /// <returns>The generated JWT token as a string.</returns>
-    string GenerateToken(User user);
+    string GenerateToken(User user, List<string> roleNames);
 }

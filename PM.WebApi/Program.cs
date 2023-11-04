@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddSingleton<ProblemDetailsFactory, PmErrorProblemDitailsFactory>();
 builder.Services.AddApplication();
-//builder.Services.AddSwaggerGen();
+
 builder.Services.AddCustomSwaggerGen(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();

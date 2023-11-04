@@ -13,16 +13,20 @@ using PM.Domain.Common.Constants;
 namespace PM.WebApi.Controllers;
 
 /// <summary>
-/// 
+/// Controller for managing tasks.
 /// </summary>
 public class TaskController : ApiBaseController
 {
     /// <summary>
-    /// 
+    /// Create a new task.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="command">The command for creating the task.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the operation result, which can be one of the following:
+    /// - 200 OK with the created task if successful.
+    /// - A problem response with errors if the operation encounters issues.
+    /// </returns>
     [HttpPost]
     [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(typeof(CreateTaskResult), StatusCodes.Status200OK)]
@@ -38,11 +42,15 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Update an existing task.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="command">The command for updating the task.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the operation result, which can be one of the following:
+    /// - 200 OK with the updated task if successful.
+    /// - A problem response with errors if the operation encounters issues.
+    /// </returns>
     [HttpPut]
     [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(typeof(UpdateTaskResult), StatusCodes.Status200OK)]
@@ -58,11 +66,15 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a task by its ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">The ID of the task to retrieve.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the retrieved task if found.
+    /// - 200 OK with the task details if successful.
+    /// - A problem response with errors if the task is not found or if there are issues.
+    /// </returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskAsync(
@@ -78,11 +90,15 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Delete a task by its ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">The ID of the task to delete.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult indicating the result of the deletion operation, which is:
+    /// - 204 No Content: If the task is successfully deleted.
+    /// - A problem response with errors if the task is not found or if there are issues.
+    /// </returns>
     [HttpDelete("{id}")]
     [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -99,11 +115,15 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a list of tasks based on query parameters.
     /// </summary>
-    /// <param name="query"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="query">The query parameters for filtering and sorting tasks.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of tasks matching the query.
+    /// - 200 OK with the list of tasks if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
     [HttpGet]
     [Authorize(Roles = $"{RoleConstants.Supervisor}")]
     [ProducesResponseType(typeof(List<GetTaskListResult>), StatusCodes.Status200OK)]
@@ -119,12 +139,16 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a list of tasks associated with a specific project.
     /// </summary>
-    /// <param name="projectId"></param>
-    /// <param name="request"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="projectId">The ID of the project to retrieve tasks for.</param>
+    /// <param name="request">Query parameters for filtering and sorting tasks.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of tasks associated with the project.
+    /// - 200 OK with the list of tasks if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
     [HttpGet("Project/{projectId}")]
     [ProducesResponseType(typeof(List<TaskResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectTasksAsync(
@@ -133,7 +157,7 @@ public class TaskController : ApiBaseController
         CancellationToken cancellationToken)
     {
         var query = new GetProjectTasksQuery(
-            projectId, 
+            projectId,
             request.Filter,
             request.SortBy);
 

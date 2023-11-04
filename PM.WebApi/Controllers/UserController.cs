@@ -14,16 +14,20 @@ using PM.Domain.Common.Constants;
 namespace PM.WebApi.Controllers;
 
 /// <summary>
-/// 
+/// Controller for managing users.
 /// </summary>
 public class UserController : ApiBaseController
 {
     /// <summary>
-    /// 
+    /// Create a new user.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="command">The command for creating the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the operation result, which can be one of the following:
+    /// - 200 OK with the created user if successful.
+    /// - A problem response with errors if the operation encounters issues.
+    /// </returns>
     [HttpPost]
     [Authorize(Roles = $"{RoleConstants.Supervisor}")]
     [ProducesResponseType(typeof(CreateUserResult), StatusCodes.Status200OK)]
@@ -39,11 +43,15 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a user by their ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">The ID of the user to retrieve.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the retrieved user if found.
+    /// - 200 OK with the user details if successful.
+    /// - A problem response with errors if the user is not found or if there are issues.
+    /// </returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(GetUserResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUserAsync(
@@ -59,11 +67,15 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Update an existing user.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="command">The command for updating the user.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the operation result, which can be one of the following:
+    /// - 200 OK with the updated user if successful.
+    /// - A problem response with errors if the operation encounters issues.
+    /// </returns>
     [HttpPut]
     [Authorize(Roles = $"{RoleConstants.Supervisor}")]
     [ProducesResponseType(typeof(UpdateUserResult), StatusCodes.Status200OK)]
@@ -79,11 +91,15 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Delete a user by their ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="id">The ID of the user to delete.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult indicating the result of the deletion operation, which is:
+    /// - 204 No Content: If the user is successfully deleted.
+    /// - A problem response with errors if the user is not found or if there are issues.
+    /// </returns>
     [HttpDelete("{id}")]
     [Authorize(Roles = $"{RoleConstants.Supervisor}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -100,11 +116,39 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a list of users based on query parameters.
     /// </summary>
-    /// <param name="projectId"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="query">The query parameters for filtering and sorting users.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of users matching the query.
+    /// - 200 OK with the list of users if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
+    [HttpGet]
+    [Authorize(Roles = RoleConstants.Supervisor)]
+    [ProducesResponseType(typeof(List<GetUserResult>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserListAsync(
+       CancellationToken cancellationToken)
+    {
+        var query = new GetUserListQuery();
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+          result => Ok(result),
+          errors => Problem(errors));
+    }
+
+    /// <summary>
+    /// Retrieve a list of users assigned to a specific project.
+    /// </summary>
+    /// <param name="projectId">The ID of the project to retrieve users for.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of users assigned to the project.
+    /// - 200 OK with the list of users if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
     [HttpGet("projectEmployees/{projectId}")]
     [ProducesResponseType(typeof(UpdateUserResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectUserListAsync(
@@ -120,10 +164,14 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a list of manager users.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of manager users if successful.
+    /// - 200 OK with the list of manager users if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
     [HttpGet("Managers")]
     [Authorize(Roles = RoleConstants.Supervisor)]
     [ProducesResponseType(typeof(List<UserResult>), StatusCodes.Status200OK)]
@@ -139,10 +187,14 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Retrieve a list of employee users.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of employee users if successful.
+    /// - 200 OK with the list of employee users if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
     [HttpGet("Employees")]
     [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(typeof(List<UserResult>), StatusCodes.Status200OK)]
@@ -150,25 +202,6 @@ public class UserController : ApiBaseController
         CancellationToken cancellationToken)
     {
         var query = new GetEmployeeListQuery();
-        var result = await Mediator.Send(query, cancellationToken);
-
-        return result.Match(
-          result => Ok(result),
-          errors => Problem(errors));
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    [HttpGet]
-    [Authorize(Roles = RoleConstants.Supervisor)]
-    [ProducesResponseType(typeof(List<GetUserResult>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUserListAsync(
-       CancellationToken cancellationToken)
-    {
-        var query = new GetUserListQuery();
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(

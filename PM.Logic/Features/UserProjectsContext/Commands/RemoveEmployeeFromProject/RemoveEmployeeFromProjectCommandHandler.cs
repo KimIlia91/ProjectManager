@@ -39,6 +39,6 @@ internal sealed class RemoveEmployeeFromProjectCommandHandler
 
         await _projectRepository.SaveChangesAsync(cancellationToken);
 
-        return new RemoveEmployeeFromProjectResult(command.EmployeeId, command.ProjectId);
+        return new RemoveEmployeeFromProjectResult(command.EmployeeId);
     }
 }

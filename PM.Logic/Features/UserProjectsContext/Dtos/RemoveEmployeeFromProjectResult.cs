@@ -6,5 +6,4 @@
 /// <param name="EmployeeId">The ID of the employee that was removed from the project.</param>
 /// <param name="ProjectId">The ID of the project from which the employee was removed.</param>
 public sealed record RemoveEmployeeFromProjectResult(
-    int EmployeeId,
-    int ProjectId);
+    int EmployeeId);

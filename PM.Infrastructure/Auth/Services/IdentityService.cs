@@ -93,7 +93,8 @@ public class IdentityService : IIdentityService
         if (!await _userManager.CheckPasswordAsync(user, password))
             return Error.Unauthorized("Login or password incorrect");
 
-        var accessToken = _jwtTokenService.GenerateToken(user);
+        var roles = await _userManager.GetRolesAsync(user);
+        var accessToken = _jwtTokenService.GenerateToken(user, roles.ToList());
         var refreshToken = await _refreshTokenService.GenerateAsync(user);
         return new AuthResult(user.Email!, accessToken, refreshToken);
     }
@@ -114,7 +115,8 @@ public class IdentityService : IIdentityService
             return validationResult.Errors;
 
         var user = validationResult.Value;
-        var accessToken = _jwtTokenService.GenerateToken(user);
+        var roles = await _userManager.GetRolesAsync(user);
+        var accessToken = _jwtTokenService.GenerateToken(user, roles.ToList());
         var newRefreshToken = await _refreshTokenService.GenerateAsync(user);
         return new AuthResult(user.Email!, accessToken, newRefreshToken);
     }

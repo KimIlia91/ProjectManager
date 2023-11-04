@@ -7,15 +7,19 @@ using PM.Domain.Common.Constants;
 namespace PM.WebApi.Controllers;
 
 /// <summary>
-/// 
+/// Controller for managing project statuses.
 /// </summary>
 public class StatusController : ApiBaseController
 {
     /// <summary>
-    /// 
+    /// Retrieve a list of project statuses.
     /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the list of project statuses, which can be one of the following:
+    /// - 200 OK with the list of statuses if successful.
+    /// - A problem response with errors if there are issues.
+    /// </returns>
     [HttpGet]
     [Authorize(Roles = RoleConstants.Supervisor)]
     [ProducesResponseType(typeof(List<GetStatusListResult>), StatusCodes.Status200OK)]

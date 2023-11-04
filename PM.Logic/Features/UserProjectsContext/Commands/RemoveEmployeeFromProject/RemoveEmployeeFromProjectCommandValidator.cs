@@ -27,11 +27,11 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
         _projectRepository = projectRepository;
 
         RuleFor(command => command.EmployeeId)
-           .Cascade(CascadeMode.StopOnFirstFailure)
-           .NotEmpty()
-           .WithMessage(ErrorsResource.Required)
-           .MustAsync(EmployeeMustBeInDatabase)
-           .WithMessage(ErrorsResource.NotFound);
+            .Cascade(CascadeMode.StopOnFirstFailure)
+            .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
+            .MustAsync(EmployeeMustBeInDatabase)
+            .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.ProjectId)
             .Cascade(CascadeMode.StopOnFirstFailure)
@@ -39,7 +39,6 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
             .WithMessage(ErrorsResource.Required)
             .MustAsync(ProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
-
     }
 
     private async Task<bool> ProjectMustBeInDatabase(

@@ -8,7 +8,7 @@ using PM.Application.Features.AuthContext.Dtos;
 namespace PM.WebApi.Controllers;
 
 /// <summary>
-/// 
+/// Controller for handling authentication-related actions.
 /// </summary>
 public class AuthController : ApiBaseController
 {
@@ -56,11 +56,15 @@ public class AuthController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Refreshes the user's access token.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="command">The command for refreshing the access token.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>
+    /// An IActionResult representing the operation result, which can be one of the following:
+    /// - 200 OK with the refreshed access token if successful.
+    /// - A problem response with errors if the operation encounters issues.
+    /// </returns>
     [HttpPost("RefreshAccessToken")]
     [ProducesResponseType(typeof(AuthResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> RefreshAccessTokenAsync(

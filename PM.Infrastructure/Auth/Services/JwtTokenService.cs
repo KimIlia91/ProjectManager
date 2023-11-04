@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Entities;
 using PM.Infrastructure.Identity.Settings;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -31,19 +32,23 @@ public class JwtTokenService : IJwtTokenService
     }
 
     /// <inheritdoc />
-    public string GenerateToken(User user)
+    public string GenerateToken(User user, List<string> roleNames)
     {
         var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_jwtSettings.Secret)),
             SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        List<Claim> claims = new()
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+
+        var roleClaims = CreateRoleClaimList(roleNames);
+
+        claims.AddRange(roleClaims);
 
         var securiryToken = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
@@ -54,5 +59,15 @@ public class JwtTokenService : IJwtTokenService
             signingCredentials: signingCredentials);
 
         return new JwtSecurityTokenHandler().WriteToken(securiryToken);
+    }
+
+    private static List<Claim> CreateRoleClaimList(List<string> roleNames)
+    {
+        var roleClaims = new List<Claim>();
+
+        foreach (var roleName in roleNames)
+            roleClaims.Add(new Claim(ClaimTypes.Role, roleName));
+
+        return roleClaims;
     }
 }
