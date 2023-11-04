@@ -3,9 +3,6 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
-using PM.Domain.Common.Enums;
-using PM.Domain.Common.Extensions;
-using System.Threading;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
@@ -51,7 +48,7 @@ public sealed class AddEmployeeToProjectCommandValidator
     }
 
     private async Task<bool> UserCanNotBeInProject(
-        int userId, 
+        int userId,
         CancellationToken cancellationToken)
     {
         var userProject = new GetUserProjectsSpec(userId);

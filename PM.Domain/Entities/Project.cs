@@ -171,40 +171,4 @@ public sealed class Project : BaseEntity
     {
         _employees.Remove(employee);
     }
-
-    /// <summary>
-    /// Changes the manager of the project.
-    /// </summary>
-    /// <param name="manager">The new manager of the project.</param>
-    public void ChangeManager(User manager)
-    {
-        Manager = manager;
-    }
-
-    /// <summary>
-    /// Changes the priority of the project.
-    /// </summary>
-    /// <param name="priority">The new priority of the project.</param>
-    public void ChangePriority(Priority priority)
-    {
-        Priority = priority;
-    }
-
-    /// <summary>
-    /// Adds a task to the project.
-    /// </summary>
-    /// <param name="task">The task to add to the project.</param>
-    public void AddTask(Task task)
-    {
-        _tasks.Add(task);
-    }
-
-    /// <summary>
-    /// Removes a task from the project.
-    /// </summary>
-    /// <param name="task">The task to remove from the project's tasks.</param>
-    public void RemoveTask(Task task)
-    {
-        _tasks.Remove(task);
-    }
 }
