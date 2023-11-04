@@ -13,8 +13,8 @@ namespace PM.Tests
         [Fact]
         public async Task Handle_SuccessfulRegistratio_ReturnsCreateUserResult()
         {
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase()
+           //var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+           //    .UseInMemoryDatabase()
         }
 
 
