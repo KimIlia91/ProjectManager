@@ -14,7 +14,7 @@ public interface IIdentityService
     Task<ErrorOr<User>> RegisterAsync(
         string password,
         string roleName,
-        User employee);
+        User user);
 
     Task<ErrorOr<User>> UpdateAsync(
         User employee,
