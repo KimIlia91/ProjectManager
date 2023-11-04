@@ -5,14 +5,23 @@ using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 
+/// <summary>
+/// Validates the CreateTaskCommand to ensure it meets specified criteria.
+/// </summary>
 public sealed class CreateTaskCommandValidator
     : AbstractValidator<CreateTaskCommand>
 {
     private readonly IUserRepository _userRepository;
     private readonly IProjectRepository _projectRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the CreateTaskCommandValidator class.
+    /// </summary>
+    /// <param name="employeeRepository">The user repository.</param>
+    /// <param name="projectRepository">The project repository.</param>
     public CreateTaskCommandValidator(
-        IUserRepository employeeRepository, IProjectRepository projectRepository)
+        IUserRepository employeeRepository, 
+        IProjectRepository projectRepository)
     {
         _userRepository = employeeRepository;
         _projectRepository = projectRepository;

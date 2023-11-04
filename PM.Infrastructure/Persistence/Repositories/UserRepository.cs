@@ -62,7 +62,8 @@ public sealed class UserRepository
         CancellationToken cancellationToken)
     {
         return await DbSet
-            .Where(p => p.Projects.Any(e => e.Id == projectId))
+            .Where(p => p.Projects.Any(e => e.Id == projectId) ||
+                        p.ManageProjects.Any(mp => mp.Id == projectId))
             .ProjectToType<UserResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }

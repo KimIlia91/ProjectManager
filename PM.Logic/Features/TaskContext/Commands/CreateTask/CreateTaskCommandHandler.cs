@@ -8,6 +8,9 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 
+/// <summary>
+/// Handles the command to create a new task.
+/// </summary>
 internal sealed class CreateTaskCommandHandler
     : IRequestHandler<CreateTaskCommand, ErrorOr<CreateTaskResult>>
 {
@@ -15,6 +18,12 @@ internal sealed class CreateTaskCommandHandler
     private readonly IUserRepository _userRepository;
     private readonly ICurrentUserService _currentUser;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateTaskCommandHandler"/> class.
+    /// </summary>
+    /// <param name="taskRepository">The task repository.</param>
+    /// <param name="userRepository">The user repository.</param>
+    /// <param name="currentUser">The current user service.</param>
     public CreateTaskCommandHandler(
         ITaskRepository taskRepository, 
         IUserRepository userRepository,
@@ -26,6 +35,12 @@ internal sealed class CreateTaskCommandHandler
 
     }
 
+    /// <summary>
+    /// Handles the create task command.
+    /// </summary>
+    /// <param name="command">The create task command.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns>An error result or a result containing the task creation result.</returns>
     public async Task<ErrorOr<CreateTaskResult>> Handle(
         CreateTaskCommand command, 
         CancellationToken cancellationToken)

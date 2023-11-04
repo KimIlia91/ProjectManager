@@ -4,12 +4,21 @@ using PM.Application.Common.Resources;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 
+/// <summary>
+/// Validates the <see cref="RemoveEmployeeFromProjectCommand"/> 
+/// to ensure that it meets the specified criteria.
+/// </summary>
 public sealed class RemoveEmployeeFromProjectCommandValidator
     : AbstractValidator<RemoveEmployeeFromProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RemoveEmployeeFromProjectCommandValidator"/> class.
+    /// </summary>
+    /// <param name="projectRepository">The project repository used for project-related validation.</param>
+    /// <param name="userRepository">The user repository used for user-related validation.</param>
     public RemoveEmployeeFromProjectCommandValidator(
         IProjectRepository projectRepository,
         IUserRepository userRepository)

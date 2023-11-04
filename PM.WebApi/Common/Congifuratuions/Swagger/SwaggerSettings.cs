@@ -4,8 +4,17 @@ using PM.WebApi.Common.Congifuratuions.Constants;
 
 namespace PM.WebApi.Common.Congifuratuions.Swagger;
 
+/// <summary>
+/// 
+/// </summary>
 public static class SwaggerSettings
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="executingAssembly"></param>
+    /// <returns></returns>
     public static IServiceCollection AddCustomSwaggerGen(
         this IServiceCollection services,
         Assembly executingAssembly)
@@ -59,6 +68,11 @@ public static class SwaggerSettings
         });
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="app"></param>
+    /// <returns></returns>
     public static WebApplication UseCustomSwaggerConfiguration(this WebApplication app)
     {
         app.UseSwagger();

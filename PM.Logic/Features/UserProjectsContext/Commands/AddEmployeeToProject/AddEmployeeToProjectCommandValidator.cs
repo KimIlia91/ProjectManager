@@ -1,17 +1,25 @@
 ﻿using FluentValidation;
-using PM.Application.Common.Enums;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Resources;
+using PM.Domain.Common.Enums;
 using PM.Domain.Common.Extensions;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
+/// <summary>
+/// Validator for the command to add an employee to a project.
+/// </summary>
 public sealed class AddEmployeeToProjectCommandValidator
     : AbstractValidator<AddEmployeeToProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AddEmployeeToProjectCommandValidator"/> class.
+    /// </summary>
+    /// <param name="projectRepository">The project repository used for database operations.</param>
+    /// <param name="userRepository">The user repository used for database operations.</param>
     public AddEmployeeToProjectCommandValidator(
         IProjectRepository projectRepository,
         IUserRepository userRepository)
@@ -53,7 +61,7 @@ public sealed class AddEmployeeToProjectCommandValidator
         command.Employee = await _userRepository
             .GetOrDeafaultAsync(e => e.Id == id &&
                 e.UserRoles
-                    .Any(er => er.Role.Name == RoleEnum.Employee.GetDescription()), 
+                    .Any(er => er.Role.Name == RoleEnum.Employee.GetDescription()),
                 cancellationToken);
 
         return command.Employee is not null;

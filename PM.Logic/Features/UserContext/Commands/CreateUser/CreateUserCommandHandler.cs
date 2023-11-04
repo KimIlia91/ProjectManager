@@ -6,17 +6,30 @@ using PM.Domain.Entities;
 
 namespace PM.Application.Features.UserContext.Commands.CreateUser;
 
+/// <summary>
+/// Handles the command to create a new user.
+/// </summary>
 public sealed class CreateUserCommandHandler
     : IRequestHandler<CreateUserCommand, ErrorOr<CreateUserResult>>
 {
     private readonly IIdentityService _identityService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateUserCommandHandler"/> class.
+    /// </summary>
+    /// <param name="identityService">The identity service used for user registration.</param>
     public CreateUserCommandHandler(
         IIdentityService identityService)
     {
         _identityService = identityService;
     }
 
+    /// <summary>
+    /// Handles the creation of a new user and registration.
+    /// </summary>
+    /// <param name="command">The user creation command.</param>
+    /// <param name="cancellationToken">The token to cancel the operation.</param>
+    /// <returns>A result indicating the outcome of the user creation and registration.</returns>
     public async Task<ErrorOr<CreateUserResult>> Handle(
         CreateUserCommand command,
         CancellationToken cancellationToken)

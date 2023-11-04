@@ -5,8 +5,17 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Extensions;
 
+/// <summary>
+/// Extensions for filtering and sorting task queries.
+/// </summary>
 internal static class TaskQueryExtensions
 {
+    /// <summary>
+    /// Filters a queryable of tasks based on the provided <paramref name="filter"/>.
+    /// </summary>
+    /// <param name="tasks">The source queryable of tasks.</param>
+    /// <param name="filter">The task filter to apply.</param>
+    /// <returns>A filtered queryable of tasks.</returns>
     public static IQueryable<Task> Filter(
       this IQueryable<Task> tasks,
       TaskFilter filter)
@@ -18,6 +27,12 @@ internal static class TaskQueryExtensions
             .Where(new TaskStatusSpecification(filter.Status).ToExpression());
     }
 
+    /// <summary>
+    /// Sorts a queryable of tasks based on the provided <paramref name="sortBy"/> string.
+    /// </summary>
+    /// <param name="taskQuery">The source queryable of tasks to be sorted.</param>
+    /// <param name="sortBy">A comma-separated string specifying sorting properties and directions.</param>
+    /// <returns>A sorted queryable of tasks.</returns>
     public static IQueryable<Task> Sort(
         this IQueryable<Task> taskQuery,
         string? sortBy)

@@ -7,8 +7,16 @@ using PM.Application.Common.Behaviors;
 
 namespace PM.Application;
 
+/// <summary>
+/// 
+/// </summary>
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Adds application-specific services to the <see cref="IServiceCollection"/>.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> to which services should be added.</param>
+    /// <returns>The <see cref="IServiceCollection"/> with added application services.</returns>
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         var assembly = Assembly.GetExecutingAssembly();

@@ -6,21 +6,27 @@ using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.UserContext.Commands.CreateUser;
 
+/// <summary>
+/// Validates the CreateUserCommand input to ensure the provided 
+/// user information is correct and follows the required rules.
+/// </summary>
 public sealed class CreateUserCommandValidator
     : AbstractValidator<CreateUserCommand>
 {
-    private readonly IRoleRepository _roleRepository;
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IIdentityService _identityService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CreateUserCommandValidator"/> class.
+    /// </summary>
+    /// <param name="userRepository">The repository for employees (users).</param>
+    /// <param name="identityService">The identity service for user validation.</param>
     public CreateUserCommandValidator(
-        IRoleRepository roleRepository,
-        IUserRepository employeeRepository,
+        IUserRepository userRepository,
         IIdentityService identityService)
     {
         _identityService = identityService;
-        _roleRepository = roleRepository;
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
 
         RuleFor(command => command.FirstName)
             .NotEmpty()
@@ -69,7 +75,7 @@ public sealed class CreateUserCommandValidator
         string email,
         CancellationToken cancellationToken)
     {
-        var emailExist = await _employeeRepository
+        var emailExist = await _userRepository
           .GetOrDeafaultAsync(e => e.Email == email, cancellationToken);
 
         return emailExist is null;

@@ -3,6 +3,9 @@ using PM.Application.Common.Interfaces.ISercices;
 
 namespace PM.Application.Features.AuthContext.Commands.Logout;
 
+/// <summary>
+/// 
+/// </summary>
 internal sealed class LogoutCommandHandler
     : IRequestHandler<LogoutCommand>
 {

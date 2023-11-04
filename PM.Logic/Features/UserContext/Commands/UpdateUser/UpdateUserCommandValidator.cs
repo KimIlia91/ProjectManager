@@ -5,17 +5,25 @@ using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.UserContext.Commands.UpdateUser;
 
+/// <summary>
+/// Validates the update user command.
+/// </summary>
 public sealed class UpdateUserCommandValidator
     : AbstractValidator<UpdateUserCommand>
 {
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IRoleRepository _roleRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UpdateUserCommandValidator"/> class.
+    /// </summary>
+    /// <param name="userRepository">The repository for user data.</param>
+    /// <param name="roleRepository">The repository for role data.</param>
     public UpdateUserCommandValidator(
-        IUserRepository employeeRepository,
+        IUserRepository userRepository,
         IRoleRepository roleRepository)
     {
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
         _roleRepository = roleRepository;
 
         RuleFor(command => command.Id)
@@ -65,7 +73,7 @@ public sealed class UpdateUserCommandValidator
         string email,
         CancellationToken cancellationToken)
     {
-        var emailExist = await _employeeRepository
+        var emailExist = await _userRepository
             .GetOrDeafaultAsync(e => e.Email == email && e.Id != command.Id, cancellationToken);
 
         return emailExist is null;
@@ -86,9 +94,9 @@ public sealed class UpdateUserCommandValidator
         int id,
         CancellationToken cancellationToken)
     {
-        command.Employee = await _employeeRepository
+        command.User = await _userRepository
             .GetOrDeafaultAsync(e => e.Id == command.Id, cancellationToken);
 
-        return command.Employee is not null;
+        return command.User is not null;
     }
 }

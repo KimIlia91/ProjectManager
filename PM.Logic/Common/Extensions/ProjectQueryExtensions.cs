@@ -5,8 +5,17 @@ using PM.Domain.Entities;
 
 namespace PM.Application.Common.Extensions;
 
+/// <summary>
+/// Extensions for filtering and sorting project queries.
+/// </summary>
 public static class ProjectQueryExtensions
 {
+    /// <summary>
+    /// Filters a queryable of projects based on the provided <paramref name="filter"/>.
+    /// </summary>
+    /// <param name="projects">The source queryable of projects.</param>
+    /// <param name="filter">The project filter to apply.</param>
+    /// <returns>A filtered queryable of projects.</returns>
     public static IQueryable<Project> Filter(
        this IQueryable<Project> projects,
        ProjectFilter filter)
@@ -16,6 +25,12 @@ public static class ProjectQueryExtensions
             .Where(new ProjectPrioritySpecification(filter.Priority).ToExpression());
     }
 
+    /// <summary>
+    /// Sorts a queryable of projects based on the provided <paramref name="sortBy"/> string.
+    /// </summary>
+    /// <param name="projectsQuery">The source queryable of projects to be sorted.</param>
+    /// <param name="sortBy">A comma-separated string specifying sorting properties and directions.</param>
+    /// <returns>A sorted queryable of projects.</returns>
     public static IQueryable<Project> Sort(
         this IQueryable<Project> projectsQuery,
         string? sortBy)

@@ -4,17 +4,24 @@ using PM.Application.Common.Resources;
 
 namespace PM.Application.Features.UserContext.Commands.DeleteUser;
 
+/// <summary>
+/// Validator for the delete user command.
+/// </summary>
 public sealed class DeleteUserCommandValidator
     : AbstractValidator<DeleteUserCommand>
 {
     private readonly IUserRepository _employeeRepository;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DeleteUserCommandValidator"/> class.
+    /// </summary>
+    /// <param name="employeeRepository">The repository for users.</param>
     public DeleteUserCommandValidator(
         IUserRepository employeeRepository)
     {
         _employeeRepository = employeeRepository;
 
-        RuleFor(command => command.EmployeeId)
+        RuleFor(command => command.UserId)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(MustBeInDatabase)
