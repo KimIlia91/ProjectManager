@@ -170,11 +170,11 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// 
+    /// Changes the status of a task.
     /// </summary>
-    /// <param name="command"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <param name="command">The command to change the task status.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>An IActionResult representing the result of the operation.</returns>
     [HttpGet("Status")]
     [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> ChangeTaskStatusAsync(

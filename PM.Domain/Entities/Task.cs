@@ -1,7 +1,5 @@
 ﻿using ErrorOr;
 using PM.Domain.Common.Enums;
-using PM.Domain.Common.Extensions;
-using TaskStatus = PM.Domain.Common.Enums.Status;
 
 namespace PM.Domain.Entities;
 
@@ -144,8 +142,8 @@ public sealed class Task : BaseEntity
     /// <summary>
     /// Change the task status.
     /// </summary>
-    public void ChangeStatus(string statusName)
+    public void ChangeStatus(Status status)
     {
-        Status = statusName.GetStatus();
+        Status = status;
     }
 }

@@ -63,8 +63,8 @@ public sealed class UpdateTaskCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MaximumLength(EntityConstants.EnumStatusLength)
-            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.EnumStatusLength));
+            .IsInEnum()
+            .WithMessage(ErrorsResource.InvalidTaskStatus);
 
         RuleFor(command => command.Priority)
             .Cascade(CascadeMode.StopOnFirstFailure)

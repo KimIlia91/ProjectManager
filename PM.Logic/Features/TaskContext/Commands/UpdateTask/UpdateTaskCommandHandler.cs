@@ -44,7 +44,7 @@ internal sealed class UpdateTaskCommandHandler
             command.Author,
             command.Executor,
             command.Comment,
-            command.Status.GetStatus(),
+            command.Status,
             command.Priority);
 
         await _taskRepository.SaveChangesAsync(cancellationToken);
