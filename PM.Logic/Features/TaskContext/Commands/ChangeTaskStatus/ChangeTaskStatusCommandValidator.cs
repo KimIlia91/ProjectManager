@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Resources;
-using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.TaskContext.Commands.ChangeTaskStatus;
 
@@ -38,7 +37,7 @@ public sealed class ChangeTaskStatusCommandValidator
 
     private async Task<bool> TaskMustBeInDatabase(
         ChangeTaskStatusCommand command,
-        int taskId, 
+        int taskId,
         CancellationToken cancellationToken)
     {
         command.Task = await _taskRepository

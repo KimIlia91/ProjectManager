@@ -5,6 +5,7 @@ using PM.Domain.Common.Constants;
 using PM.Domain.Common.Enums;
 using Task = PM.Domain.Entities.Task;
 using Status = PM.Domain.Common.Enums.Status;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace PM.Infrastructure.Persistence.EntityConfigs;
 
@@ -35,10 +36,14 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
             .HasMaxLength(EntityConstants.EnumStatusLength)
             .IsRequired();
 
+        builder.HasIndex(x => x.Status);
+
         builder.Property(x => x.Priority)
-           .HasColumnName("Priority")
-           .HasConversion(new EnumToNumberConverter<Priority, int>())
-           .IsRequired();
+            .HasColumnName("Priority")
+            .HasConversion(new EnumToNumberConverter<Priority, int>())
+            .IsRequired();
+
+        builder.HasIndex(x => x.Priority);
 
         builder.HasOne(t => t.Project)
             .WithMany(p => p.Tasks);

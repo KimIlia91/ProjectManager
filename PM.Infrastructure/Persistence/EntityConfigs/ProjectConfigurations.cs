@@ -46,6 +46,8 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
             .HasConversion(new EnumToNumberConverter<Priority, int>())
             .IsRequired();
 
+        builder.HasIndex(p => p.Priority);
+
         builder.HasOne(p => p.Manager)
             .WithMany(e => e.ManageProjects)
             .IsRequired(false)
