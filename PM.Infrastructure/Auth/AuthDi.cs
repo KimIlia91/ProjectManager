@@ -15,8 +15,17 @@ using System.Text;
 
 namespace PM.Infrastructure;
 
+/// <summary>
+/// A static class for configuring authentication services.
+/// </summary>
 public static class AuthDi
 {
+    /// <summary>
+    /// Configures and adds authentication services to the specified service collection.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> to configure.</param>
+    /// <param name="configuration">The <see cref="IConfiguration"/> instance.</param>
+    /// <returns>The modified <see cref="IServiceCollection"/>.</returns>
     public static IServiceCollection AddAuth(
         this IServiceCollection services,
          IConfiguration configuration)

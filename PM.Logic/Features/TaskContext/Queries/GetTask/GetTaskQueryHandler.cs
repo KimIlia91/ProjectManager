@@ -22,7 +22,7 @@ internal sealed class GetTaskQueryHandler
         CancellationToken cancellationToken)
     {
         var task = await _taskRepository
-            .GetTaskByIdAsync(query.Id, cancellationToken);
+            .GetTaskResultByIdAsync(query.Id, cancellationToken);
 
         if (task is null)
             return Error.NotFound(ErrorsResource.NotFound, nameof(query.Id));

@@ -5,8 +5,16 @@ using Task = System.Threading.Tasks.Task;
 
 namespace PM.Infrastructure.Persistence.Seeds;
 
+/// <summary>
+/// A static class responsible for seeding the database with initial data.
+/// </summary>
 public static class DataBaseSeeds
 {
+    /// <summary>
+    /// Adds initial seed data to the database.
+    /// </summary>
+    /// <param name="services">The service provider containing required services.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public static async Task AddSeeds(IServiceProvider services)
     {
         var context = services.GetRequiredService<ApplicationDbContext>();

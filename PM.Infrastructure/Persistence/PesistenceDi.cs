@@ -6,8 +6,17 @@ using PM.Infrastructure.Persistence.Repositories;
 
 namespace PM.Infrastructure.Persistence;
 
+/// <summary>
+/// Represents a class for configuring and adding persistence-related services to the application.
+/// </summary>
 public static class PesistenceDi
 {
+    /// <summary>
+    /// Configures and adds persistence-related services to the specified service collection.
+    /// </summary>
+    /// <param name="services">The <see cref="IServiceCollection"/> to which the services should be added.</param>
+    /// <param name="configuration">The application configuration, which includes database connection settings.</param>
+    /// <returns>The modified <see cref="IServiceCollection"/>.</returns>
     public static IServiceCollection AddPesistence(
         this IServiceCollection services,
         IConfiguration configuration)

@@ -8,19 +8,25 @@ using PM.Application.Common.Models.Employee;
 
 namespace PM.Infrastructure.Persistence.Repositories;
 
+/// <summary>
+/// User repository for managing user entities.
+/// </summary>
 public sealed class UserRepository
     : BaseRepository<User>, IUserRepository
 {
-    private readonly ApplicationDbContext _context;
-
+    /// <summary>
+    /// Constructs a new instance of the UserRepository class.
+    /// </summary>
+    /// <param name="context">The database context.</param>
+    /// <param name="mapper">The AutoMapper instance for mapping objects.</param>
     public UserRepository(
         ApplicationDbContext context,
         IMapper mapper) : base(context, mapper)
     {
-        _context = context;
     }
 
-    public async Task<GetUserResult?> GetUserByIdAsync(
+    /// <inheritdoc />
+    public async Task<GetUserResult?> GetUserResultByIdAsync(
         int employeeId,
         CancellationToken cancellationToken)
     {
@@ -30,7 +36,8 @@ public sealed class UserRepository
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<List<GetUserResult>> GetUsersAsync(
+    /// <inheritdoc />
+    public async Task<List<GetUserResult>> GetUserResultListAsync(
         CancellationToken cancellationToken)
     {
         return await DbSet
@@ -38,6 +45,7 @@ public sealed class UserRepository
             .ToListAsync(cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task<List<UserResult>> GetUserResultListByRoleAsync(
         string roleName,
         CancellationToken cancellationToken)
@@ -48,6 +56,7 @@ public sealed class UserRepository
             .ToListAsync(cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task<List<UserResult>> GetProjectUserResultListAsync(
         int projectId, 
         CancellationToken cancellationToken)

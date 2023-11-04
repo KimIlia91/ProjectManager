@@ -7,14 +7,23 @@ using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.Repositories;
 
+/// <summary>
+/// 
+/// </summary>
 public sealed class RoleRepository : BaseRepository<Role>, IRoleRepository
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="mapper"></param>
     public RoleRepository(
         ApplicationDbContext context, 
         IMapper mapper) : base(context, mapper)
     {
     }
 
+    /// <inheritdoc />
     public async Task<List<GetRoleListResult>> GetRoleListResultAsync(
         CancellationToken cancellationToken)
     {

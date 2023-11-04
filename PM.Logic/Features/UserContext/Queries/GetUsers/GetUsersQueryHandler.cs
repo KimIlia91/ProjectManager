@@ -20,6 +20,6 @@ public sealed class GetUsersQueryHandler
         GetUsersQuery query, 
         CancellationToken cancellationToken)
     {
-        return await _userRepository.GetUsersAsync(cancellationToken);
+        return await _userRepository.GetUserResultListAsync(cancellationToken);
     }
 }

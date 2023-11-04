@@ -7,18 +7,24 @@ using PM.Domain.Entities;
 
 namespace PM.Infrastructure.Persistence.Repositories;
 
+/// <summary>
+/// Project repository.
+/// </summary>
 public sealed class ProjectRepository
     : BaseRepository<Project>, IProjectRepository
 {
-    private readonly ApplicationDbContext _context;
-
+    /// <summary>
+    /// Constructor for the project repository.
+    /// </summary>
+    /// <param name="context">The application context.</param>
+    /// <param name="mapper">Mapper for projects.</param>
     public ProjectRepository(
         ApplicationDbContext context,
         IMapper mapper) : base(context, mapper)
     {
-        _context = context;
     }
 
+    /// <inheritdoc />
     public async Task<List<GetProjectListResult>> ToProjectListResultAsync(
         IQueryable<Project> projectQuery,
         CancellationToken cancellationToken)
@@ -28,11 +34,12 @@ public sealed class ProjectRepository
             .ToListAsync(cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task<GetProjectResult?> GetProjectByIdAsync(
         int id,
         CancellationToken cancellationToken)
     {
-        return await _context.Projects
+        return await DbSet
             .Where(p => p.Id == id)
             .ProjectToType<GetProjectResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);

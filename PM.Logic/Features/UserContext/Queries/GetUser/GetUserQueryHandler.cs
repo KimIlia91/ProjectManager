@@ -26,7 +26,7 @@ public sealed class GetUserQueryHandler
         CancellationToken cancellationToken)
     {
         var employee = await _employeeRepository
-            .GetUserByIdAsync(query.EmployeeId, cancellationToken);
+            .GetUserResultByIdAsync(query.EmployeeId, cancellationToken);
 
         if (employee is null)
             return Error.NotFound(ErrorsResource.NotFound, nameof(query.EmployeeId));
