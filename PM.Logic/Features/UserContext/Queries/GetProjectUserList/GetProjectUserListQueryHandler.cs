@@ -3,7 +3,7 @@ using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Models.Employee;
 
-namespace PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
+namespace PM.Application.Features.UserContext.Queries.GetProjectUserList;
 
 /// <summary>
 /// Handles the query to retrieve a list of employees associated with a project.

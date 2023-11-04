@@ -3,12 +3,12 @@ using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.EmployeeContext.Dtos;
 
-namespace PM.Application.Features.EmployeeContext.Queries.GetEmployees;
+namespace PM.Application.Features.UserContext.Queries.GetUserList;
 
 /// <summary>
 /// Handles the retrieval of a list of user information based on the specified query.
 /// </summary>
-internal sealed class GetUserListQueryHandler 
+internal sealed class GetUserListQueryHandler
     : IRequestHandler<GetUserListQuery, ErrorOr<List<GetUserResult>>>
 {
     private readonly IUserRepository _userRepository;
@@ -29,7 +29,7 @@ internal sealed class GetUserListQueryHandler
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>A list of user information wrapped in an ErrorOr result.</returns>
     public async Task<ErrorOr<List<GetUserResult>>> Handle(
-        GetUserListQuery query, 
+        GetUserListQuery query,
         CancellationToken cancellationToken)
     {
         return await _userRepository

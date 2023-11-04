@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using PM.Application.Common.Models.Employee;
 using PM.Application.Features.EmployeeContext.Dtos;
 using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
-using PM.Application.Features.EmployeeContext.Queries.GetEmployees;
 using PM.Application.Features.EmployeeContext.Queries.GetManagers;
-using PM.Application.Features.EmployeeContext.Queries.GetProjectEmployees;
 using PM.Application.Features.UserContext.Commands.CreateUser;
 using PM.Application.Features.UserContext.Commands.DeleteUser;
 using PM.Application.Features.UserContext.Commands.UpdateUser;
+using PM.Application.Features.UserContext.Queries.GetProjectUserList;
+using PM.Application.Features.UserContext.Queries.GetUserList;
 using PM.Domain.Common.Constants;
 
 namespace PM.WebApi.Controllers;
