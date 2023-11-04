@@ -10,7 +10,7 @@ public class GetStatusListResult : IRegister
 
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Status, GetStatusListResult>()
+        config.NewConfig<Status, EnumResult>()
             .Map(dest => dest.Name, src => src.GetDescription());
     }
 }
