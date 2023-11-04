@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PM.Application.Common.Models.Task;
+using PM.Application.Features.TaskContext.Commands.ChangeTaskStatus;
 using PM.Application.Features.TaskContext.Commands.CreateTask;
 using PM.Application.Features.TaskContext.Commands.DeleteTask;
 using PM.Application.Features.TaskContext.Commands.UpdateTask;
@@ -162,6 +163,25 @@ public class TaskController : ApiBaseController
             request.SortBy);
 
         var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+           result => Ok(result),
+           errors => Problem(errors));
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="command"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("Status")]
+    [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> ChangeTaskStatusAsync(
+        ChangeTaskStatusCommand command,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(
            result => Ok(result),

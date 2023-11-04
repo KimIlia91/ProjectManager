@@ -57,7 +57,7 @@ public sealed class UpdateTaskCommand : IRequest<ErrorOr<UpdateTaskResult>>
     /// <summary>
     /// Gets or sets the status of the task.
     /// </summary>
-    public Status Status { get; set; }
+    public string Status { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the priority of the task.

@@ -1,5 +1,7 @@
 ﻿using ErrorOr;
 using PM.Domain.Common.Enums;
+using PM.Domain.Common.Extensions;
+using TaskStatus = PM.Domain.Common.Enums.Status;
 
 namespace PM.Domain.Entities;
 
@@ -137,5 +139,13 @@ public sealed class Task : BaseEntity
     public void RemoveAuthor()
     {
         Author = null;
+    }
+
+    /// <summary>
+    /// Change the task status.
+    /// </summary>
+    public void ChangeStatus(string statusName)
+    {
+        Status = statusName.GetStatus();
     }
 }

@@ -3,6 +3,7 @@ using MapsterMapper;
 using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.TaskContext.Dtos;
+using PM.Domain.Common.Extensions;
 
 namespace PM.Application.Features.TaskContext.Commands.UpdateTask;
 
@@ -43,7 +44,7 @@ internal sealed class UpdateTaskCommandHandler
             command.Author,
             command.Executor,
             command.Comment,
-            command.Status,
+            command.Status.GetStatus(),
             command.Priority);
 
         await _taskRepository.SaveChangesAsync(cancellationToken);
