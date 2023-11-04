@@ -2,9 +2,15 @@
 
 namespace PM.Domain.Entities;
 
+/// <summary>
+/// Represents a role in the authorization system.
+/// </summary>
 public sealed class Role : IdentityRole<int>
 {
-    private readonly List<UserRole> _employeeRoles = new();
+    private readonly List<UserRole> _userRoles = new();
 
-    public IReadOnlyCollection<UserRole> EmployeeRoles => _employeeRoles.ToList();
+    /// <summary>
+    /// Gets user-role relationships associated with this role.
+    /// </summary>
+    public IReadOnlyCollection<UserRole> UserRoles => _userRoles.ToList();
 }

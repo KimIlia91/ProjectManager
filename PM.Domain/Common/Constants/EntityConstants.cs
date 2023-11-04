@@ -1,5 +1,8 @@
 ﻿namespace PM.Domain.Common.Constants;
 
+/// <summary>
+/// Constants for specifying entity properties.
+/// </summary>
 public class EntityConstants
 {
     public const short TaskName = 255;

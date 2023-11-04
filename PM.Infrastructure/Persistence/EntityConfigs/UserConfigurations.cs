@@ -26,7 +26,7 @@ public sealed class UserConfigurations : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(EntityConstants.LastName);
 
-        builder.Property(e => e.MiddelName)
+        builder.Property(e => e.MiddleName)
             .HasColumnName("MiddelName")
             .IsRequired(false)
             .HasMaxLength(EntityConstants.MiddelName);

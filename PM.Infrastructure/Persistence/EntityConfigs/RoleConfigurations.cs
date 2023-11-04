@@ -10,7 +10,7 @@ public sealed class RoleConfigurations : IEntityTypeConfiguration<Role>
     {
         builder.ToTable("Roles");
 
-        builder.HasMany(r => r.EmployeeRoles)
+        builder.HasMany(r => r.UserRoles)
             .WithOne(r => r.Role)
             .HasForeignKey(r => r.RoleId);
     }

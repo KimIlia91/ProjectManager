@@ -11,7 +11,7 @@ public sealed class UserRoleConfigurations : IEntityTypeConfiguration<UserRole>
         builder.ToTable("UserRoles");
 
         builder.HasOne(er => er.Role)
-            .WithMany(r => r.EmployeeRoles)
+            .WithMany(r => r.UserRoles)
             .HasForeignKey(er => er.RoleId);
 
         builder.HasOne(er => er.User)

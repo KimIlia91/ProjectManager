@@ -1,5 +1,8 @@
 ﻿namespace PM.Domain.Common.Enums;
 
+/// <summary>
+/// Represents the priority levels for the tasks and projects.
+/// </summary>
 public enum Priority
 {
     Low = 1,
