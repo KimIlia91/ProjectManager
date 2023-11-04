@@ -33,7 +33,7 @@ public interface IUserRepository : IBaseRepository<User>
     /// <param name="projectId">The unique identifier of the project.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A list of user information related to the project.</returns>
-    Task<List<UserResult>> GetProjectUserResultListAsync(
+    Task<List<UserResult>> GetProjectUsersResultListAsync(
         int projectId,
         CancellationToken cancellationToken);
 

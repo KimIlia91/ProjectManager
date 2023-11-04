@@ -43,7 +43,7 @@ public class GetTaskResult
     /// <summary>
     /// Gets or sets the status of the task.
     /// </summary>
-    public Status Status { get; set; }
+    public string Status { get; set; }
 
     /// <summary>
     /// Gets or sets the priority of the task.

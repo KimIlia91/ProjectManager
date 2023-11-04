@@ -50,6 +50,6 @@ public sealed class UpdateUserCommandHandler
         if (result.IsError)
             return result.Errors;
 
-        return _mapper.Map<UpdateUserResult>((result.Value, command.RoleName));
+        return _mapper.Map<UpdateUserResult>((result.Value));
     }
 }

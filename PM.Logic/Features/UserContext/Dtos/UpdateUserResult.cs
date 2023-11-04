@@ -6,7 +6,7 @@ namespace PM.Application.Features.EmployeeContext.Dtos;
 /// <summary>
 /// Represents the result of a user update operation.
 /// </summary>
-public sealed class UpdateUserResult : IRegister
+public sealed class UpdateUserResult
 {
     /// <summary>
     /// Gets or sets the unique identifier of the user.
@@ -32,20 +32,4 @@ public sealed class UpdateUserResult : IRegister
     /// Gets or sets the email address of the user.
     /// </summary>
     public string Email { get; set; } = null!;
-
-    /// <summary>
-    /// Gets or sets the role name of the user.
-    /// </summary>
-    public string RoleName { get; set; } = null!;
-
-    /// <summary>
-    /// Registers type mapping using TypeAdapterConfig.
-    /// </summary>
-    /// <param name="config">The TypeAdapterConfig instance to register the mapping.</param>
-    public void Register(TypeAdapterConfig config)
-    {
-        config.NewConfig<(User, string), UpdateUserResult>()
-            .Map(dest => dest.RoleName, src => src.Item2)
-            .Map(dest => dest, src => src.Item1);
-    }
 }

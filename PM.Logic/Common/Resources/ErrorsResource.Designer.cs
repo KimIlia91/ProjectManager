@@ -124,11 +124,20 @@ namespace PM.Application.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Required.
+        ///   Looks up a localized string similar to Required filed.
         /// </summary>
         internal static string Required {
             get {
                 return ResourceManager.GetString("Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user is already in the project.
+        /// </summary>
+        internal static string UserInProject {
+            get {
+                return ResourceManager.GetString("UserInProject", resourceCulture);
             }
         }
     }

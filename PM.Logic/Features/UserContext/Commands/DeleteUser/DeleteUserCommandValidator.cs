@@ -10,16 +10,16 @@ namespace PM.Application.Features.UserContext.Commands.DeleteUser;
 public sealed class DeleteUserCommandValidator
     : AbstractValidator<DeleteUserCommand>
 {
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DeleteUserCommandValidator"/> class.
     /// </summary>
-    /// <param name="employeeRepository">The repository for users.</param>
+    /// <param name="userRepository">The repository for users.</param>
     public DeleteUserCommandValidator(
-        IUserRepository employeeRepository)
+        IUserRepository userRepository)
     {
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
 
         RuleFor(command => command.UserId)
             .NotEmpty()
@@ -33,7 +33,7 @@ public sealed class DeleteUserCommandValidator
         int id,
         CancellationToken cancellationToken)
     {
-        command.Employee = await _employeeRepository
+        command.Employee = await _userRepository
             .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
 
         return command.Employee is not null;

@@ -2,6 +2,7 @@
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Resources;
 using PM.Domain.Common.Constants;
+using System.Linq;
 
 namespace PM.Application.Features.TaskContext.Commands.UpdateTask;
 
@@ -12,18 +13,18 @@ public sealed class UpdateTaskCommandValidator
     : AbstractValidator<UpdateTaskCommand>
 {
     private readonly ITaskRepository _taskRepository;
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateTaskCommandValidator"/> class.
     /// </summary>
     /// <param name="taskRepository">The task repository.</param>
-    /// <param name="employeeRepository">The employee repository.</param>
+    /// <param name="userRepository">The employee repository.</param>
     public UpdateTaskCommandValidator(
         ITaskRepository taskRepository,
-        IUserRepository employeeRepository)
+        IUserRepository userRepository)
     {
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
         _taskRepository = taskRepository;
 
         RuleFor(command => command.Id)
@@ -44,12 +45,12 @@ public sealed class UpdateTaskCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(AuthorMustBeInDatabase)
+            .MustAsync(AuthorMustBeInProject)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.ExecutorId)
             .Cascade(CascadeMode.StopOnFirstFailure)
-            .MustAsync(ExecutorMustBeInDatabase)
+            .MustAsync(ExecutorMustBeInProject)
             .When(command => command.ExecutorId != 0)
             .WithMessage(ErrorsResource.NotFound);
 
@@ -74,26 +75,28 @@ public sealed class UpdateTaskCommandValidator
             .WithMessage(ErrorsResource.InvalidPriority);
     }
 
-    private async Task<bool> ExecutorMustBeInDatabase(
+    private async Task<bool> ExecutorMustBeInProject(
         UpdateTaskCommand command,
         int id,
         CancellationToken cancellationToken)
     {
-        command.Executor = await _employeeRepository
-           .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
+        command.Executor = await _userRepository
+           .GetOrDeafaultAsync(u => u.Projects.Any(p => 
+                p.Employees.Any(e => e.Id == id)), cancellationToken);
 
         return command.Executor is not null;
     }
 
-    private async Task<bool> AuthorMustBeInDatabase(
+    private async Task<bool> AuthorMustBeInProject(
         UpdateTaskCommand command,
         int id,
         CancellationToken cancellationToken)
     {
-        command.Author = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
+        command.Executor = await _userRepository
+           .GetOrDeafaultAsync(u => u.Projects.Any(p => 
+                p.Employees.Any(e => e.Id == id)), cancellationToken);
 
-        return command.Author is not null;
+        return command.Executor is not null;
     }
 
     private async Task<bool> TaskMustBeInDatabase(

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using PM.Domain.Common.Constants;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Resources;
+using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.ProjectContext.Commands.UpdateProject;
 
@@ -12,19 +12,19 @@ public sealed class UpdateProjectCommandValidator
     : AbstractValidator<UpdateProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateProjectCommandValidator"/> class.
     /// </summary>
     /// <param name="projectRepository">The project repository to check for project existence.</param>
-    /// <param name="employeeRepository">The user repository to check for manager existence.</param>
+    /// <param name="userRepository">The user repository to check for manager existence.</param>
     public UpdateProjectCommandValidator(
-        IProjectRepository projectRepository, 
-        IUserRepository employeeRepository)
+        IProjectRepository projectRepository,
+        IUserRepository userRepository)
     {
         _projectRepository = projectRepository;
-        _employeeRepository = employeeRepository;
+        _userRepository = userRepository;
 
         RuleFor(command => command.Id)
             .Cascade(CascadeMode.StopOnFirstFailure)
@@ -38,9 +38,7 @@ public sealed class UpdateProjectCommandValidator
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MaximumLength(EntityConstants.ProjectName)
-            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.ProjectName))
-            .MustAsync(ProjectNameMustBeUnique)
-            .WithMessage(ErrorsResource.NotFound);
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.ProjectName));
 
         RuleFor(command => command.CustomerCompany)
             .Cascade(CascadeMode.StopOnFirstFailure)
@@ -74,7 +72,7 @@ public sealed class UpdateProjectCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .Must((command, endDate) => endDate >= command.StartDate)
-            .WithMessage("Дата окончания должна быть больше или равна дате начала")
+            .WithMessage(ErrorsResource.InvalidDate)
              .WithMessage(ErrorsResource.InvalidDate);
 
         RuleFor(command => command.Priority)
@@ -87,29 +85,18 @@ public sealed class UpdateProjectCommandValidator
 
     private async Task<bool> ManagerMustBeInDatabase(
         UpdateProjectCommand command,
-        int managerId, 
+        int managerId,
         CancellationToken cancellationToken)
     {
-        command.Manager = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Id == managerId, cancellationToken);
+        command.Manager = await _userRepository
+            .GetOrDeafaultAsync(u => u.Id == managerId, cancellationToken);
 
         return command.Manager is not null;
     }
 
-    private async Task<bool> ProjectNameMustBeUnique(
-        UpdateProjectCommand command,
-        string name, 
-        CancellationToken cancellationToken)
-    {
-        var project = await _projectRepository
-            .GetOrDeafaultAsync(c => c.Name == name && c.Id != command.Id, cancellationToken);
-
-        return project is null;
-    }
-
     private async Task<bool> ProjectMustBeInDatabase(
         UpdateProjectCommand command,
-        int id, 
+        int id,
         CancellationToken cancellationToken)
     {
         command.Project = await _projectRepository

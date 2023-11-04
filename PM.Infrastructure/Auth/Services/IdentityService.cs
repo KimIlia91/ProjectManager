@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Features.AuthContext.Dtos;
+using PM.Domain.Common.Constants;
 using PM.Domain.Entities;
 using PM.Infrastructure.Auth.Services;
 using Task = System.Threading.Tasks.Task;
@@ -52,15 +53,16 @@ public class IdentityService : IIdentityService
     /// <inheritdoc />
     public async Task<ErrorOr<User>> RegisterAsync(
         string password,
-        string roleName,
+        //string roleName,
         User user)
     {
         var resultUser = await _userManager.CreateAsync(user, password);
 
         if (!resultUser.Succeeded)
-            return Error.Failure("User could not be created");
+            return Error.Failure(resultUser.Errors.First().Description);
 
-        var resultRole = await _userManager.AddToRoleAsync(user, roleName);
+        var resultRole = await _userManager.AddToRolesAsync(user, 
+            new List<string>(){ RoleConstants.Employee, RoleConstants.Manager });
 
         if (resultRole.Succeeded)
             return user;

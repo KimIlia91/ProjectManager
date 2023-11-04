@@ -3,6 +3,7 @@ using MediatR;
 using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
+using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.ProjectContext.Dtos;
 
 namespace PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
@@ -42,10 +43,11 @@ internal sealed class GetUserProjectListQueryHandler
         GetUserProjectListQuery query,
         CancellationToken cancellationToken)
     {
+        var getUserProjects = new GetUserProjectsSpec(_currentUser.UserId);
+
         var projectQuery = _projectRepository
             .GetQuiery(asNoTracking: true)
-            .Where(p => p.Manager.Id == _currentUser.UserId ||
-                        p.Employees.Any(e => e.Id == _currentUser.UserId))
+            .Where(getUserProjects.ToExpression())
             .Filter(query.Filetr)
             .Sort(query.SotrBy);
 

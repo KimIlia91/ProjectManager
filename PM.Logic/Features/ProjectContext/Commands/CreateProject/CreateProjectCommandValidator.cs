@@ -11,29 +11,23 @@ namespace PM.Application.Features.ProjectContext.Commands.CreateProject;
 public sealed class CreateProjectCommandValidator
     : AbstractValidator<CreateProjectCommand>
 {
-    private readonly IProjectRepository _projectRepository;
-    private readonly IUserRepository _employeeRepository;
+    private readonly IUserRepository _userRepository;
 
     /// <summary>
     /// Initializes a new instance of the CreateProjectCommandValidator.
     /// </summary>
-    /// <param name="projectRepository">The repository for project-related operations.</param>
     /// <param name="employeeRepository">The repository for employee-related operations.</param>
     public CreateProjectCommandValidator(
-        IProjectRepository projectRepository,
         IUserRepository employeeRepository)
     {
-        _projectRepository = projectRepository;
-        _employeeRepository = employeeRepository;
+        _userRepository = employeeRepository;
 
         RuleFor(command => command.Name)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MaximumLength(EntityConstants.ProjectName)
-            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.ProjectName))
-            .MustAsync(ProjectNameMustBeUnique)
-            .WithMessage(ErrorsResource.NotFound);
+            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.ProjectName));
 
         RuleFor(command => command.CustomerCompany)
             .Cascade(CascadeMode.StopOnFirstFailure)
@@ -77,25 +71,13 @@ public sealed class CreateProjectCommandValidator
             .WithMessage(ErrorsResource.InvalidPriority);
     }
 
-
-    private async Task<bool> ProjectNameMustBeUnique(
-       CreateProjectCommand command,
-       string name,
-       CancellationToken cancellationToken)
-    {
-        var project = await _projectRepository
-            .GetOrDeafaultAsync(c => c.Name == name, cancellationToken);
-
-        return project is null;
-    }
-
     private async Task<bool> ManagerMustBeInDatabase(
         CreateProjectCommand command,
         int managerId,
         CancellationToken cancellationToken)
     {
-        command.Manager = await _employeeRepository
-            .GetOrDeafaultAsync(e => e.Id == managerId, cancellationToken);
+        command.Manager = await _userRepository
+            .GetOrDeafaultAsync(u => u.Id == managerId, cancellationToken);
 
         return command.Manager is not null;
     }

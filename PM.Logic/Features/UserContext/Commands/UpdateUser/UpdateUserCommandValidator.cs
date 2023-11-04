@@ -56,14 +56,6 @@ public sealed class UpdateUserCommandValidator
             .WithMessage(ErrorsResource.InvalidEmail)
             .MaximumLength(EntityConstants.Email)
             .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.Email))
-            .MustAsync(MustBeInDatabase)
-            .WithMessage(ErrorsResource.NotFound);
-
-        RuleFor(command => command.RoleName)
-            .NotEmpty()
-            .WithMessage(ErrorsResource.Required)
-            .MaximumLength(EntityConstants.RoleNameLength)
-            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.RoleNameLength))
             .MustAsync(EmailMustBeInUnique)
             .WithMessage(ErrorsResource.NotFound);
     }
@@ -77,16 +69,6 @@ public sealed class UpdateUserCommandValidator
             .GetOrDeafaultAsync(e => e.Email == email && e.Id != command.Id, cancellationToken);
 
         return emailExist is null;
-    }
-
-    private async Task<bool> MustBeInDatabase(
-        string roleName,
-        CancellationToken cancellationToken)
-    {
-        var role = await _roleRepository
-            .GetOrDeafaultAsync(r => r.Name == roleName, cancellationToken);
-
-        return role is not null;
     }
 
     private async Task<bool> EmployeeMustBeInDatabase(

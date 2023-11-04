@@ -34,7 +34,7 @@ internal sealed class GetProjectUserListQueryHandler
         CancellationToken cancellationToken)
     {
         return await _userRepository
-            .GetProjectUserResultListAsync(query.ProjectId, cancellationToken);
+            .GetProjectUsersResultListAsync(query.ProjectId, cancellationToken);
     }
 }
 

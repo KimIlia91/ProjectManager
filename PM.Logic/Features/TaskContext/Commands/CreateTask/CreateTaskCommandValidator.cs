@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
+using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Domain.Common.Constants;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
@@ -13,6 +15,7 @@ public sealed class CreateTaskCommandValidator
 {
     private readonly IUserRepository _userRepository;
     private readonly IProjectRepository _projectRepository;
+    private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
     /// Initializes a new instance of the CreateTaskCommandValidator class.
@@ -21,16 +24,18 @@ public sealed class CreateTaskCommandValidator
     /// <param name="projectRepository">The project repository.</param>
     public CreateTaskCommandValidator(
         IUserRepository employeeRepository, 
-        IProjectRepository projectRepository)
+        IProjectRepository projectRepository,
+        ICurrentUserService currentUserService)
     {
         _userRepository = employeeRepository;
         _projectRepository = projectRepository;
+        _currentUserService = currentUserService;
 
         RuleFor(command => command.ProjectId)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(ProjectMustBeInDatabase)
+            .MustAsync(ManagerProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Name)
@@ -39,7 +44,7 @@ public sealed class CreateTaskCommandValidator
             .MaximumLength(EntityConstants.TaskName);
 
         RuleFor(command => command.ExecutorId)
-            .MustAsync(ExecutorMustBeInDatabase)
+            .MustAsync(UserMustBeInProject)
             .When(command => command.ExecutorId > 0)
             .WithMessage(ErrorsResource.NotFound);
 
@@ -63,24 +68,29 @@ public sealed class CreateTaskCommandValidator
             .WithMessage(ErrorsResource.InvalidPriority);
     }
 
-    private async Task<bool> ProjectMustBeInDatabase(
+    private async Task<bool> ManagerProjectMustBeInDatabase(
         CreateTaskCommand command,
         int id,
         CancellationToken cancellationToken)
     {
+        var getManagerProject = new GetManagerProjectSpec(id, 
+            _currentUserService.UserId);
+
         command.Project = await _projectRepository
-          .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
+            .GetOrDeafaultAsync(getManagerProject.ToExpression(), cancellationToken);
 
         return command.Project is not null;
     }
 
-    private async Task<bool> ExecutorMustBeInDatabase(
+    private async Task<bool> UserMustBeInProject(
         CreateTaskCommand command,
         int id,
         CancellationToken cancellationToken)
     {
         command.Executor = await _userRepository
-           .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
+           .GetOrDeafaultAsync(u => u.Id == id &&
+               (u.Projects.Any(p => p.Id == command.ProjectId) || 
+               u.Projects.Any(p => p.Manager.Id == id)), cancellationToken);
 
         return command.Executor is not null;
     }

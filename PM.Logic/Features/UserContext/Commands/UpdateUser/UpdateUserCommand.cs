@@ -41,9 +41,4 @@ public sealed class UpdateUserCommand
     /// Gets or sets the email of the user. Cannot be null.
     /// </summary>
     public string Email { get; set; } = null!;
-
-    /// <summary>
-    /// Gets or sets the role name associated with the user. Cannot be null.
-    /// </summary>
-    public string RoleName { get; set; } = null!;
 }

@@ -139,6 +139,9 @@
     <value>Not Found</value>
   </data>
   <data name="Required" xml:space="preserve">
-    <value>Required</value>
+    <value>Required filed</value>
+  </data>
+  <data name="UserInProject" xml:space="preserve">
+    <value>The user is already in the project</value>
   </data>
 </root>

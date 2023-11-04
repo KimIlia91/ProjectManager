@@ -18,5 +18,4 @@ public record CreateUserCommand(
     string LastName,
     string? MiddelName,
     string Email,
-    string Password,
-    string RoleName) : IRequest<ErrorOr<CreateUserResult>>;
+    string Password) : IRequest<ErrorOr<CreateUserResult>>;

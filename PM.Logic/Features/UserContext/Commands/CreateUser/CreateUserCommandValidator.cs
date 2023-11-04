@@ -54,21 +54,6 @@ public sealed class CreateUserCommandValidator
             .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.Email))
             .MustAsync(MustBeUnique)
             .WithMessage(ErrorsResource.NotFound);
-
-        RuleFor(command => command.RoleName)
-            .NotEmpty()
-            .WithMessage(ErrorsResource.Required)
-            .MaximumLength(EntityConstants.RoleNameLength)
-            .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.RoleNameLength))
-            .MustAsync(MustBeInDatabase)
-            .WithMessage(ErrorsResource.NotFound);
-    }
-
-    private async Task<bool> MustBeInDatabase(
-        string roleName,
-        CancellationToken cancellationToken)
-    {
-        return await _identityService.IsRoleExistAsync(roleName);
     }
 
     private async Task<bool> MustBeUnique(

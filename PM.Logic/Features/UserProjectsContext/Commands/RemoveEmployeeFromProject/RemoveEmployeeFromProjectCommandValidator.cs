@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Resources;
+using PM.Application.Common.Specifications.ProjectSpecifications;
+using PM.Domain.Entities;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 
@@ -30,7 +32,7 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(EmployeeMustBeInDatabase)
+            .MustAsync(UserMustBeInProject)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.ProjectId)
@@ -52,13 +54,14 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
         return command.Project is not null;
     }
 
-    private async Task<bool> EmployeeMustBeInDatabase(
+    private async Task<bool> UserMustBeInProject(
         RemoveEmployeeFromProjectCommand command,
-        int id,
+        int userId,
         CancellationToken cancellationToken)
     {
         command.Employee = await _userRepository
-            .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
+            .GetOrDeafaultAsync(e => e.Id == userId && 
+                e.Projects.Any(p => p.Id == command.ProjectId), cancellationToken);
 
         return command.Employee is not null;
     }

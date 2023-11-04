@@ -33,7 +33,7 @@ public interface IIdentityService
     /// <returns>An error or the registered user object.</returns>
     Task<ErrorOr<User>> RegisterAsync(
         string password,
-        string roleName,
+        //string roleName,
         User user);
 
     /// <summary>
