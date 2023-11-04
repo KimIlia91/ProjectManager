@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Domain.Entities;
@@ -10,19 +9,28 @@ using System.Text;
 
 namespace PM.Infrastructure.Identity;
 
+/// <summary>
+/// Service for generating JWT (JSON Web Token) tokens used for user authentication.
+/// </summary>
 public class JwtTokenService : IJwtTokenService
 {
     private readonly JwtSettings _jwtSettings;
     private readonly IDateTimeService _dateTimeProvider;
 
+    /// <summary>
+    /// Initializes a new instance of the JwtTokenService class.
+    /// </summary>
+    /// <param name="dateTimeProvider">The service providing date and time information.</param>
+    /// <param name="jwtOptions">Options for JWT token generation.</param>
     public JwtTokenService(
-        IDateTimeService dateTimeProvider, 
+        IDateTimeService dateTimeProvider,
         IOptions<JwtSettings> jwtOptions)
     {
         _dateTimeProvider = dateTimeProvider;
         _jwtSettings = jwtOptions.Value;
     }
 
+    /// <inheritdoc />
     public string GenerateToken(User user)
     {
         var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(

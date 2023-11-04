@@ -8,6 +8,9 @@ using Task = System.Threading.Tasks.Task;
 
 namespace PM.Infrastructure.Identity.Services;
 
+/// <summary>
+/// Service for managing identity-related operations.
+/// </summary>
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<User> _userManager;
@@ -15,6 +18,13 @@ public class IdentityService : IIdentityService
     private readonly RefreshTokenService _refreshTokenService;
     private readonly IJwtTokenService _jwtTokenService;
 
+    /// <summary>
+    /// Constructs an instance of the IdentityService.
+    /// </summary>
+    /// <param name="userManager">The user manager for managing users.</param>
+    /// <param name="roleManager">The role manager for managing user roles.</param>
+    /// <param name="refreshTokenService">Service for handling refresh tokens.</param>
+    /// <param name="jwtTokenService">Service for handling JWT tokens.</param>
     public IdentityService(
         UserManager<User> userManager,
         RoleManager<Role> roleManager,
@@ -27,16 +37,19 @@ public class IdentityService : IIdentityService
         _jwtTokenService = jwtTokenService;
     }
 
+    /// <inheritdoc />
     public async Task<bool> IsEmailExistAsync(string email)
     {
         return await _userManager.FindByEmailAsync(email) is not null;
     }
 
+    /// <inheritdoc />
     public async Task<bool> IsRoleExistAsync(string roleName)
     {
         return await _roleManager.RoleExistsAsync(roleName);
     }
 
+    /// <inheritdoc />
     public async Task<ErrorOr<User>> RegisterAsync(
         string password,
         string roleName,
@@ -56,6 +69,7 @@ public class IdentityService : IIdentityService
         return Error.Failure("User could not be created");
     }
 
+    /// <inheritdoc />
     public async Task<ErrorOr<User>> UpdateAsync(
         User user,
         CancellationToken cancellationToken)
@@ -68,6 +82,7 @@ public class IdentityService : IIdentityService
         return user;
     }
 
+    /// <inheritdoc />
     public async Task<ErrorOr<AuthResult>> LoginAsync(
         string email,
         string password)
@@ -83,12 +98,14 @@ public class IdentityService : IIdentityService
         return new AuthResult(user.Email!, accessToken, refreshToken);
     }
 
+    /// <inheritdoc />
     public async Task LogOutAsync(int userId)
     {
         var user = await _userManager.FindByIdAsync(userId.ToString());
         await _userManager.UpdateSecurityStampAsync(user);
     }
 
+    /// <inheritdoc />
     public async Task<ErrorOr<AuthResult>> RefreshAccessTokenAsync(string refreshToken)
     {
         var validationResult = await _refreshTokenService.ValidateAsync(refreshToken);
