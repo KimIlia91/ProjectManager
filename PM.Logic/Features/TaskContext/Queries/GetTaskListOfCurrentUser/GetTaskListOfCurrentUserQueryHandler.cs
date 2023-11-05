@@ -12,13 +12,13 @@ internal sealed class GetTaskListOfCurrentUserQueryHandler
     : IRequestHandler<GetTaskListOfCurrentUserQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
-    private readonly ICurrentUserService _currentUserService;
+    private readonly ICurrentUserService _currentUser;
 
     public GetTaskListOfCurrentUserQueryHandler(
         ITaskRepository taskRepository,
-        ICurrentUserService currentUserService)
+        ICurrentUserService currentUser)
     {
-        _currentUserService = currentUserService;
+        _currentUser = currentUser;
         _taskRepository = taskRepository;
     }
 
@@ -26,7 +26,7 @@ internal sealed class GetTaskListOfCurrentUserQueryHandler
         GetTaskListOfCurrentUserQuery query,
         CancellationToken cancellationToken)
     {
-        var getCurrentUserTasks = new GetTasksOfUserSpec(_currentUserService);
+        var getCurrentUserTasks = new GetTasksOfUserSpec(_currentUser);
 
         var taskQuery = _taskRepository
             .GetQuery()
