@@ -4,23 +4,25 @@ using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
+using PM.Application.Common.Specifications.TaskSpecifications;
+using System.Linq;
 
-namespace PM.Application.Features.TaskContext.Queries.GetProjectTasks;
+namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfProjectByUser;
 
 /// <summary>
 /// Handles the retrieval of tasks associated with a project based on the specified query.
 /// </summary>
-internal sealed class GetProjectTasksQueryHandler
-    : IRequestHandler<GetProjectTasksQuery, ErrorOr<List<TaskResult>>>
+internal sealed class GetTaskListOfProjectByUserQueryHandler
+    : IRequestHandler<GetTaskListOfProjectByUserQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetProjectTasksQueryHandler"/> class.
+    /// Initializes a new instance of the <see cref="GetTaskListOfProjectByUserQueryHandler"/> class.
     /// </summary>
     /// <param name="taskRepository">The repository for tasks.</param>
-    public GetProjectTasksQueryHandler(
+    public GetTaskListOfProjectByUserQueryHandler(
         ITaskRepository taskRepository,
         ICurrentUserService currentUserService)
     {
@@ -35,12 +37,16 @@ internal sealed class GetProjectTasksQueryHandler
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A list of task results or an error result.</returns>
     public async Task<ErrorOr<List<TaskResult>>> Handle(
-        GetProjectTasksQuery query,
+        GetTaskListOfProjectByUserQuery query,
         CancellationToken cancellationToken)
     {
+        var getTasksOfProjectByManager = new GetTaskOfProjectByManager(
+            query.ProjectId, 
+            _currentUserService);
+
         var taskQuery = _taskRepository
-            .GetQuery()
-            .Where(t => t.Project.Id == query.ProjectId)
+            .GetQuery(asNoTracking: true)
+            .Where(getTasksOfProjectByManager.ToExpression())
             .Filter(query.Filter)
             .Sort(query.SortBy);
 

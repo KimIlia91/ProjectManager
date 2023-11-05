@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PM.Application.Common.Constants;
 using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
@@ -76,7 +75,6 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if the project is not found or if there are issues.
     /// </returns>
     [HttpGet("{id}")]
-    [Authorize(Policy = PolicyConstants.ProjectManagerPolicy)]
     [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
         int id,
@@ -126,7 +124,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if there are issues.
     /// </returns>
     [HttpGet]
-    [Authorize(Policy = PolicyConstants.ProjectManagerPolicy)]
+    [Authorize(Roles = RoleConstants.Supervisor)]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectListAsync(
         [FromQuery] GetProjectListQuery query,
@@ -150,6 +148,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if there are issues.
     /// </returns>
     [HttpGet("User")]
+    [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Employee}")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUserProjectListAsync(
         [FromQuery] GetCurrentUserProjectListQuery query,
