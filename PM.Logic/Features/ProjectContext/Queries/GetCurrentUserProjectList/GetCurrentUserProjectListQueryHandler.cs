@@ -6,14 +6,14 @@ using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.ProjectContext.Dtos;
 
-namespace PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
+namespace PM.Application.Features.ProjectContext.Queries.GetCurrentUserProjectList;
 
 /// <summary>
 /// Represents a handler for the GetUserProjectListQuery, responsible for retrieving a 
 /// list of projects for a user.
 /// </summary>
-internal sealed class GetProjectListOfUserQueryHandler
-    : IRequestHandler<GetProjectListOfUserQuery, ErrorOr<List<GetProjectListResult>>>
+internal sealed class GetCurrentUserProjectListQueryHandler
+    : IRequestHandler<GetCurrentUserProjectListQuery, ErrorOr<List<GetProjectListResult>>>
 {
     private readonly ICurrentUserService _currentUser;
     private readonly IProjectRepository _projectRepository;
@@ -25,7 +25,7 @@ internal sealed class GetProjectListOfUserQueryHandler
     /// the current user's information.</param>
     /// <param name="projectRepository">An instance of the IProjectRepository for 
     /// interacting with project data.</param>
-    public GetProjectListOfUserQueryHandler(
+    public GetCurrentUserProjectListQueryHandler(
         ICurrentUserService currentUser,
         IProjectRepository projectRepository)
     {
@@ -40,7 +40,7 @@ internal sealed class GetProjectListOfUserQueryHandler
     /// <param name="cancellationToken">A CancellationToken for handling asynchronous operations.</param>
     /// <returns>A list of projects that match the specified criteria or an error if the operation fails.</returns>
     public async Task<ErrorOr<List<GetProjectListResult>>> Handle(
-        GetProjectListOfUserQuery query,
+        GetCurrentUserProjectListQuery query,
         CancellationToken cancellationToken)
     {
         var projectsOfUser = new GetProjectsOfUserSpec(_currentUser.UserId);

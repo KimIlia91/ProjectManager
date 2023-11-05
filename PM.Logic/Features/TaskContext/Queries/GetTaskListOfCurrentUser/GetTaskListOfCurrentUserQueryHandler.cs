@@ -4,8 +4,9 @@ using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
+using PM.Application.Common.Specifications.TaskSpecifications;
 
-namespace PM.Application.Features.TaskContext.Queries.GetUserTaskList;
+namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfCurrentUser;
 
 internal sealed class GetTaskListOfCurrentUserQueryHandler
     : IRequestHandler<GetTaskListOfCurrentUserQuery, ErrorOr<List<TaskResult>>>
@@ -22,13 +23,14 @@ internal sealed class GetTaskListOfCurrentUserQueryHandler
     }
 
     public async Task<ErrorOr<List<TaskResult>>> Handle(
-        GetTaskListOfCurrentUserQuery query, 
+        GetTaskListOfCurrentUserQuery query,
         CancellationToken cancellationToken)
     {
+        var getCurrentUserTasks = new GetTasksOfUserSpec(_currentUserService);
+
         var taskQuery = _taskRepository
             .GetQuery()
-            .Where(t => t.Author.Id == _currentUserService.UserId ||
-                        t.Executor.Id == _currentUserService.UserId)
+            .Where(getCurrentUserTasks.ToExpression())
             .Filter(query.Filter)
             .Sort(query.Sort);
 

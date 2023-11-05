@@ -2,6 +2,7 @@
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Models.Task;
 using PM.Application.Features.TaskContext.Dtos;
 using Task = PM.Domain.Entities.Task;
 
@@ -54,5 +55,17 @@ public sealed class TaskRepository
         return await DbSet
             .Include(t => t.Project)
             .FirstOrDefaultAsync(t => t.Id == taskId, cancellationToken);
+    }
+
+    public async Task<TaskResult?> GetTaskResultOfUserAsync(
+        int taskId, 
+        int userId, 
+        CancellationToken cancellationToken)
+    {
+        return await DbSet
+            .ProjectToType<TaskResult>(Mapper.Config)
+            .FirstOrDefaultAsync(t => t.Id == taskId &&
+                                      (t.Author.Id == userId ||
+                                      t.Executor.Id == userId), cancellationToken);
     }
 }

@@ -46,7 +46,8 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
         builder.HasIndex(x => x.Priority);
 
         builder.HasOne(t => t.Project)
-            .WithMany(p => p.Tasks);
+            .WithMany(p => p.Tasks)
+            .HasForeignKey(t => t.ProjectId);
 
         builder.HasOne(t => t.Executor)
             .WithMany(e => e.ExecutorTasks)

@@ -2,7 +2,7 @@
 using MediatR;
 using PM.Application.Common.Models.Task;
 
-namespace PM.Application.Features.TaskContext.Queries.GetUserTaskList;
+namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfCurrentUser;
 
 public sealed class GetTaskListOfCurrentUserQuery : IRequest<ErrorOr<List<TaskResult>>>
 {

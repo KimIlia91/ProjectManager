@@ -2,9 +2,9 @@
 
 namespace PM.Application.Common.Policies.ProjectOfUser;
 
-public class ProjectPolicyRequirement : IAuthorizationRequirement
+public class ProjectManagerPolicyRequirement : IAuthorizationRequirement
 {
-    public ProjectPolicyRequirement()
+    public ProjectManagerPolicyRequirement()
     {
     }
 }

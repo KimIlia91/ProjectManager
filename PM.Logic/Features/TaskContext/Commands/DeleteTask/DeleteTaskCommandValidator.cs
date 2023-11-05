@@ -46,7 +46,7 @@ public sealed class DeleteTaskCommandValidator
         int taskId, 
         CancellationToken cancellationToken)
     {
-        var getTaskByManager = new GetTaskByManagerSpec(taskId, _currentUserService.UserId);
+        var getTaskByManager = new GetTaskByManagerSpec(taskId, _currentUserService);
 
         command.Task = await _taskRepository
              .GetOrDeafaultAsync(getTaskByManager.ToExpression(), cancellationToken);

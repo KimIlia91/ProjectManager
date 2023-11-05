@@ -5,7 +5,6 @@ using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Common.Constants;
-using PM.Domain.Common.Extensions;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 
@@ -26,7 +25,7 @@ public sealed class CreateTaskCommandValidator
     /// <param name="projectRepository">The project repository.</param>
     /// <param name="currentUserService">The current user service.</param>
     public CreateTaskCommandValidator(
-        IUserRepository userRepository, 
+        IUserRepository userRepository,
         IProjectRepository projectRepository,
         ICurrentUserService currentUserService)
     {
@@ -73,11 +72,12 @@ public sealed class CreateTaskCommandValidator
 
     private async Task<bool> ManagerProjectMustBeInDatabase(
         CreateTaskCommand command,
-        int id,
+        int projectId,
         CancellationToken cancellationToken)
     {
-        var getManagerProject = new GetProjectOfManagerSpec(id, 
-            _currentUserService.UserId);
+        var getManagerProject = new GetProjectOfManagerSpec(
+            projectId,
+            _currentUserService);
 
         command.Project = await _projectRepository
             .GetOrDeafaultAsync(getManagerProject.ToExpression(), cancellationToken);

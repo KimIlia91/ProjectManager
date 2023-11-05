@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PM.Application.Common.Constants;
 using PM.Application.Common.Models.Task;
 using PM.Application.Features.TaskContext.Commands.ChangeTaskStatus;
 using PM.Application.Features.TaskContext.Commands.CreateTask;
@@ -9,6 +10,8 @@ using PM.Application.Features.TaskContext.Dtos;
 using PM.Application.Features.TaskContext.Queries.GetProjectTasks;
 using PM.Application.Features.TaskContext.Queries.GetTask;
 using PM.Application.Features.TaskContext.Queries.GetTaskList;
+using PM.Application.Features.TaskContext.Queries.GetTaskOfUser;
+using PM.Application.Features.TaskContext.Queries.GetUserTaskList;
 using PM.Domain.Common.Constants;
 
 namespace PM.WebApi.Controllers;
@@ -29,7 +32,6 @@ public class TaskController : ApiBaseController
     /// - A problem response with errors if the operation encounters issues.
     /// </returns>
     [HttpPost]
-    [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(typeof(CreateTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateTaskAsync(
         CreateTaskCommand command,
@@ -53,7 +55,6 @@ public class TaskController : ApiBaseController
     /// - A problem response with errors if the operation encounters issues.
     /// </returns>
     [HttpPut]
-    [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(typeof(UpdateTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateTaskAsync(
         UpdateTaskCommand command,
@@ -77,6 +78,7 @@ public class TaskController : ApiBaseController
     /// - A problem response with errors if the task is not found or if there are issues.
     /// </returns>
     [HttpGet("{id}")]
+    [Authorize(Policy = PolicyConstants.TaskOfUserPolicy)]
     [ProducesResponseType(typeof(GetTaskResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskAsync(
         int id,
@@ -101,7 +103,7 @@ public class TaskController : ApiBaseController
     /// - A problem response with errors if the task is not found or if there are issues.
     /// </returns>
     [HttpDelete("{id}")]
-    [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
+    [Authorize(Policy = PolicyConstants.TaskManagerPolicy)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> DeleteTaskAsync(
         int id,
@@ -142,7 +144,7 @@ public class TaskController : ApiBaseController
     /// <summary>
     /// Retrieve a list of tasks associated with a specific project.
     /// </summary>
-    /// <param name="projectId">The ID of the project to retrieve tasks for.</param>
+    /// <param name="id">The ID of the project to retrieve tasks for.</param>
     /// <param name="request">Query parameters for filtering and sorting tasks.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>
@@ -150,18 +152,46 @@ public class TaskController : ApiBaseController
     /// - 200 OK with the list of tasks if successful.
     /// - A problem response with errors if there are issues.
     /// </returns>
-    [HttpGet("Project/{projectId}")]
+    [HttpGet("Project/{id}")]
+    [Authorize(Policy = PolicyConstants.ProjectManagerPolicy)]
     [ProducesResponseType(typeof(List<TaskResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectTasksAsync(
-        int projectId,
+        int id,
         [FromQuery] GetProjectTasksRequest request,
         CancellationToken cancellationToken)
     {
         var query = new GetProjectTasksQuery(
-            projectId,
+            id,
             request.Filter,
             request.SortBy);
 
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+           result => Ok(result),
+           errors => Problem(errors));
+    }
+
+    [HttpGet("CurrentUser")]
+    [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTaskListOfCurrentUserAsync(
+        [FromQuery] GetTaskListOfCurrentUserQuery query,
+        CancellationToken cancellationToken)
+    {
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+           result => Ok(result),
+           errors => Problem(errors));
+    }
+
+    [HttpGet("{id}/user")]
+    [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTaskOfUserAsync(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetTaskOfUserQuery(id);
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(

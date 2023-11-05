@@ -14,4 +14,6 @@ public interface ICurrentUserService
     /// If the ID is not available or invalid, -1 is returned to indicate an unauthenticated user.
     /// </remarks>
     int UserId { get; }
+
+    bool IsSupervisor { get; }
 }

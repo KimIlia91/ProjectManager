@@ -4,7 +4,6 @@ using PM.Application.Features.TaskContext.Dtos;
 using PM.Domain.Common.Enums;
 using PM.Domain.Entities;
 using System.Text.Json.Serialization;
-using Status = PM.Domain.Common.Enums.Status;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 

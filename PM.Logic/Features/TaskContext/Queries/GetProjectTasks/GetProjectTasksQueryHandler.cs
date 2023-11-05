@@ -40,8 +40,7 @@ internal sealed class GetProjectTasksQueryHandler
     {
         var taskQuery = _taskRepository
             .GetQuery()
-            .Where(t => t.Project.Id == query.ProjectId && 
-                        t.Project.Users.Any(e => e.Id == _currentUserService.UserId))
+            .Where(t => t.Project.Id == query.ProjectId)
             .Filter(query.Filter)
             .Sort(query.SortBy);
 

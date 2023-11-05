@@ -5,26 +5,21 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Specifications.TaskSpecifications;
 
-internal class GetTaskByManagerSpec : ISpecification<Task>
+internal class GetTasksOfUserSpec : ISpecification<Task>
 {
-    private readonly int _taskId;
-    private readonly int _managerId;
+    private readonly int _userId;
     private readonly ICurrentUserService _currentUserService;
 
-    public GetTaskByManagerSpec(
-        int taskId,
+    public GetTasksOfUserSpec(
         ICurrentUserService currentUserService)
     {
         _currentUserService = currentUserService;
-        _managerId = _currentUserService.UserId;
-        _taskId = taskId;
+        _userId = _currentUserService.UserId;
     }
 
     public Expression<Func<Task, bool>> ToExpression()
     {
-        if (_currentUserService.IsSupervisor)
-            return t => t.Id == _taskId;
-
-        return t => t.Id == _taskId && t.Project.Manager != null && t.Project.Manager.Id == _managerId;
+        return t => t.Author != null && t.Author.Id == _userId ||
+                    t.Executor != null && t.Executor.Id == _userId;
     }
 }

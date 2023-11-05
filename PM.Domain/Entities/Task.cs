@@ -23,6 +23,8 @@ public sealed class Task : BaseEntity
     /// </summary>
     public User? Executor { get; private set; }
 
+    public int ProjectId { get; private set; }
+
     /// <summary>
     /// Gets or private sets the project to which the task belongs.
     /// </summary>

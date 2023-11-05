@@ -2,17 +2,16 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Common.Constants;
 using System.Security.Claims;
 
-namespace PM.Application.Common.Policies.ProjectOfUser;
+namespace PM.Application.Common.Policies.TaskOfUser;
 
-public class ProjectPolicyHandler : AuthorizationHandler<ProjectPolicyRequirement>
+public sealed class TaskOfUserPolicyHandler : AuthorizationHandler<TaskOfUserPolicyRequirement>
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ProjectPolicyHandler(
+    public TaskOfUserPolicyHandler(
         IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
@@ -20,7 +19,7 @@ public class ProjectPolicyHandler : AuthorizationHandler<ProjectPolicyRequiremen
 
     protected override async Task HandleRequirementAsync(
         AuthorizationHandlerContext context,
-        ProjectPolicyRequirement requirement)
+        TaskOfUserPolicyRequirement requirement)
     {
         if (context.User.IsInRole(RoleConstants.Supervisor))
         {
@@ -37,16 +36,20 @@ public class ProjectPolicyHandler : AuthorizationHandler<ProjectPolicyRequiremen
             return;
 
         var httpContext = _httpContextAccessor.HttpContext;
-        int projectId = Convert.ToInt32(httpContext.Request.RouteValues["id"]);
 
-        var getUserOfProject = new GetUserOfRpojectSpec(userId, projectId);
+        if (httpContext is not null)
+        {
+            int taskId = Convert.ToInt32(httpContext.Request.RouteValues["id"]);
 
-        using var serviceScope = httpContext.RequestServices.CreateScope();
-        var dbContext = serviceScope.ServiceProvider.GetRequiredService<IUserRepository>();
-        var user = await dbContext
-            .GetOrDeafaultAsync(getUserOfProject.ToExpression(), CancellationToken.None);
+            using var serviceScope = httpContext.RequestServices.CreateScope();
+            var dbContext = serviceScope.ServiceProvider.GetRequiredService<ITaskRepository>();
 
-        if (user is not null)
-            context.Succeed(requirement);
+            var task = await dbContext
+                .GetOrDeafaultAsync(t => t.Id == taskId &&
+                    t.Project.Users.Any(u => u.Id == userId), CancellationToken.None);
+
+            if (task is not null)
+                context.Succeed(requirement);
+        }
     }
 }

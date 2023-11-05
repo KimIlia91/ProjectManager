@@ -5,9 +5,9 @@ using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
 using PM.Application.Features.ProjectContext.Dtos;
+using PM.Application.Features.ProjectContext.Queries.GetCurrentUserProjectList;
 using PM.Application.Features.ProjectContext.Queries.GetProject;
 using PM.Application.Features.ProjectContext.Queries.GetProjectList;
-using PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
 using PM.Domain.Common.Constants;
 
 namespace PM.WebApi.Controllers;
@@ -76,7 +76,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if the project is not found or if there are issues.
     /// </returns>
     [HttpGet("{id}")]
-    [Authorize(Policy = PolicyConstants.ProjectPolicy)]
+    [Authorize(Policy = PolicyConstants.ProjectManagerPolicy)]
     [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
         int id,
@@ -126,7 +126,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if there are issues.
     /// </returns>
     [HttpGet]
-    [Authorize(Roles = RoleConstants.Supervisor)]
+    [Authorize(Policy = PolicyConstants.ProjectManagerPolicy)]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectListAsync(
         [FromQuery] GetProjectListQuery query,
@@ -151,8 +151,8 @@ public class ProjectController : ApiBaseController
     /// </returns>
     [HttpGet("User")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUserProjectListAsync(
-        [FromQuery] GetProjectListOfUserQuery query,
+    public async Task<IActionResult> GetCurrentUserProjectListAsync(
+        [FromQuery] GetCurrentUserProjectListQuery query,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(query, cancellationToken);

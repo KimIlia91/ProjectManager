@@ -4,8 +4,6 @@ using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
-using PM.Domain.Entities;
-using System.Threading;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
@@ -52,7 +50,7 @@ public sealed class AddEmployeeToProjectCommandValidator
 
     private async Task<bool> UserMustBeInDatebase(
         AddEmployeeToProjectCommand command,
-        int userId, 
+        int userId,
         CancellationToken cancellationToken)
     {
         command.Employee = await _userRepository
@@ -63,10 +61,10 @@ public sealed class AddEmployeeToProjectCommandValidator
 
     private async Task<bool> ManagerProjectMustBeInDatabase(
         AddEmployeeToProjectCommand command,
-        int id,
+        int projectId,
         CancellationToken cancellationToken)
     {
-        var managerProject = new GetProjectOfManagerSpec(id, _currentUserService.UserId);
+        var managerProject = new GetProjectOfManagerSpec(projectId, _currentUserService);
 
         command.Project = await _projectRepository
             .GetOrDeafaultAsync(managerProject.ToExpression(), cancellationToken);

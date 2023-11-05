@@ -358,7 +358,7 @@ namespace PM.Infrastructure.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("ProjectUser");
+                    b.ToTable("ProjectUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

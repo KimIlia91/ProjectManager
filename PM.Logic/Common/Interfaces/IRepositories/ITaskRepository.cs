@@ -1,4 +1,5 @@
-﻿using PM.Application.Features.TaskContext.Dtos;
+﻿using PM.Application.Common.Models.Task;
+using PM.Application.Features.TaskContext.Dtos;
 using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Interfaces.IRepositories;
@@ -37,4 +38,9 @@ public interface ITaskRepository : IBaseRepository<Task>
     Task<Task?> GetTaskIncludeProjectAsync(
        int taskId,
        CancellationToken cancellationToken);
+
+    Task<TaskResult?> GetTaskResultOfUserAsync(
+        int taskId,
+        int userId,
+        CancellationToken cancellationToken);
 }

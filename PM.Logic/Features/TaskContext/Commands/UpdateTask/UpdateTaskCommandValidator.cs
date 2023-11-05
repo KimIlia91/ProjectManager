@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
+using PM.Application.Common.Specifications.TaskSpecifications;
 using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Common.Constants;
 
@@ -14,6 +16,7 @@ public sealed class UpdateTaskCommandValidator
 {
     private readonly ITaskRepository _taskRepository;
     private readonly IUserRepository _userRepository;
+    private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateTaskCommandValidator"/> class.
@@ -22,16 +25,18 @@ public sealed class UpdateTaskCommandValidator
     /// <param name="userRepository">The employee repository.</param>
     public UpdateTaskCommandValidator(
         ITaskRepository taskRepository,
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        ICurrentUserService currentUserService)
     {
         _userRepository = userRepository;
         _taskRepository = taskRepository;
+        _currentUserService = currentUserService;
 
         RuleFor(command => command.Id)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(TaskMustBeInDatabase)
+            .MustAsync(TaskMustBeInManagerProject)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Name)
@@ -80,7 +85,9 @@ public sealed class UpdateTaskCommandValidator
         int userId,
         CancellationToken cancellationToken)
     {
-        var getUserInProject = new GetUserOfRpojectSpec(userId, command.Task!.Project.Id);
+        var getUserInProject = new GetUserOfRpojectSpec(
+            userId, 
+            command.Task!.ProjectId);
 
         command.Executor = await _userRepository
            .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);
@@ -93,7 +100,9 @@ public sealed class UpdateTaskCommandValidator
         int userId,
         CancellationToken cancellationToken)
     {
-        var getUserInProject = new GetUserOfRpojectSpec(userId, command.Task!.Project.Id);
+        var getUserInProject = new GetUserOfRpojectSpec(
+            userId, 
+            command.Task!.ProjectId);
 
         command.Author = await _userRepository
            .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);
@@ -101,13 +110,17 @@ public sealed class UpdateTaskCommandValidator
         return command.Executor is not null;
     }
 
-    private async Task<bool> TaskMustBeInDatabase(
+    private async Task<bool> TaskMustBeInManagerProject(
         UpdateTaskCommand command,
         int taskId,
         CancellationToken cancellationToken)
     {
+        var getTaskByManager = new GetTaskByManagerSpec(
+            taskId, 
+            _currentUserService);
+
         command.Task = await _taskRepository
-            .GetTaskIncludeProjectAsync(taskId, cancellationToken);
+             .GetOrDeafaultAsync(getTaskByManager.ToExpression(), cancellationToken);
 
         return command.Task is not null;
     }

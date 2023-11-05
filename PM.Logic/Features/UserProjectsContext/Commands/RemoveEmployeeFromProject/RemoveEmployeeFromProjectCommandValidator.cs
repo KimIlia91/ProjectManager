@@ -53,7 +53,7 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
          int id,
          CancellationToken cancellationToken)
     {
-        var managerProject = new GetProjectOfManagerSpec(id, _currentUserService.UserId);
+        var managerProject = new GetProjectOfManagerSpec(id, _currentUserService);
 
         command.Project = await _projectRepository
             .GetOrDeafaultAsync(managerProject.ToExpression(), cancellationToken);

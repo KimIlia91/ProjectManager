@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PM.Application.Common.Interfaces.ISercices;
+using PM.Domain.Common.Constants;
 using System.Security.Claims;
 
 namespace PM.Infrastructure.Services;
@@ -11,6 +12,7 @@ public sealed class CurrentUserService : ICurrentUserService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private int _userId;
+    private bool _isSupervisor;
 
     /// <inheritdoc />
     public int UserId
@@ -25,12 +27,35 @@ public sealed class CurrentUserService : ICurrentUserService
                 if (userId > 0)
                 {
                     _userId = userId;
-
                     return _userId;
                 }
             }
 
-            return -1;
+            _userId = -1;
+            return _userId;
+        }
+    }
+
+    /// <inheritdoc />
+    public bool IsSupervisor
+    {
+        get
+        {
+            if (_httpContextAccessor.HttpContext.User.HasClaim(x => x.Type == ClaimTypes.Role))
+            {
+                var roleClaims = _httpContextAccessor.HttpContext.User.FindAll(ClaimTypes.Role);
+
+                var role = roleClaims.FirstOrDefault(c => c.Value == RoleConstants.Supervisor);
+
+                if (role is not null)
+                {
+                    _isSupervisor = true;
+                    return _isSupervisor;
+                }
+            }
+
+            _isSupervisor = false;
+            return _isSupervisor;
         }
     }
 
