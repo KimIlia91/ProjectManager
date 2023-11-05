@@ -16,7 +16,7 @@ internal sealed class GetTaskListOfProjectByUserQueryHandler
     : IRequestHandler<GetTaskListOfProjectByUserQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
-    private readonly ICurrentUserService _currentUserService;
+    private readonly ICurrentUserService _currentUser;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GetTaskListOfProjectByUserQueryHandler"/> class.
@@ -27,7 +27,7 @@ internal sealed class GetTaskListOfProjectByUserQueryHandler
         ICurrentUserService currentUserService)
     {
         _taskRepository = taskRepository;
-        _currentUserService = currentUserService;
+        _currentUser = currentUserService;
     }
 
     /// <summary>
@@ -40,13 +40,13 @@ internal sealed class GetTaskListOfProjectByUserQueryHandler
         GetTaskListOfProjectByUserQuery query,
         CancellationToken cancellationToken)
     {
-        var getTasksOfProjectByManager = new GetTaskOfProjectByManager(
+        var taskListOfProjectByUser = new GetTaskListOfProjectByUserSpec(
             query.ProjectId, 
-            _currentUserService);
+            _currentUser);
 
         var taskQuery = _taskRepository
             .GetQuery(asNoTracking: true)
-            .Where(getTasksOfProjectByManager.ToExpression())
+            .Where(taskListOfProjectByUser.ToExpression())
             .Filter(query.Filter)
             .Sort(query.SortBy);
 

@@ -5,18 +5,18 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Specifications.TaskSpecifications;
 
-internal sealed class GetTaskOfProjectByManager : ISpecification<Task>
+internal class GetTaskListOfProjectByUserSpec : ISpecification<Task>
 {
     private readonly int _projectId;
-    private readonly int _managerId;
+    private readonly int _userId;
     private readonly ICurrentUserService _currentUserService;
 
-    public GetTaskOfProjectByManager(
+    public GetTaskListOfProjectByUserSpec(
         int projectId,
         ICurrentUserService currentUserService)
     {
         _currentUserService = currentUserService;
-        _managerId = _currentUserService.UserId;
+        _userId = _currentUserService.UserId;
         _projectId = projectId;
     }
 
@@ -26,7 +26,7 @@ internal sealed class GetTaskOfProjectByManager : ISpecification<Task>
             return t => t.Id == _projectId;
 
         return t => t.ProjectId == _projectId &&
-                    t.Project.Manager != null &&
-                    t.Project.Manager.Id == _managerId;
+                  ((t.Executor != null && t.Executor.Id == _userId) ||
+                   (t.Author != null && t.Author.Id == _userId));
     }
 }

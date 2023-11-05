@@ -5,21 +5,25 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Specifications.TaskSpecifications;
 
-internal class GetTasksOfUserSpec : ISpecification<Task>
+internal class GetTaskByUserSpec : ISpecification<Task>
 {
     private readonly int _userId;
+    private readonly int _taskId;
     private readonly ICurrentUserService _currentUserService;
 
-    public GetTasksOfUserSpec(
+    public GetTaskByUserSpec(
+        int taskId,
         ICurrentUserService currentUserService)
     {
         _currentUserService = currentUserService;
         _userId = _currentUserService.UserId;
+        _taskId = taskId;
     }
 
     public Expression<Func<Task, bool>> ToExpression()
     {
-        return t => (t.Author != null && t.Author.Id == _userId) ||
-                    (t.Executor != null && t.Executor.Id == _userId);
+        return t => t.Id == _taskId &&
+                    ((t.Author != null && t.Author.Id == _userId) ||
+                    (t.Executor != null && t.Executor.Id == _userId));
     }
 }
