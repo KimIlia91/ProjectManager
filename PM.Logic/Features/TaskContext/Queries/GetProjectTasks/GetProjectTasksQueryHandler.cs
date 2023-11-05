@@ -2,6 +2,7 @@
 using MediatR;
 using PM.Application.Common.Extensions;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
 
 namespace PM.Application.Features.TaskContext.Queries.GetProjectTasks;
@@ -13,15 +14,18 @@ internal sealed class GetProjectTasksQueryHandler
     : IRequestHandler<GetProjectTasksQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
+    private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="GetProjectTasksQueryHandler"/> class.
     /// </summary>
     /// <param name="taskRepository">The repository for tasks.</param>
     public GetProjectTasksQueryHandler(
-        ITaskRepository taskRepository)
+        ITaskRepository taskRepository,
+        ICurrentUserService currentUserService)
     {
         _taskRepository = taskRepository;
+        _currentUserService = currentUserService;
     }
 
     /// <summary>
@@ -35,8 +39,9 @@ internal sealed class GetProjectTasksQueryHandler
         CancellationToken cancellationToken)
     {
         var taskQuery = _taskRepository
-            .GetQuiery()
-            .Where(t => t.Project.Id == query.ProjectId)
+            .GetQuery()
+            .Where(t => t.Project.Id == query.ProjectId && 
+                        t.Project.Users.Any(e => e.Id == _currentUserService.UserId))
             .Filter(query.Filter)
             .Sort(query.SortBy);
 

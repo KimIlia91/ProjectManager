@@ -41,7 +41,7 @@ public sealed class UserConfigurations : IEntityTypeConfiguration<User>
             .WithOne(t => t.Manager);
 
         builder.HasMany(e => e.Projects)
-            .WithMany(t => t.Employees);
+            .WithMany(t => t.Users);
 
         builder.HasMany(e => e.UserRoles)
             .WithOne(t => t.User)

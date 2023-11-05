@@ -9,7 +9,7 @@ namespace PM.Domain.Entities;
 /// </summary>
 public sealed class Project : BaseEntity
 {
-    private readonly List<User> _employees = new();
+    private readonly List<User> _users = new();
     private readonly List<Task> _tasks = new();
 
     /// <summary>
@@ -48,9 +48,9 @@ public sealed class Project : BaseEntity
     public Priority Priority { get; private set; }
 
     /// <summary>
-    /// Gets the collection of employees associated with the project.
+    /// Gets the collection of users associated with the project.
     /// </summary>
-    public IReadOnlyCollection<User> Employees => _employees.ToList();
+    public IReadOnlyCollection<User> Users => _users.ToList();
 
     /// <summary>
     /// Gets the collection of tasks associated with the project.
@@ -85,7 +85,7 @@ public sealed class Project : BaseEntity
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
-        _employees.Add(manager);
+        _users.Add(manager);
     }
 
     /// <summary>
@@ -161,7 +161,7 @@ public sealed class Project : BaseEntity
     /// <param name="employee">The user to add as an employee to the project.</param>
     public void AddEmployee(User employee)
     {
-        _employees.Add(employee);
+        _users.Add(employee);
     }
 
     /// <summary>
@@ -170,6 +170,6 @@ public sealed class Project : BaseEntity
     /// <param name="employee">The user to remove from the project's employees.</param>
     public void RemoveEmployee(User employee)
     {
-        _employees.Remove(employee);
+        _users.Remove(employee);
     }
 }

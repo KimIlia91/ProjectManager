@@ -35,7 +35,7 @@ internal sealed class GetTaskListQueryHandler
         CancellationToken cancellationToken)
     {
         var taskQuery = _taskRepository
-            .GetQuiery()
+            .GetQuery()
             .Filter(query.Filter)
             .Sort(query.SortBy);
 

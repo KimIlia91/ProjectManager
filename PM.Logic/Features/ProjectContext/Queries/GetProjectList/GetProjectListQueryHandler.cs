@@ -35,7 +35,7 @@ internal sealed class GetProjectListQueryHandler
         CancellationToken cancellationToken)
     {
         var projectQuery = _projectRepository
-            .GetQuiery(asNoTracking: true)
+            .GetQuery(asNoTracking: true)
             .Filter(query.Filter)
             .Sort(query.SortBy);
 

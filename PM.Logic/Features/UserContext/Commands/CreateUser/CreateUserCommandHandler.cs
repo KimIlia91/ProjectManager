@@ -44,7 +44,7 @@ public sealed class CreateUserCommandHandler
             return result.Errors;
 
         var registerResult = await _identityService
-            .RegisterAsync(command.Password, result.Value);
+            .CreateUserAsync(command.Password, result.Value);
 
         if (registerResult.IsError)
             return registerResult.Errors;

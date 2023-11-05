@@ -31,7 +31,7 @@ public interface IIdentityService
     /// <param name="roleName">The name of the role for the new user.</param>
     /// <param name="user">The user object to register.</param>
     /// <returns>An error or the registered user object.</returns>
-    Task<ErrorOr<User>> RegisterAsync(
+    Task<ErrorOr<User>> CreateUserAsync(
         string password,
         //string roleName,
         User user);

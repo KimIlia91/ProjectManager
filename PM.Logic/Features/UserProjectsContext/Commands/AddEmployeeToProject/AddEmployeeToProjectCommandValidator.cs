@@ -5,6 +5,7 @@ using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Entities;
+using System.Threading;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
@@ -36,7 +37,9 @@ public sealed class AddEmployeeToProjectCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(UserMustBeInProject)
+            .MustAsync(UserMustBeInDatebase)
+            .WithMessage(ErrorsResource.NotFound)
+            .MustAsync(UserMustNotBeInProject)
             .WithMessage(ErrorsResource.UserInProject);
 
         RuleFor(command => command.ProjectId)
@@ -45,6 +48,17 @@ public sealed class AddEmployeeToProjectCommandValidator
             .WithMessage(ErrorsResource.Required)
             .MustAsync(ManagerProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
+    }
+
+    private async Task<bool> UserMustBeInDatebase(
+        AddEmployeeToProjectCommand command,
+        int userId, 
+        CancellationToken cancellationToken)
+    {
+        command.Employee = await _userRepository
+            .GetOrDeafaultAsync(u => u.Id == userId, cancellationToken);
+
+        return command.Employee is null;
     }
 
     private async Task<bool> ManagerProjectMustBeInDatabase(
@@ -60,16 +74,16 @@ public sealed class AddEmployeeToProjectCommandValidator
         return command.Project is not null;
     }
 
-    private async Task<bool> UserMustBeInProject(
+    private async Task<bool> UserMustNotBeInProject(
         AddEmployeeToProjectCommand command,
         int userId,
         CancellationToken cancellationToken)
     {
         var userProject = new GetUserOfRpojectSpec(userId, command.ProjectId);
 
-        command.Employee = await _userRepository
+        var user = await _userRepository
             .GetOrDeafaultAsync(userProject.ToExpression(), cancellationToken);
 
-        return command.Employee is not null;
+        return user is null;
     }
 }

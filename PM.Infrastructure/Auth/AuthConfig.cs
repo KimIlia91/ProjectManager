@@ -13,12 +13,12 @@ using PM.Infrastructure.Identity.Settings;
 using PM.Infrastructure.Persistence;
 using System.Text;
 
-namespace PM.Infrastructure;
+namespace PM.Infrastructure.Auth;
 
 /// <summary>
 /// A static class for configuring authentication services.
 /// </summary>
-public static class AuthDi
+public static class AuthConfig
 {
     /// <summary>
     /// Configures and adds authentication services to the specified service collection.
@@ -64,8 +64,6 @@ public static class AuthDi
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 };
             });
-
-        services.AddAuthorization();
 
         services.AddScoped<RefreshTokenService>();
         services.AddScoped<IIdentityService, IdentityService>();

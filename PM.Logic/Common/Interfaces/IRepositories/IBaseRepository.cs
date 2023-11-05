@@ -58,5 +58,5 @@ public interface IBaseRepository<TEntity> where TEntity : class
     /// </summary>
     /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe the cancellation request.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    IQueryable<TEntity> GetQuiery(bool asNoTracking = false);
+    IQueryable<TEntity> GetQuery(bool asNoTracking = false);
 }

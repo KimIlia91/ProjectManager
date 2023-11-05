@@ -24,9 +24,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PM.Infrastructure\PM.Infrastructure.csproj" />
-    <ProjectReference Include="..\PM.Logic\PM.Application.csproj" />
-  </ItemGroup>
-
 </Project>

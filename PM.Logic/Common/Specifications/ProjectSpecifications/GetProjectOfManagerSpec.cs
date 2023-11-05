@@ -27,6 +27,6 @@ internal class GetProjectOfManagerSpec : ISpecification<Project>
     /// <returns>An expression representing the filtering condition for projects based on priority.</returns>
     public Expression<Func<Project, bool>> ToExpression()
     {
-        return p => p.Id == _projectId && p.Manager.Id == _userId;
+        return p => p.Id == _projectId && p.Manager != null && p.Manager.Id == _userId;
     }
 }

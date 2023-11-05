@@ -56,7 +56,7 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
         builder.HasMany(p => p.Tasks)
             .WithOne(t => t.Project);
 
-        builder.HasMany(p => p.Employees)
+        builder.HasMany(p => p.Users)
             .WithMany(p => p.Projects);
     }
 }

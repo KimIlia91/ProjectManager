@@ -23,7 +23,6 @@ internal class GetProjectsOfUserSpec : ISpecification<Project>
     /// <returns>An expression representing the filtering condition for projects based on priority.</returns>
     public Expression<Func<Project, bool>> ToExpression()
     {
-        return p => p.Manager.Id == _userId ||
-                    p.Employees.Any(e => e.Id == _userId);
+        return p => p.Users.Any(e => e.Id == _userId);
     }
 }

@@ -1,5 +1,4 @@
-﻿using PM.Application.Common.Interfaces.ISercices;
-using PM.Application.Common.Specifications.ISpecifications;
+﻿using PM.Application.Common.Specifications.ISpecifications;
 using System.Linq.Expressions;
 using Task = PM.Domain.Entities.Task;
 
@@ -20,8 +19,6 @@ internal class GetTaskByManagerSpec : ISpecification<Task>
 
     public Expression<Func<Task, bool>> ToExpression()
     {
-        return t => t.Id == _taskId &&
-                    t.Project.Manager != null &&
-                    t.Project.Manager.Id == _managerId;
+        return t => t.Id == _taskId && t.Project.Manager != null && t.Project.Manager.Id == _managerId;
     }
 }

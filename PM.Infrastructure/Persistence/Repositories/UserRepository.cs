@@ -57,13 +57,12 @@ public sealed class UserRepository
     }
 
     /// <inheritdoc />
-    public async Task<List<UserResult>> GetProjectUsersResultListAsync(
+    public async Task<List<UserResult>> GetUsersResultListByProjectIdAsync(
         int projectId, 
         CancellationToken cancellationToken)
     {
         return await DbSet
-            .Where(u => u.Projects.Any(p => p.Id == projectId) ||
-                        u.ManageProjects.Any(mp => mp.Id == projectId))
+            .Where(u => u.Projects.Any(p => p.Id == projectId))
             .ProjectToType<UserResult>(Mapper.Config)
             .ToListAsync(cancellationToken);
     }

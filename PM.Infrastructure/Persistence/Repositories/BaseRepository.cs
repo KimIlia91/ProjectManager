@@ -50,7 +50,7 @@ public class BaseRepository<TEntity>
     }
 
     /// <inheritdoc />
-    public IQueryable<TEntity> GetQuiery(
+    public IQueryable<TEntity> GetQuery(
       bool asNoTracking = false)
     {
         if (asNoTracking)

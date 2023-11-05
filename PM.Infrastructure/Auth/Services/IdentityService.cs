@@ -51,7 +51,7 @@ public class IdentityService : IIdentityService
     }
 
     /// <inheritdoc />
-    public async Task<ErrorOr<User>> RegisterAsync(
+    public async Task<ErrorOr<User>> CreateUserAsync(
         string password,
         //string roleName,
         User user)

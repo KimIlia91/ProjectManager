@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 
-internal class GetUserOfRpojectSpec : ISpecification<User>
+public sealed class GetUserOfRpojectSpec : ISpecification<User>
 {
     private readonly int _userId;
     private readonly int _projectId;

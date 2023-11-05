@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PM.Application.Common.Constants;
 using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
@@ -8,7 +9,6 @@ using PM.Application.Features.ProjectContext.Queries.GetProject;
 using PM.Application.Features.ProjectContext.Queries.GetProjectList;
 using PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
 using PM.Domain.Common.Constants;
-using PM.Domain.Common.Enums;
 
 namespace PM.WebApi.Controllers;
 
@@ -76,6 +76,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if the project is not found or if there are issues.
     /// </returns>
     [HttpGet("{id}")]
+    [Authorize(Policy = PolicyConstants.ProjectOfUser)]
     [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
         int id,
@@ -151,7 +152,7 @@ public class ProjectController : ApiBaseController
     [HttpGet("User")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUserProjectListAsync(
-        [FromQuery] GetUserProjectListQuery query,
+        [FromQuery] GetProjectListOfUserQuery query,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(query, cancellationToken);

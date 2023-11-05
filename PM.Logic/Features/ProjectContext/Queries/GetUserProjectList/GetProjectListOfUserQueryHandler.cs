@@ -12,20 +12,20 @@ namespace PM.Application.Features.ProjectContext.Queries.GetUserProjectList;
 /// Represents a handler for the GetUserProjectListQuery, responsible for retrieving a 
 /// list of projects for a user.
 /// </summary>
-internal sealed class GetUserProjectListQueryHandler
-    : IRequestHandler<GetUserProjectListQuery, ErrorOr<List<GetProjectListResult>>>
+internal sealed class GetProjectListOfUserQueryHandler
+    : IRequestHandler<GetProjectListOfUserQuery, ErrorOr<List<GetProjectListResult>>>
 {
     private readonly ICurrentUserService _currentUser;
     private readonly IProjectRepository _projectRepository;
 
     /// <summary>
-    /// Initializes a new instance of the GetUserProjectListQueryHandler class.
+    /// Initializes a new instance of the GetProjectListOfUserQueryHandler class.
     /// </summary>
     /// <param name="currentUser">An instance of the ICurrentUserService for obtaining 
     /// the current user's information.</param>
     /// <param name="projectRepository">An instance of the IProjectRepository for 
     /// interacting with project data.</param>
-    public GetUserProjectListQueryHandler(
+    public GetProjectListOfUserQueryHandler(
         ICurrentUserService currentUser,
         IProjectRepository projectRepository)
     {
@@ -34,20 +34,20 @@ internal sealed class GetUserProjectListQueryHandler
     }
 
     /// <summary>
-    /// Handles the GetUserProjectListQuery to retrieve a list of projects for the current user.
+    /// Handles the GetProjectListOfUserQuery to retrieve a list of projects for the current user.
     /// </summary>
     /// <param name="query">The GetUserProjectListQuery containing filter and sorting criteria.</param>
     /// <param name="cancellationToken">A CancellationToken for handling asynchronous operations.</param>
     /// <returns>A list of projects that match the specified criteria or an error if the operation fails.</returns>
     public async Task<ErrorOr<List<GetProjectListResult>>> Handle(
-        GetUserProjectListQuery query,
+        GetProjectListOfUserQuery query,
         CancellationToken cancellationToken)
     {
-        var getUserProjects = new GetProjectsOfUserSpec(_currentUser.UserId);
+        var projectsOfUser = new GetProjectsOfUserSpec(_currentUser.UserId);
 
         var projectQuery = _projectRepository
-            .GetQuiery(asNoTracking: true)
-            .Where(getUserProjects.ToExpression())
+            .GetQuery(asNoTracking: true)
+            .Where(projectsOfUser.ToExpression())
             .Filter(query.Filetr)
             .Sort(query.SotrBy);
 
