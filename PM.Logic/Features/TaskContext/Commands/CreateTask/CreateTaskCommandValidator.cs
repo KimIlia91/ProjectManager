@@ -3,7 +3,9 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
+using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Common.Constants;
+using PM.Domain.Common.Extensions;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
 
@@ -20,14 +22,15 @@ public sealed class CreateTaskCommandValidator
     /// <summary>
     /// Initializes a new instance of the CreateTaskCommandValidator class.
     /// </summary>
-    /// <param name="employeeRepository">The user repository.</param>
+    /// <param name="userRepository">The user repository.</param>
     /// <param name="projectRepository">The project repository.</param>
+    /// <param name="currentUserService">The current user service.</param>
     public CreateTaskCommandValidator(
-        IUserRepository employeeRepository, 
+        IUserRepository userRepository, 
         IProjectRepository projectRepository,
         ICurrentUserService currentUserService)
     {
-        _userRepository = employeeRepository;
+        _userRepository = userRepository;
         _projectRepository = projectRepository;
         _currentUserService = currentUserService;
 
@@ -73,7 +76,7 @@ public sealed class CreateTaskCommandValidator
         int id,
         CancellationToken cancellationToken)
     {
-        var getManagerProject = new GetManagerProjectSpec(id, 
+        var getManagerProject = new GetProjectOfManagerSpec(id, 
             _currentUserService.UserId);
 
         command.Project = await _projectRepository
@@ -84,13 +87,13 @@ public sealed class CreateTaskCommandValidator
 
     private async Task<bool> UserMustBeInProject(
         CreateTaskCommand command,
-        int id,
+        int userId,
         CancellationToken cancellationToken)
     {
+        var getUserInProject = new GetUserOfRpojectSpec(userId, command.ProjectId);
+
         command.Executor = await _userRepository
-           .GetOrDeafaultAsync(u => u.Id == id &&
-               (u.Projects.Any(p => p.Id == command.ProjectId) || 
-               u.Projects.Any(p => p.Manager.Id == id)), cancellationToken);
+           .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);
 
         return command.Executor is not null;
     }

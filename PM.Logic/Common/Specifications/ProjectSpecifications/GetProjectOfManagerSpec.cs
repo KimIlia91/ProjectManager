@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace PM.Application.Common.Specifications.ProjectSpecifications;
 
-internal class GetManagerProjectSpec : ISpecification<Project>
+internal class GetProjectOfManagerSpec : ISpecification<Project>
 {
     private readonly int _projectId;
     private readonly int _userId;
@@ -13,7 +13,7 @@ internal class GetManagerProjectSpec : ISpecification<Project>
     /// Initializes a new instance of the <see cref="ProjectPrioritySpecification"/> class.
     /// </summary>
     /// <param name="priority">The priority to filter by.</param>
-    public GetManagerProjectSpec(
+    public GetProjectOfManagerSpec(
         int projectId,
         int userId)
     {

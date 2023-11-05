@@ -43,7 +43,7 @@ internal sealed class GetUserProjectListQueryHandler
         GetUserProjectListQuery query,
         CancellationToken cancellationToken)
     {
-        var getUserProjects = new GetUserProjectsSpec(_currentUser.UserId);
+        var getUserProjects = new GetProjectsOfUserSpec(_currentUser.UserId);
 
         var projectQuery = _projectRepository
             .GetQuiery(asNoTracking: true)

@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
+using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Entities;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
@@ -15,6 +17,7 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
+    private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RemoveEmployeeFromProjectCommandValidator"/> class.
@@ -23,10 +26,12 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
     /// <param name="userRepository">The user repository used for user-related validation.</param>
     public RemoveEmployeeFromProjectCommandValidator(
         IProjectRepository projectRepository,
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        ICurrentUserService currentUserService)
     {
         _userRepository = userRepository;
         _projectRepository = projectRepository;
+        _currentUserService = currentUserService;
 
         RuleFor(command => command.EmployeeId)
             .Cascade(CascadeMode.StopOnFirstFailure)
@@ -39,17 +44,19 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(ProjectMustBeInDatabase)
+            .MustAsync(ManagerProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
     }
 
-    private async Task<bool> ProjectMustBeInDatabase(
+    private async Task<bool> ManagerProjectMustBeInDatabase(
          RemoveEmployeeFromProjectCommand command,
          int id,
          CancellationToken cancellationToken)
     {
+        var managerProject = new GetProjectOfManagerSpec(id, _currentUserService.UserId);
+
         command.Project = await _projectRepository
-            .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
+            .GetOrDeafaultAsync(managerProject.ToExpression(), cancellationToken);
 
         return command.Project is not null;
     }
@@ -59,9 +66,10 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
         int userId,
         CancellationToken cancellationToken)
     {
+        var userProject = new GetUserOfRpojectSpec(userId, command.ProjectId);
+
         command.Employee = await _userRepository
-            .GetOrDeafaultAsync(e => e.Id == userId && 
-                e.Projects.Any(p => p.Id == command.ProjectId), cancellationToken);
+            .GetOrDeafaultAsync(userProject.ToExpression(), cancellationToken);
 
         return command.Employee is not null;
     }

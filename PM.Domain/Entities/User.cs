@@ -115,31 +115,4 @@ public sealed class User : IdentityUser<int>
         MiddleName = middleName;
         Email = email;
     }
-
-    // <summary>
-    /// Adds a project to the user.
-    /// </summary>
-    /// <param name="project">The project to add.</param>
-    public void AddProject(Project project)
-    {
-        _projects.Add(project);
-    }
-
-    /// <summary>
-    /// Adds a task to the user's executor tasks.
-    /// </summary>
-    /// <param name="task">The task to add.</param>
-    public void AddExecutorTasks(Task task)
-    {
-        _executorTasks.Add(task);
-    }
-
-    /// <summary>
-    /// Adds a task to the user's author tasks.
-    /// </summary>
-    /// <param name="task">The task to add.</param>
-    public void AddAuthorTasks(Task task)
-    {
-        _authorTasks.Add(task);
-    }
 }

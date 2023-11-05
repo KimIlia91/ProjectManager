@@ -85,6 +85,7 @@ public sealed class Project : BaseEntity
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
+        _employees.Add(manager);
     }
 
     /// <summary>

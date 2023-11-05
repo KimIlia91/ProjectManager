@@ -35,7 +35,7 @@ public sealed class ProjectRepository
     }
 
     /// <inheritdoc />
-    public async Task<GetProjectResult?> GetProjectByIdAsync(
+    public async Task<GetProjectResult?> GetProjectResultByIdAsync(
         int id,
         CancellationToken cancellationToken)
     {

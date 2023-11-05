@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Resources;
+using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Common.Constants;
-using System.Linq;
 
 namespace PM.Application.Features.TaskContext.Commands.UpdateTask;
 
 /// <summary>
 /// Validator for the update task command.
 /// </summary>
-public sealed class UpdateTaskCommandValidator 
+public sealed class UpdateTaskCommandValidator
     : AbstractValidator<UpdateTaskCommand>
 {
     private readonly ITaskRepository _taskRepository;
@@ -77,35 +77,37 @@ public sealed class UpdateTaskCommandValidator
 
     private async Task<bool> ExecutorMustBeInProject(
         UpdateTaskCommand command,
-        int id,
+        int userId,
         CancellationToken cancellationToken)
     {
+        var getUserInProject = new GetUserOfRpojectSpec(userId, command.Task!.Project.Id);
+
         command.Executor = await _userRepository
-           .GetOrDeafaultAsync(u => u.Projects.Any(p => 
-                p.Employees.Any(e => e.Id == id)), cancellationToken);
+           .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);
 
         return command.Executor is not null;
     }
 
     private async Task<bool> AuthorMustBeInProject(
         UpdateTaskCommand command,
-        int id,
+        int userId,
         CancellationToken cancellationToken)
     {
-        command.Executor = await _userRepository
-           .GetOrDeafaultAsync(u => u.Projects.Any(p => 
-                p.Employees.Any(e => e.Id == id)), cancellationToken);
+        var getUserInProject = new GetUserOfRpojectSpec(userId, command.Task!.Project.Id);
+
+        command.Author = await _userRepository
+           .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);
 
         return command.Executor is not null;
     }
 
     private async Task<bool> TaskMustBeInDatabase(
         UpdateTaskCommand command,
-        int id, 
+        int taskId,
         CancellationToken cancellationToken)
     {
         command.Task = await _taskRepository
-            .GetOrDeafaultAsync(t => t.Id == id, cancellationToken);
+            .GetTaskIncludeProjectAsync(taskId, cancellationToken);
 
         return command.Task is not null;
     }

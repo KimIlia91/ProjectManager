@@ -3,6 +3,8 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
+using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
+using PM.Domain.Entities;
 
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 
@@ -34,37 +36,23 @@ public sealed class AddEmployeeToProjectCommandValidator
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(UserMustBeInDatabase)
-            .WithMessage(ErrorsResource.NotFound)
-            .MustAsync(UserCanNotBeInProject)
+            .MustAsync(UserMustBeInProject)
             .WithMessage(ErrorsResource.UserInProject);
 
         RuleFor(command => command.ProjectId)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(ProjectMustBeInDatabase)
+            .MustAsync(ManagerProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
     }
 
-    private async Task<bool> UserCanNotBeInProject(
-        int userId,
-        CancellationToken cancellationToken)
-    {
-        var userProject = new GetUserProjectsSpec(userId);
-
-        var project = await _projectRepository
-            .GetOrDeafaultAsync(userProject.ToExpression(), cancellationToken);
-
-        return project is null;
-    }
-
-    private async Task<bool> ProjectMustBeInDatabase(
+    private async Task<bool> ManagerProjectMustBeInDatabase(
         AddEmployeeToProjectCommand command,
         int id,
         CancellationToken cancellationToken)
     {
-        var managerProject = new GetManagerProjectSpec(id, _currentUserService.UserId);
+        var managerProject = new GetProjectOfManagerSpec(id, _currentUserService.UserId);
 
         command.Project = await _projectRepository
             .GetOrDeafaultAsync(managerProject.ToExpression(), cancellationToken);
@@ -72,13 +60,15 @@ public sealed class AddEmployeeToProjectCommandValidator
         return command.Project is not null;
     }
 
-    private async Task<bool> UserMustBeInDatabase(
+    private async Task<bool> UserMustBeInProject(
         AddEmployeeToProjectCommand command,
-        int id,
+        int userId,
         CancellationToken cancellationToken)
     {
+        var userProject = new GetUserOfRpojectSpec(userId, command.ProjectId);
+
         command.Employee = await _userRepository
-            .GetOrDeafaultAsync(u => u.Id == id, cancellationToken);
+            .GetOrDeafaultAsync(userProject.ToExpression(), cancellationToken);
 
         return command.Employee is not null;
     }

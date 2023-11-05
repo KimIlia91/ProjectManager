@@ -39,7 +39,7 @@ public sealed class DeleteUserCommandHandler
         CancellationToken cancellationToken)
     {
         var tasks = await _taskRepository
-            .GetTaskByAuthorIdAsync(command.UserId, cancellationToken);
+            .GetTaskIncludeAuthorByAuthorIdAsync(command.UserId, cancellationToken);
 
         tasks.ForEach(t => t.RemoveAuthor());
 

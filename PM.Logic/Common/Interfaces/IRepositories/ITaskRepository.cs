@@ -24,7 +24,17 @@ public interface ITaskRepository : IBaseRepository<Task>
     /// <param name="id">The unique identifier of the user.</param>
     /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
     /// <returns>A list of tasks, or null if none are found.</returns>
-    Task<List<Task>?> GetTaskByAuthorIdAsync(
+    Task<List<Task>> GetTaskIncludeAuthorByAuthorIdAsync(
        int id,
+       CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Get task include project.
+    /// </summary>
+    /// <param name="taskId">The unique identifier of the task.</param>
+    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+    /// <returns></returns>
+    Task<Task?> GetTaskIncludeProjectAsync(
+       int taskId,
        CancellationToken cancellationToken);
 }

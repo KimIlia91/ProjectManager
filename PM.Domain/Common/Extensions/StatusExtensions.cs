@@ -5,15 +5,15 @@ namespace PM.Domain.Common.Extensions;
 
 public static class StatusExtensions
 {
-    public static Status GetStatus(
+    public static ErrorOr<Status> ToStatusEnum(
         this string statusName)
     {
-        return statusName switch
+        return statusName.ToLower() switch
         {
-            "ToDo" => Status.ToDo,
-            "InProgress" => Status.InProgress,
-            "Done" => Status.Done,
-            _ => Status.ToDo,
+            "todo" => Status.ToDo,
+            "inprogress" => Status.InProgress,
+            "done" => Status.Done,
+            _ => Error.Validation("Status not found"),
         };
     }
 }

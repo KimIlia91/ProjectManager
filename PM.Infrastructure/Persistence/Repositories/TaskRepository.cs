@@ -36,13 +36,23 @@ public sealed class TaskRepository
     }
 
     /// <inheritdoc />
-    public async Task<List<Task>?> GetTaskByAuthorIdAsync(
-       int id,
+    public async Task<List<Task>> GetTaskIncludeAuthorByAuthorIdAsync(
+       int authorId,
        CancellationToken cancellationToken)
     {
         return await DbSet
             .Include(t => t.Author)
-            .Where(t => t.Author.Id == id)
+            .Where(t => t.Author.Id == authorId)
             .ToListAsync(cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public async Task<Task?> GetTaskIncludeProjectAsync(
+       int taskId,
+       CancellationToken cancellationToken)
+    {
+        return await DbSet
+            .Include(t => t.Project)
+            .FirstOrDefaultAsync(t => t.Id == taskId, cancellationToken);
     }
 }

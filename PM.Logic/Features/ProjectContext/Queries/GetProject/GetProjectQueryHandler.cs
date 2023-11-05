@@ -35,7 +35,7 @@ public sealed class GetProjectQueryHandler
         CancellationToken cancellationToken)
     {
         var project = await _projectRepository
-            .GetProjectByIdAsync(query.Id, cancellationToken);
+            .GetProjectResultByIdAsync(query.Id, cancellationToken);
 
         if (project is null)
             return Error.NotFound(ErrorsResource.NotFound, nameof(query.Id));
