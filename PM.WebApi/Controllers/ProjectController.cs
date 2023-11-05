@@ -76,7 +76,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if the project is not found or if there are issues.
     /// </returns>
     [HttpGet("{id}")]
-    [Authorize(Policy = PolicyConstants.ProjectOfUser)]
+    [Authorize(Policy = PolicyConstants.ProjectPolicy)]
     [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
         int id,

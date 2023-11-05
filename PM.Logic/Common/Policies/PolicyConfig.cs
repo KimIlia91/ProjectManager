@@ -13,7 +13,7 @@ public static class PolicyConfig
 
         services.AddAuthorization(options =>
         {
-            options.AddPolicy(PolicyConstants.ProjectOfUser, policy =>
+            options.AddPolicy(PolicyConstants.ProjectPolicy, policy =>
                 policy.Requirements.Add(new ProjectPolicyRequirement()));
         });
 

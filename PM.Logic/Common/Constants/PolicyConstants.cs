@@ -2,5 +2,5 @@
 
 public static class PolicyConstants
 {
-    public const string ProjectOfUser = "ProjectOfUser";
+    public const string ProjectPolicy = "ProjectOfUser";
 }
