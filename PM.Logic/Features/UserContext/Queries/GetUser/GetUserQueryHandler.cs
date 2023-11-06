@@ -9,7 +9,7 @@ namespace PM.Application.Features.EmployeeContext.Queries.GetEmployee;
 /// <summary>
 /// Handles the retrieval of user information based on a specific user query.
 /// </summary>
-internal sealed class GetUserQueryHandler
+public sealed class GetUserQueryHandler
     : IRequestHandler<GetUserQuery, ErrorOr<GetUserResult>>
 {
     private readonly IUserRepository _userRepository;
