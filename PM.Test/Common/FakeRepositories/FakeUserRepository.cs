@@ -18,10 +18,12 @@ public class FakeUserRepository : FakeBaseRepository<User>, IUserRepository
             .FirstOrDefaultAsync(u => u.Id == employeeId);
     }
 
-    public Task<List<GetUserResult>> GetUserResultListAsync(
+    public async Task<List<GetUserResult>> GetUserResultListAsync(
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await Context.Users
+            .ProjectToType<GetUserResult>(Mapper.Config)
+            .ToListAsync(cancellationToken);
     }
 
     public Task<List<UserResult>> GetUserResultListByRoleAsync(
