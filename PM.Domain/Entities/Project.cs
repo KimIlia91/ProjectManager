@@ -159,7 +159,7 @@ public sealed class Project : BaseEntity
     /// Adds an employee to the project.
     /// </summary>
     /// <param name="employee">The user to add as an employee to the project.</param>
-    public void AddEmployee(User employee)
+    public void AddUser(User employee)
     {
         _users.Add(employee);
     }

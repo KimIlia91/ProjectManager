@@ -8,7 +8,7 @@ namespace PM.Application.Features.UserContext.Queries.GetProjectUserList;
 /// <summary>
 /// Handles the query to retrieve a list of employees associated with a project.
 /// </summary>
-internal sealed class GetProjectUserListQueryHandler
+public sealed class GetProjectUserListQueryHandler
     : IRequestHandler<GetProjectUserListQuery, ErrorOr<List<UserResult>>>
 {
     private readonly IUserRepository _userRepository;

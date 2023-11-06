@@ -33,7 +33,7 @@ internal sealed class AddEmployeeToProjectCommandHandler
         AddEmployeeToProjectCommand command,
         CancellationToken cancellationToken)
     {
-        command.Project!.AddEmployee(command.Employee!);
+        command.Project!.AddUser(command.Employee!);
         await _projectRepository.SaveChangesAsync(cancellationToken);
 
         return new AddEmployeeToProjectResult(command.EmployeeId);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Models.Employee;
+using PM.Domain.Common.Enums;
 using PM.Domain.Entities;
 using PM.Infrastructure.Persistence;
 using PM.Test.Common.Constants;
@@ -15,7 +16,7 @@ public class ApplicationDbContextFactory
             .Options;
 
         var context = new ApplicationDbContext(options);
-        context.Users.AddRange(AddTestUser());
+        context.Projects.AddRange(AddTestUser());
         context.SaveChanges();
         context.Database.EnsureCreated();
 
@@ -28,9 +29,9 @@ public class ApplicationDbContextFactory
         context.Dispose();
     }
 
-    private static List<User> AddTestUser()
+    private static List<Project> AddTestUser()
     {
-        var users = new List<User>();
+        var projects = new List<Project>();
 
         var result1 = User.Create(
             TestDataConstants.TestUserFirstName,
@@ -44,9 +45,19 @@ public class ApplicationDbContextFactory
             $"2{TestDataConstants.TestUserEmail}",
             $"{TestDataConstants.TestUserMiddleName} 2");
 
-        users.Add(result1.Value);
-        users.Add(result2.Value);
+        var project = Project.Create(
+            TestDataConstants.TestProjectName,
+            TestDataConstants.TestCustomerCompany,
+            TestDataConstants.TestExecutorCompany,
+            result1.Value,
+            TestDataConstants.StartDate,
+            TestDataConstants.EndDate,
+            Priority.Medium);
 
-        return users;
+        project.Value.AddUser(result2.Value);
+
+        projects.Add(project.Value);
+
+        return projects;
     }
 }

@@ -37,6 +37,9 @@ public class FakeUserRepository : FakeBaseRepository<User>, IUserRepository
         int projectId,
         CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Context.Users
+            .Where(u => u.Projects.Any(p => p.Id == projectId))
+            .ProjectToType<UserResult>(Mapper.Config)
+            .ToListAsync(cancellationToken);
     }
 }
