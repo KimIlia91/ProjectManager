@@ -19,7 +19,7 @@ internal class GetTasksOfUserSpec : ISpecification<Task>
 
     public Expression<Func<Task, bool>> ToExpression()
     {
-        return t => t.Author != null && t.Author.Id == _userId ||
-                    t.Executor != null && t.Executor.Id == _userId;
+        return t => (t.Author != null && t.Author.Id == _userId) ||
+                    (t.Executor != null && t.Executor.Id == _userId);
     }
 }

@@ -63,9 +63,11 @@ public sealed class TaskRepository
         CancellationToken cancellationToken)
     {
         return await DbSet
+            .Where(t => t.Id == taskId &&
+                       ((t.Author != null && t.Author.Id == userId) ||
+                       (t.Executor != null && t.Executor.Id == userId) ||
+                       (t.Project.Manager != null && t.Project.Manager.Id == userId)))
             .ProjectToType<TaskResult>(Mapper.Config)
-            .FirstOrDefaultAsync(t => t.Id == taskId &&
-                                      (t.Author.Id == userId ||
-                                      t.Executor.Id == userId), cancellationToken);
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

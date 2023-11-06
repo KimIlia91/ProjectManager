@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PM.Application.Common.Behaviors;
 using PM.Application.Common.Mapping;
-using PM.Application.Common.Policies;
 using System.Reflection;
 
 namespace PM.Application;
@@ -28,8 +27,6 @@ public static class DependencyInjection
             cfg.RegisterServicesFromAssembly(assembly);
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         });
-
-        services.AddPolicyConfig();
 
         return services;
     }

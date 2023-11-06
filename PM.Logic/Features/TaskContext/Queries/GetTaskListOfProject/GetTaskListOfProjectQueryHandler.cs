@@ -5,16 +5,17 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
 using PM.Application.Common.Specifications.TaskSpecifications;
+using System.Linq;
 
-namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfCurrentUser;
+namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfProject;
 
-internal sealed class GetTaskListOfCurrentUserQueryHandler
-    : IRequestHandler<GetTaskListOfCurrentUserQuery, ErrorOr<List<TaskResult>>>
+internal sealed class GetTaskListOfProjectQueryHandler
+    : IRequestHandler<GetTaskListOfProjectQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly ICurrentUserService _currentUser;
 
-    public GetTaskListOfCurrentUserQueryHandler(
+    public GetTaskListOfProjectQueryHandler(
         ITaskRepository taskRepository,
         ICurrentUserService currentUser)
     {
@@ -23,16 +24,18 @@ internal sealed class GetTaskListOfCurrentUserQueryHandler
     }
 
     public async Task<ErrorOr<List<TaskResult>>> Handle(
-        GetTaskListOfCurrentUserQuery query,
+        GetTaskListOfProjectQuery query,
         CancellationToken cancellationToken)
     {
-        var getCurrentUserTasks = new GetTasksOfUserSpec(_currentUser);
+        var taskListOfProjectByManager = new GetTaskListOfProjectByManagerSpec(
+            query.ProjectId,
+            _currentUser);
 
         var taskQuery = _taskRepository
-            .GetQuery()
-            .Where(getCurrentUserTasks.ToExpression())
-            .Filter(query.Filter)
-            .Sort(query.Sort);
+          .GetQuery(asNoTracking: true)
+          .Where(taskListOfProjectByManager.ToExpression())
+          .Filter(query.Filter)
+          .Sort(query.SortBy);
 
         return await _taskRepository
             .ToListResultAsync<TaskResult>(taskQuery, cancellationToken);
