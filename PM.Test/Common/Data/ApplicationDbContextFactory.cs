@@ -16,10 +16,14 @@ public class ApplicationDbContextFactory
             .Options;
 
         var context = new ApplicationDbContext(options);
-        context.Projects.AddRange(AddTestUser());
-        context.SaveChanges();
-        context.Database.EnsureCreated();
 
+        if (!context.Projects.Any())
+        {
+            context.Projects.AddRange(AddTestUser());
+            context.SaveChanges();
+        }
+            
+        context.Database.EnsureCreated();
         return context;
     }
 

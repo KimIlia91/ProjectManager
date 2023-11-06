@@ -8,12 +8,12 @@ using System.Linq.Expressions;
 
 namespace PM.Test.Common.FakeRepositories;
 
-public class FakeBaseRepository<TEntity> 
+public abstract class FakeBaseRepository<TEntity> 
     : IDisposable, IBaseRepository<TEntity> where TEntity : class
 {
-    protected ApplicationDbContext Context { get; }
+    public ApplicationDbContext Context { get; }
 
-    protected IMapper Mapper { get; }
+    public IMapper Mapper { get; }
 
     public FakeBaseRepository()
     {

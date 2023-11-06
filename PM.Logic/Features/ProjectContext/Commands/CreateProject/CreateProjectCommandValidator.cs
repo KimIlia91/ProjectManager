@@ -60,6 +60,7 @@ public sealed class CreateProjectCommandValidator
         RuleFor(command => command.EndDate)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
             .Must((command, endDate) => endDate >= command.StartDate)
             .WithMessage(ErrorsResource.InvalidDate);
 
