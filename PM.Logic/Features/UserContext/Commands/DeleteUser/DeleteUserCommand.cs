@@ -15,7 +15,7 @@ public sealed class DeleteUserCommand
     /// <summary>
     /// Gets or sets the user to be deleted.
     /// </summary>
-    [JsonIgnore] public User? Employee { get; set; }
+    [JsonIgnore] public User? User { get; set; }
 
     /// <summary>
     /// Gets or sets the ID of the user to be deleted.

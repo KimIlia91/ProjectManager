@@ -22,7 +22,7 @@ namespace PM.Application.Common.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ErrorsResource {
+    public class ErrorsResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace PM.Application.Common.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PM.Application.Common.Resources.ErrorsResource", typeof(ErrorsResource).Assembly);
@@ -51,7 +51,7 @@ namespace PM.Application.Common.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The start date must be less than or equal to the end date.
         /// </summary>
-        internal static string InvalidDate {
+        public static string InvalidDate {
             get {
                 return ResourceManager.GetString("InvalidDate", resourceCulture);
             }
@@ -72,16 +72,25 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Invalid email.
         /// </summary>
-        internal static string InvalidEmail {
+        public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email is already in use.
+        /// </summary>
+        public static string InvalidExistEmail {
+            get {
+                return ResourceManager.GetString("InvalidExistEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid priorety.
         /// </summary>
-        internal static string InvalidPriority {
+        public static string InvalidPriority {
             get {
                 return ResourceManager.GetString("InvalidPriority", resourceCulture);
             }
@@ -90,7 +99,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Invalid task status.
         /// </summary>
-        internal static string InvalidTaskStatus {
+        public static string InvalidTaskStatus {
             get {
                 return ResourceManager.GetString("InvalidTaskStatus", resourceCulture);
             }
@@ -99,7 +108,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Maximum required length is {0}.
         /// </summary>
-        internal static string MaxLength {
+        public static string MaxLength {
             get {
                 return ResourceManager.GetString("MaxLength", resourceCulture);
             }
@@ -108,7 +117,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Minimum required length is {0}.
         /// </summary>
-        internal static string MinLength {
+        public static string MinLength {
             get {
                 return ResourceManager.GetString("MinLength", resourceCulture);
             }
@@ -117,7 +126,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Not Found.
         /// </summary>
-        internal static string NotFound {
+        public static string NotFound {
             get {
                 return ResourceManager.GetString("NotFound", resourceCulture);
             }
@@ -126,7 +135,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The password must consist of special characters, lowercase and uppercase letters (&apos;a&apos; - &apos;z&apos;), (&apos;A&apos; - &apos;Z&apos;) and contain a single digit.
         /// </summary>
-        internal static string PasswordInvalid {
+        public static string PasswordInvalid {
             get {
                 return ResourceManager.GetString("PasswordInvalid", resourceCulture);
             }
@@ -135,7 +144,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Required field.
         /// </summary>
-        internal static string Required {
+        public static string Required {
             get {
                 return ResourceManager.GetString("Required", resourceCulture);
             }
@@ -144,7 +153,7 @@ namespace PM.Application.Common.Resources {
         /// <summary>
         ///   Looks up a localized string similar to The user is already in the project.
         /// </summary>
-        internal static string UserInProject {
+        public static string UserInProject {
             get {
                 return ResourceManager.GetString("UserInProject", resourceCulture);
             }

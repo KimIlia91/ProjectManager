@@ -32,13 +32,20 @@ public class ApplicationDbContextFactory
     {
         var users = new List<User>();
 
-        var result = User.Create(
+        var result1 = User.Create(
             TestDataConstants.TestUserFirstName,
             TestDataConstants.TestUserLastName, 
             TestDataConstants.TestUserEmail,
             TestDataConstants.TestUserMiddleName);
 
-        users.Add(result.Value);
+        var result2 = User.Create(
+            $"{TestDataConstants.TestUserFirstName} 2",
+            $"{TestDataConstants.TestUserLastName} 2",
+            $"2{TestDataConstants.TestUserEmail}",
+            $"{TestDataConstants.TestUserMiddleName} 2");
+
+        users.Add(result1.Value);
+        users.Add(result2.Value);
 
         return users;
     }

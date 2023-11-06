@@ -3,4 +3,4 @@
 /// <summary>
 /// Represents the result of a user deletion operation.
 /// </summary>
-public sealed record DeleteUserResult();
+public sealed record DeleteUserResult(int Id);

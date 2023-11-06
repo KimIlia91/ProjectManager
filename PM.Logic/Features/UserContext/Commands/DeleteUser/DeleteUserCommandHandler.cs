@@ -44,8 +44,8 @@ public sealed class DeleteUserCommandHandler
         tasks.ForEach(t => t.RemoveAuthor());
 
         await _userRepository
-            .RemoveAsync(command.Employee!, cancellationToken);
+            .RemoveAsync(command.User!, cancellationToken);
 
-        return new DeleteUserResult();
+        return new DeleteUserResult(command.UserId);
     }
 }

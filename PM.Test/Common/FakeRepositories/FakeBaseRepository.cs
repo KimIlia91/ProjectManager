@@ -8,7 +8,8 @@ using System.Linq.Expressions;
 
 namespace PM.Test.Common.FakeRepositories;
 
-public class FakeBaseRepository<TEntity> : IDisposable, IBaseRepository<TEntity> where TEntity : class
+public class FakeBaseRepository<TEntity> 
+    : IDisposable, IBaseRepository<TEntity> where TEntity : class
 {
     protected ApplicationDbContext Context { get; }
 

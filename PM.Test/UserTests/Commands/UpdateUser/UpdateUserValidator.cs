@@ -10,17 +10,15 @@ public class UpdateUserValidator
 {
     private readonly FakeUserRepository _userRepository;
     private readonly string _testUserEmail;
-    private readonly IMapper _mapper;
 
     public UpdateUserValidator()
     {
         _userRepository = new FakeUserRepository();
         _testUserEmail = TestDataConstants.TestUserEmail;
-        _mapper = new Mapper(); 
     }
 
     [Fact]
-    public async Task Validator_Should_ReturnValidResult_WhenAllValid()
+    public async Task Handler_Should_ReturnDeleteUserResult_WhenValid()
     {
         //Arrange
         var firstName = Guid.NewGuid().ToString();
@@ -50,7 +48,56 @@ public class UpdateUserValidator
     }
 
     [Fact]
-    public async Task Validator_Should_ReturnFirstName_WhenFirstNameIsEmpty()
+    public async Task Validator_Should_ReturnValidResult_WhenNoChanges()
+    {
+        //Arrange
+        var user = await _userRepository
+            .GetOrDeafaultAsync(u => u.Email == _testUserEmail, CancellationToken.None);
+
+        var command = new UpdateUserCommand()
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            MiddelName = user.MiddleName,
+        };
+
+        var validator = new UpdateUserCommandValidator(_userRepository);
+
+        //Act
+        var result = await validator.ValidateAsync(command);
+
+        //Assert
+        Assert.True(result.IsValid);
+    }
+
+    [Fact]
+    public async Task Validator_Should_ReturnValidResult_WhenMiddleNameIsNull()
+    {
+        //Arrange
+        var user = await _userRepository
+            .GetOrDeafaultAsync(u => u.Email == _testUserEmail, CancellationToken.None);
+
+        var command = new UpdateUserCommand()
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+        };
+
+        var validator = new UpdateUserCommandValidator(_userRepository);
+
+        //Act
+        var result = await validator.ValidateAsync(command);
+
+        //Assert
+        Assert.True(result.IsValid);
+    }
+
+    [Fact]
+    public async Task Validator_Should_ReturnFirstNameError_WhenFirstNameIsEmpty()
     {
         //Arrange
         var firstName = string.Empty;
@@ -106,23 +153,53 @@ public class UpdateUserValidator
         //Act
         var result = await validator.ValidateAsync(command);
 
-        var expectedFirstName = nameof(command.FirstName);
         var actualFirstName = result.Errors
-            .First(e => e.PropertyName == expectedFirstName).PropertyName;
+            .First(e => e.PropertyName == nameof(command.FirstName)).PropertyName;
 
-        var expectedLastName = nameof(command.LastName);
         var actualLastName = result.Errors
-            .First(e => e.PropertyName == expectedLastName).PropertyName;
+            .First(e => e.PropertyName == nameof(command.LastName)).PropertyName;
 
-        var expectedEmail = nameof(command.Email);
         var actualEmail = result.Errors
-            .First(e => e.PropertyName == expectedEmail).PropertyName;
+            .First(e => e.PropertyName == nameof(command.Email)).PropertyName;
 
         //Assert
         Assert.False(result.IsValid);
         Assert.Equal(4, result.Errors.Count);
-        Assert.Equal(expectedFirstName, actualFirstName);
-        Assert.Equal(expectedLastName, actualLastName);
-        Assert.Equal(expectedEmail, actualEmail);
+        Assert.NotNull(actualFirstName);
+        Assert.NotNull(actualLastName);
+        Assert.NotNull(actualEmail);
+    }
+
+    [Fact]
+    public async Task Validator_Should_ReturnEmailError_WhenEmailNotUnique()
+    {
+        //Arrange
+        var firstName = Guid.NewGuid().ToString();
+        var lastName = Guid.NewGuid().ToString();
+        var email = $"2{TestDataConstants.TestUserEmail}";
+        var middleName = Guid.NewGuid().ToString();
+
+        var user = await _userRepository
+            .GetOrDeafaultAsync(u => u.Email == _testUserEmail, CancellationToken.None);
+
+        var command = new UpdateUserCommand()
+        {
+            Id = user.Id,
+            FirstName = firstName,
+            LastName = lastName,
+            Email = email,
+            MiddelName = middleName,
+        };
+
+        var validator = new UpdateUserCommandValidator(_userRepository);
+
+        //Act
+        var result = await validator.ValidateAsync(command);
+        var actualEmail = result.Errors
+         .First(e => e.PropertyName == nameof(command.Email)).PropertyName;
+
+        //Assert
+        Assert.False(result.IsValid);
+        Assert.NotNull(actualEmail);
     }
 }

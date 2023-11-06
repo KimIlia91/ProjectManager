@@ -33,9 +33,9 @@ public sealed class DeleteUserCommandValidator
         int id,
         CancellationToken cancellationToken)
     {
-        command.Employee = await _userRepository
+        command.User = await _userRepository
             .GetOrDeafaultAsync(e => e.Id == id, cancellationToken);
 
-        return command.Employee is not null;
+        return command.User is not null;
     }
 }

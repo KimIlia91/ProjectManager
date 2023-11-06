@@ -54,7 +54,7 @@ public sealed class UpdateUserCommandValidator
             .MaximumLength(EntityConstants.Email)
             .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.Email))
             .MustAsync(EmailMustBeInUnique)
-            .WithMessage(ErrorsResource.NotFound);
+            .WithMessage(ErrorsResource.InvalidExistEmail);
     }
 
     private async Task<bool> EmailMustBeInUnique(
