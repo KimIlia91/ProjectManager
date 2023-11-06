@@ -9,7 +9,8 @@ public sealed class GetProjectListHandler
 
     public GetProjectListHandler()
     {
-        _projectRepository = new FakeProjectRepository();
+        var guid = Guid.NewGuid();
+        _projectRepository = new FakeProjectRepository(guid);
     }
 
     [Fact]

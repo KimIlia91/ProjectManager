@@ -2,18 +2,18 @@
 using PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 using PM.Test.Common.FakeRepositories;
 using PM.Test.Common.FakeServices;
+using System;
 
 namespace PM.Test.UserProjectTests.Commands.RemoveUserFromProject;
 
 public sealed class RemoveUserFromProjectHandler
 {
     private readonly FakeProjectRepository _projectRepository;
-    private readonly FakeUserRepository _userRepository;
 
     public RemoveUserFromProjectHandler()
     {
-        _projectRepository = new FakeProjectRepository();
-        _userRepository = new FakeUserRepository();
+        var guid = Guid.NewGuid();
+        _projectRepository = new FakeProjectRepository(guid);
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public sealed class RemoveUserFromProjectHandler
         var project = await _projectRepository.Context.Projects
             .SingleAsync(p => p.Id == 2);
 
-        var user = await _userRepository.Context.Users
+        var user = await _projectRepository.Context.Users
             .FirstAsync(u => u.Id == 2);
 
         var query = new RemoveUserFromProjectCommand()

@@ -10,7 +10,8 @@ public sealed class DeleteProjectHandler
 
     public DeleteProjectHandler()
     {
-        _projectRepository = new FakeProjectRepository();
+        var guid = Guid.NewGuid();
+        _projectRepository = new FakeProjectRepository(guid);
     }
 
     [Fact]

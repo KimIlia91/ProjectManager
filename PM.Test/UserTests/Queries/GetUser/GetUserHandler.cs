@@ -11,7 +11,8 @@ public class GetUserHandler
 
     public GetUserHandler()
     {
-        _userRepository = new FakeUserRepository();
+        var guid = Guid.NewGuid();
+        _userRepository = new FakeUserRepository(guid);
     }
 
     [Fact]

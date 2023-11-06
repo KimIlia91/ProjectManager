@@ -10,7 +10,8 @@ public class GetProjectHandler
 
     public GetProjectHandler()
     {
-        _projectRepository = new FakeProjectRepository();
+        var guid = Guid.NewGuid();
+        _projectRepository = new FakeProjectRepository(guid);
     }
 
     [Fact]

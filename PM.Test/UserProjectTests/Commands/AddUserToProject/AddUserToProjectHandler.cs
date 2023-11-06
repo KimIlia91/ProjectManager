@@ -10,7 +10,8 @@ public sealed class AddUserToProjectHandler
 
     public AddUserToProjectHandler()
     {
-        _projectRepository = new FakeProjectRepository();
+        var guid = Guid.NewGuid();
+        _projectRepository = new FakeProjectRepository(guid);
     }
 
     [Fact]
@@ -43,7 +44,7 @@ public sealed class AddUserToProjectHandler
 
         //Assert
         Assert.False(result.IsError);
-        Assert.Equal(command.UserId, result.Value.EmployeeId);
+        Assert.Equal(command.UserId, result.Value.UserId);
         Assert.NotNull(expectedUser);
         Assert.Equal(expectedUser.Id, command.UserId);
     }

@@ -4,7 +4,6 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Features.TaskContext.Dtos;
-using PM.Domain.Common.Extensions;
 using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask;
@@ -26,7 +25,7 @@ internal sealed class CreateTaskCommandHandler
     /// <param name="userRepository">The user repository.</param>
     /// <param name="currentUser">The current user service.</param>
     public CreateTaskCommandHandler(
-        ITaskRepository taskRepository, 
+        ITaskRepository taskRepository,
         IUserRepository userRepository,
         ICurrentUserService currentUser)
     {
@@ -43,7 +42,7 @@ internal sealed class CreateTaskCommandHandler
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>An error result or a result containing the task creation result.</returns>
     public async Task<ErrorOr<CreateTaskResult>> Handle(
-        CreateTaskCommand command, 
+        CreateTaskCommand command,
         CancellationToken cancellationToken)
     {
         var author = await _userRepository
@@ -54,8 +53,8 @@ internal sealed class CreateTaskCommandHandler
 
         var result = Task.Create(
             command.Name,
-            author, 
-            command.Executor, 
+            author,
+            command.Executor,
             command.Project!,
             command.Comment!,
             command.Status,
