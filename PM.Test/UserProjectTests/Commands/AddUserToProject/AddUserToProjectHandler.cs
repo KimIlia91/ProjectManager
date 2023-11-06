@@ -23,7 +23,7 @@ public sealed class AddUserToProjectHandler
         var user = await _projectRepository.Context.Users
             .FirstAsync(u => u.Id == 3);
 
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             Project = project,
             Employee = user,
@@ -31,7 +31,7 @@ public sealed class AddUserToProjectHandler
             UserId = user.Id
         };
 
-        var handler = new AddEmployeeToProjectCommandHandler(_projectRepository);
+        var handler = new AddUserToProjectCommandHandler(_projectRepository);
 
         //Act
         var result = await handler.Handle(command, CancellationToken.None);
@@ -58,7 +58,7 @@ public sealed class AddUserToProjectHandler
         var user = await _projectRepository.Context.Users
             .FirstAsync(u => u.Id == 2);
 
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             Project = project,
             Employee = user,
@@ -66,7 +66,7 @@ public sealed class AddUserToProjectHandler
             UserId = user.Id
         };
 
-        var handler = new AddEmployeeToProjectCommandHandler(_projectRepository);
+        var handler = new AddUserToProjectCommandHandler(_projectRepository);
 
         // Act & Assert
         await Assert.ThrowsAsync<InvalidOperationException>(async () =>

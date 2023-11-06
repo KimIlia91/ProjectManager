@@ -25,7 +25,7 @@ internal sealed class RemoveUserFromProjectCommandHandler
     }
 
     /// <summary>
-    /// Handles the removal of an employee from a project as specified in the command.
+    /// Handles the removal of an user from a project as specified in the command.
     /// </summary>
     /// <param name="command">The command containing information about the employee and project.</param>
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>

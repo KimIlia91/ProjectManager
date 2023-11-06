@@ -24,7 +24,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnNoErrors_WhenUserIsNotInProjectYet()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             UserId = 3,
             ProjectId = 1,
@@ -44,7 +44,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnNoErrors_WhenCurrentUserIsSupervisor()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             UserId = 3,
             ProjectId = 2,
@@ -65,7 +65,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnUserIsAlreadyInProjectError_WhenUserIsAlreadyInProject()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             UserId = 2,
             ProjectId = 1,
@@ -87,7 +87,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnNotFoundError_WhenCurrentUserIsNotManagerOfProject()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             UserId = 3,
             ProjectId = 2,
@@ -110,7 +110,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnNotFoundError_WhenUserNotFoundInDatabase()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             UserId = 400,
             ProjectId = 1,
@@ -133,7 +133,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnRequiredUserId_WhenUserIdIsEmpty()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             ProjectId = 1,
         };
@@ -155,7 +155,7 @@ public sealed class AddUserToProjectValidator
     public async Task Validator_Should_ReturnRequiredProjectId_WhenProjectIdIsEmpty()
     {
         //Arrange
-        var command = new AddEmployeeToProjectCommand()
+        var command = new AddUserToProjectCommand()
         {
             UserId = 2,
         };

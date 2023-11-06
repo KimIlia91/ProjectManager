@@ -9,8 +9,8 @@ namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeTo
 /// <summary>
 /// Represents a command to add an employee to a project.
 /// </summary>
-public sealed class AddEmployeeToProjectCommand 
-    : IRequest<ErrorOr<AddEmployeeToProjectResult>>
+public sealed class AddUserToProjectCommand 
+    : IRequest<ErrorOr<AddUserToProjectResult>>
 {
     /// <summary>
     /// Gets or sets the project to which the employee will be added.

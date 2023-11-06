@@ -25,7 +25,7 @@ public sealed class RemoveUserFromProjectCommand
     public User? User { get; set; }
 
     /// <summary>
-    /// Gets or sets the ID of the employee to be removed from the project.
+    /// Gets or sets the ID of the user to be removed from the project.
     /// </summary>
     public int UserId { get; set; }
 

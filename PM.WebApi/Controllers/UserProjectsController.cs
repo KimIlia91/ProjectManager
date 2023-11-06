@@ -24,9 +24,9 @@ public class UserProjectsController : ApiBaseController
     /// </returns>
     [HttpPost]
     [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Supervisor}")]
-    [ProducesResponseType(typeof(AddEmployeeToProjectResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AddUserToProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddEmployeeToProjectAsync(
-        AddEmployeeToProjectCommand command,
+        AddUserToProjectCommand command,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(command, cancellationToken);

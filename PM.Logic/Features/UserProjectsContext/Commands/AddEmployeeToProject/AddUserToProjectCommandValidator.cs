@@ -11,7 +11,7 @@ namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeTo
 /// Validator for the command to add an employee to a project.
 /// </summary>
 public sealed class AddUserToProjectCommandValidator
-    : AbstractValidator<AddEmployeeToProjectCommand>
+    : AbstractValidator<AddUserToProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
@@ -49,7 +49,7 @@ public sealed class AddUserToProjectCommandValidator
     }
 
     private async Task<bool> UserMustBeInDatebase(
-        AddEmployeeToProjectCommand command,
+        AddUserToProjectCommand command,
         int userId,
         CancellationToken cancellationToken)
     {
@@ -60,7 +60,7 @@ public sealed class AddUserToProjectCommandValidator
     }
 
     private async Task<bool> ManagerProjectMustBeInDatabase(
-        AddEmployeeToProjectCommand command,
+        AddUserToProjectCommand command,
         int projectId,
         CancellationToken cancellationToken)
     {
@@ -73,7 +73,7 @@ public sealed class AddUserToProjectCommandValidator
     }
 
     private async Task<bool> UserMustNotBeInProject(
-        AddEmployeeToProjectCommand command,
+        AddUserToProjectCommand command,
         int userId,
         CancellationToken cancellationToken)
     {

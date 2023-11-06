@@ -8,16 +8,16 @@ namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeTo
 /// <summary>
 /// Handles the command to add an employee to a project.
 /// </summary>
-internal sealed class AddEmployeeToProjectCommandHandler
-    : IRequestHandler<AddEmployeeToProjectCommand, ErrorOr<AddEmployeeToProjectResult>>
+internal sealed class AddUserToProjectCommandHandler
+    : IRequestHandler<AddUserToProjectCommand, ErrorOr<AddUserToProjectResult>>
 {
     private readonly IProjectRepository _projectRepository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AddEmployeeToProjectCommandHandler"/> class.
+    /// Initializes a new instance of the <see cref="AddUserToProjectCommandHandler"/> class.
     /// </summary>
     /// <param name="projectRepository">The project repository used for database operations.</param>
-    public AddEmployeeToProjectCommandHandler(
+    public AddUserToProjectCommandHandler(
         IProjectRepository projectRepository)
     {
         _projectRepository = projectRepository;
@@ -29,13 +29,13 @@ internal sealed class AddEmployeeToProjectCommandHandler
     /// <param name="command">The command to add an employee to a project.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>An error result or a result indicating the addition of an employee to the project.</returns>
-    public async Task<ErrorOr<AddEmployeeToProjectResult>> Handle(
-        AddEmployeeToProjectCommand command,
+    public async Task<ErrorOr<AddUserToProjectResult>> Handle(
+        AddUserToProjectCommand command,
         CancellationToken cancellationToken)
     {
         command.Project!.AddUser(command.Employee!);
         await _projectRepository.SaveChangesAsync(cancellationToken);
 
-        return new AddEmployeeToProjectResult(command.UserId);
+        return new AddUserToProjectResult(command.UserId);
     }
 }
