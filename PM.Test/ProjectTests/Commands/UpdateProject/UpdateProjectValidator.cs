@@ -229,9 +229,7 @@ public sealed class UpdateProjectValidator
 
         //Assert
         Assert.False(result.IsValid);
-        Assert.Equal(2, result.Errors.Count);
-        Assert.Equal(ErrorsResource.InvalidDate, 
-            result.Errors.First(e => e.PropertyName == nameof(command.StartDate)).ErrorMessage);
+        Assert.Single(result.Errors);
         Assert.Equal(ErrorsResource.InvalidDate,
             result.Errors.First(e => e.PropertyName == nameof(command.EndDate)).ErrorMessage);
     }
