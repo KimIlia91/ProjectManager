@@ -12,18 +12,19 @@ public class ApplicationDbContextFactory
     public static ApplicationDbContext Create()
     {
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .UseInMemoryDatabase("FakeDatabase")
             .Options;
 
         var context = new ApplicationDbContext(options);
 
-        if (!context.Projects.Any())
+        var isCreated = context.Database.EnsureCreated();
+
+        if (isCreated && !context.Projects.Any())
         {
             context.Projects.AddRange(AddTestUser());
             context.SaveChanges();
         }
-            
-        context.Database.EnsureCreated();
+
         return context;
     }
 

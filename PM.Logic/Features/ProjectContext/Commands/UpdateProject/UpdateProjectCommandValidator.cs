@@ -64,16 +64,14 @@ public sealed class UpdateProjectCommandValidator
         RuleFor(command => command.StartDate)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
-            .WithMessage(ErrorsResource.Required)
-            .Must((command, startDate) => startDate <= command.EndDate)
-            .WithMessage(ErrorsResource.InvalidDate);
+            .WithMessage(ErrorsResource.Required);
 
         RuleFor(command => command.EndDate)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
             .Must((command, endDate) => endDate >= command.StartDate)
-            .WithMessage(ErrorsResource.InvalidDate)
-             .WithMessage(ErrorsResource.InvalidDate);
+            .WithMessage(ErrorsResource.InvalidDate);
 
         RuleFor(command => command.Priority)
             .Cascade(CascadeMode.StopOnFirstFailure)
