@@ -2,6 +2,8 @@
 
 internal static class TestDataConstants
 {
+    public const int TestProjectId = 1;
+    public const int TestUserId = 1;
     public const string TestUserEmail = "UserTest@User.com";
     public const string TestUserLastName = "Test User Last Name";
     public const string TestUserFirstName = "Test User First Name";

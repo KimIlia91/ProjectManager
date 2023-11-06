@@ -55,9 +55,19 @@ public class ApplicationDbContextFactory
             TestDataConstants.EndDate,
             Priority.Medium);
 
+        var project2 = Project.Create(
+           $"2{TestDataConstants.TestProjectName}",
+           $"2{TestDataConstants.TestCustomerCompany}",
+           $"2{TestDataConstants.TestExecutorCompany}",
+           result2.Value,
+           TestDataConstants.StartDate.AddMonths(1).AddDays(10),
+           TestDataConstants.EndDate.AddMonths(2).AddDays(2),
+           Priority.Low);
+
         project.Value.AddUser(result2.Value);
 
         projects.Add(project.Value);
+        projects.Add(project2.Value);
 
         return projects;
     }

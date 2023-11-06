@@ -1,8 +1,8 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using PM.Application.Features.UserContext.Commands.CreateUser;
-using PM.Test.Common.FakeRepositories;
 using PM.Domain.Common.Errors;
+using PM.Test.Common.FakeServices;
 
 namespace PM.Test.UserTests.Commands.CreateUser;
 

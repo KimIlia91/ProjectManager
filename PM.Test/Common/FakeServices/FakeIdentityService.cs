@@ -5,7 +5,7 @@ using PM.Application.Features.AuthContext.Dtos;
 using PM.Infrastructure.Persistence;
 using PM.Test.Common.Data;
 
-namespace PM.Test.Common.FakeRepositories;
+namespace PM.Test.Common.FakeServices;
 
 public class FakeIdentityService : IIdentityService
 {
@@ -42,7 +42,7 @@ public class FakeIdentityService : IIdentityService
         throw new NotImplementedException();
     }
 
-    public System.Threading.Tasks.Task LogOutAsync(int userId)
+    public Task LogOutAsync(int userId)
     {
         throw new NotImplementedException();
     }

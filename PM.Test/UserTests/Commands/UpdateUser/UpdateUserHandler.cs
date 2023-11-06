@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PM.Application.Features.UserContext.Commands.UpdateUser;
 using PM.Domain.Common.Errors;
 using PM.Test.Common.Constants;
-using PM.Test.Common.FakeRepositories;
+using PM.Test.Common.FakeServices;
 
 namespace PM.Test.UserTests.Commands.UpdateUser;
 
