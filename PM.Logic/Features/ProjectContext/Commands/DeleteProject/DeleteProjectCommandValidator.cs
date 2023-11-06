@@ -22,6 +22,7 @@ public sealed class DeleteProjectCommandValidator
         _projectRepository = projectRepository;
 
         RuleFor(command => command.Id)
+            .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(MustBeIndatabase)

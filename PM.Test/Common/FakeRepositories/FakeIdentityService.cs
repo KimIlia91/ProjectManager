@@ -7,7 +7,7 @@ using PM.Test.Common.Data;
 
 namespace PM.Test.Common.FakeRepositories;
 
-public class FakeIdentityService : IDisposable, IIdentityService
+public class FakeIdentityService : IIdentityService
 {
     protected readonly ApplicationDbContext Context;
     protected readonly IMapper Mapper;
@@ -64,10 +64,5 @@ public class FakeIdentityService : IDisposable, IIdentityService
     public ApplicationDbContext Get()
     {
         return Context;
-    }
-
-    public void Dispose()
-    {
-        ApplicationDbContextFactory.Destroy(Context);
     }
 }
