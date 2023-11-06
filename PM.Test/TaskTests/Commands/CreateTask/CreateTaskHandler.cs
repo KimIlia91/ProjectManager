@@ -4,12 +4,14 @@ using PM.Test.Common.FakeRepositories;
 using PM.Domain.Common.Enums;
 using PM.Test.Common.FakeServices;
 using Xunit.Abstractions;
+using PM.Application.Common.Interfaces.IRepositories;
+using PM.Infrastructure.Persistence;
 
 namespace PM.Test.TaskTests.Commands.CreateTask;
 
 public sealed class CreateTaskHandler
 {
-    private readonly FakeTaskRepositpry _taskRepositpry;
+    private readonly FakeTaskRepository _taskRepositpry;
     private readonly FakeUserRepository _userRepository;
     private readonly FakeProjectRepository _projectRepository;
     private readonly FakeCurrentUserService _currentUserService;
@@ -17,7 +19,7 @@ public sealed class CreateTaskHandler
 
     public CreateTaskHandler()
     {
-        _taskRepositpry = new FakeTaskRepositpry();
+        _taskRepositpry = new FakeTaskRepository();
         _userRepository = new FakeUserRepository();
         _projectRepository = new FakeProjectRepository();
         _currentUserService = new FakeCurrentUserService();
@@ -28,19 +30,19 @@ public sealed class CreateTaskHandler
     public async Task Handler_Should_ReturnCreateTaskResult_WhenTaskCreateSuccess()
     {
         //Arrange
-        var executor = await _userRepository
-            .GetOrDeafaultAsync(t => t.Id == 2, CancellationToken.None);
+        var executor = await _userRepository.Context.Users
+            .FirstAsync(t => t.Id == 2, CancellationToken.None);
 
-        var project = await _projectRepository
-            .GetOrDeafaultAsync(t => t.Id == 1, CancellationToken.None);
+        var project = await _projectRepository.Context.Projects
+            .FirstAsync(t => t.Id == 1, CancellationToken.None);
 
         var command = new CreateTaskCommand()
         {
             Name = "Title",
             Executor = executor,
-            ExecutorId = 1,
+            ExecutorId = executor.Id,
             Project = project,
-            ProjectId = 1,
+            ProjectId = project.Id,
             Status = Status.ToDo,
             Priority = Priority.Medium
         };

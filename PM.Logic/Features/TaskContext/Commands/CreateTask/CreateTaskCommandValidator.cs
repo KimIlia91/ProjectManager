@@ -43,11 +43,12 @@ public sealed class CreateTaskCommandValidator
         RuleFor(command => command.Name)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
             .MaximumLength(EntityConstants.TaskName);
 
         RuleFor(command => command.ExecutorId)
             .MustAsync(UserMustBeInProject)
-            .When(command => command.ExecutorId > 0)
+            .When(command => command.ExecutorId > 0 && command.ProjectId > 0)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Comment)

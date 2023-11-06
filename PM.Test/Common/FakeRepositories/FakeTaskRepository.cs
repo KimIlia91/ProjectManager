@@ -6,7 +6,7 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Test.Common.FakeRepositories;
 
-public class FakeTaskRepositpry : FakeBaseRepository<Task>, ITaskRepository
+public class FakeTaskRepository : FakeBaseRepository<Task>, ITaskRepository
 {
     public async Task<List<Task>> GetTaskIncludeAuthorByAuthorIdAsync(
         int id, CancellationToken cancellationToken)

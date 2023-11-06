@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PM.Application.Common.Models.Employee;
 using PM.Domain.Common.Enums;
 using PM.Domain.Entities;
 using PM.Infrastructure.Persistence;
@@ -37,12 +36,6 @@ public class ApplicationDbContextFactory
         };
 
         return users;
-    }
-
-    public static void Destroy(ApplicationDbContext context)
-    {
-        context.Database.EnsureDeleted();
-        context.Dispose();
     }
 
     private static List<Project> AddProjectsWithUsers()
@@ -85,5 +78,11 @@ public class ApplicationDbContextFactory
         projects.Add(project2.Value);
 
         return projects;
+    }
+
+    public static void Destroy(ApplicationDbContext context)
+    {
+        context.Database.EnsureDeleted();
+        context.Dispose();
     }
 }

@@ -7,12 +7,12 @@ namespace PM.Test.UserTests.Commands.DeleteUser;
 
 public class DeleteUserHandler
 {
-    private readonly FakeTaskRepositpry _taskRepository;
+    private readonly FakeTaskRepository _taskRepository;
     private readonly FakeUserRepository _userRepository;
 
     public DeleteUserHandler()
     {
-        _taskRepository = new FakeTaskRepositpry();
+        _taskRepository = new FakeTaskRepository();
         _userRepository = new FakeUserRepository();
     }
 

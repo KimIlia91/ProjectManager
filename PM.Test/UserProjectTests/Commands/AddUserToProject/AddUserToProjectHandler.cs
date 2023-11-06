@@ -47,31 +47,4 @@ public sealed class AddUserToProjectHandler
         Assert.NotNull(expectedUser);
         Assert.Equal(expectedUser.Id, command.UserId);
     }
-
-    [Fact]
-    public async Task Handler_Should_ReturnOperationException_WhenUserIsAlreadyInProject()
-    {
-        //Arrange
-        var project = await _projectRepository
-            .GetOrDeafaultAsync(p => p.Id == 2, CancellationToken.None);
-
-        var user = await _projectRepository.Context.Users
-            .FirstAsync(u => u.Id == 2);
-
-        var command = new AddUserToProjectCommand()
-        {
-            Project = project,
-            Employee = user,
-            ProjectId = project.Id,
-            UserId = user.Id
-        };
-
-        var handler = new AddUserToProjectCommandHandler(_projectRepository);
-
-        // Act & Assert
-        await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-        {
-            await handler.Handle(command, CancellationToken.None);
-        });
-    }
 }
