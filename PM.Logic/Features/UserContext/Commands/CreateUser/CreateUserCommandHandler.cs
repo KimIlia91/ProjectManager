@@ -9,7 +9,7 @@ namespace PM.Application.Features.UserContext.Commands.CreateUser;
 /// <summary>
 /// Handles the command to create a new user.
 /// </summary>
-public sealed class CreateUserCommandHandler
+internal sealed class CreateUserCommandHandler
     : IRequestHandler<CreateUserCommand, ErrorOr<CreateUserResult>>
 {
     private readonly IIdentityService _identityService;

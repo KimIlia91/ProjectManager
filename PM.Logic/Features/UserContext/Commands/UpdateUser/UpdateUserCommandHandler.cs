@@ -9,7 +9,7 @@ namespace PM.Application.Features.UserContext.Commands.UpdateUser;
 /// <summary>
 /// Handles the command to update user information.
 /// </summary>
-public sealed class UpdateUserCommandHandler
+internal sealed class UpdateUserCommandHandler
     : IRequestHandler<UpdateUserCommand, ErrorOr<UpdateUserResult>>
 {
     private readonly IMapper _mapper;

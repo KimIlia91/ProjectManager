@@ -8,7 +8,7 @@ namespace PM.Application.Features.ProjectContext.Commands.DeleteProject;
 /// <summary>
 /// Represents a command handler for deleting a project.
 /// </summary>
-public sealed class DeleteProjectCommandHandler
+internal sealed class DeleteProjectCommandHandler
     : IRequestHandler<DeleteProjectCommand, ErrorOr<DeleteProjectResult>>
 {
     private readonly IProjectRepository _projectRepository;

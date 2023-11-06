@@ -8,7 +8,7 @@ namespace PM.Application.Features.UserContext.Queries.GetUserList;
 /// <summary>
 /// Handles the retrieval of a list of user information based on the specified query.
 /// </summary>
-public sealed class GetUserListQueryHandler
+internal sealed class GetUserListQueryHandler
     : IRequestHandler<GetUserListQuery, ErrorOr<List<GetUserResult>>>
 {
     private readonly IUserRepository _userRepository;

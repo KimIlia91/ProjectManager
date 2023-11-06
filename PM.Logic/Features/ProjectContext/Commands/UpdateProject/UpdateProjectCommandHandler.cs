@@ -9,7 +9,7 @@ namespace PM.Application.Features.ProjectContext.Commands.UpdateProject;
 /// <summary>
 /// Represents a handler for updating a project.
 /// </summary>
-public sealed class UpdateProjectCommandHandler
+internal sealed class UpdateProjectCommandHandler
     : IRequestHandler<UpdateProjectCommand, ErrorOr<UpdateProjectResult>>
 {
     private readonly IProjectRepository _projectRepository;

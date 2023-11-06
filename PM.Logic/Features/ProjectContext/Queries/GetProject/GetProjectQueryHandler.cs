@@ -9,7 +9,7 @@ namespace PM.Application.Features.ProjectContext.Queries.GetProject;
 /// <summary>
 /// Represents a query to retrieve project information by its ID.
 /// </summary>
-public sealed class GetProjectQueryHandler
+internal sealed class GetProjectQueryHandler
     : IRequestHandler<GetProjectQuery, ErrorOr<GetProjectResult>>
 {
     private readonly IProjectRepository _projectRepository;

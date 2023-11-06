@@ -8,7 +8,7 @@ namespace PM.Application.Features.UserContext.Commands.DeleteUser;
 /// <summary>
 /// Handles the command to delete a user.
 /// </summary>
-public sealed class DeleteUserCommandHandler
+internal sealed class DeleteUserCommandHandler
     : IRequestHandler<DeleteUserCommand, ErrorOr<DeleteUserResult>>
 {
     private readonly IUserRepository _userRepository;

@@ -9,7 +9,7 @@ namespace PM.Application.Features.ProjectContext.Commands.CreateProject;
 /// <summary>
 /// Handles the command for creating a new project.
 /// </summary>
-public sealed class CreateProjectCommandHandler
+internal sealed class CreateProjectCommandHandler
     : IRequestHandler<CreateProjectCommand, ErrorOr<CreateProjectResult>>
 {
     private readonly IProjectRepository _projectRepository;
