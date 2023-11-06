@@ -11,8 +11,7 @@ public sealed class UpdateProjectHandler
 
     public UpdateProjectHandler()
     {
-        var guid = Guid.NewGuid();
-        _projectRepository = new FakeProjectRepository(guid);
+        _projectRepository = new FakeProjectRepository();
     }
 
     [Fact]

@@ -12,8 +12,7 @@ public sealed class GetCurrentUserProjectListHandler
 
     public GetCurrentUserProjectListHandler()
     {
-        var guid = Guid.NewGuid();
-        _projectRepository = new FakeProjectRepository(guid);
+        _projectRepository = new FakeProjectRepository();
         _userService = new FakeCurrentUserService();
     }
 

@@ -10,8 +10,7 @@ public sealed class DeleteProjectValidator
 
     public DeleteProjectValidator()
     {
-        var guid = Guid.NewGuid();
-        _projectRepository = new FakeProjectRepository(guid);
+        _projectRepository = new FakeProjectRepository();
     }
 
     [Fact]
