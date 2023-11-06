@@ -1,7 +1,5 @@
 ﻿using PM.Application.Common.Resources;
-using PM.Application.Features.UserContext.Commands.CreateUser;
 using PM.Application.Features.UserContext.Commands.DeleteUser;
-using PM.Test.Common.Constants;
 using PM.Test.Common.FakeRepositories;
 
 namespace PM.Test.UserTests.Commands.DeleteUser;
@@ -44,6 +42,6 @@ public class DeleteUserValidator
         //Assert
         Assert.False(result.IsValid);
         Assert.Equal(nameof(command.UserId), result.Errors.First().PropertyName);
-        Assert.Equal(ErrorsResource.NotFound, result.Errors.First().ErrorMessage);
+        Assert.Equal(ErrorsResource.Required, result.Errors.First().ErrorMessage);
     }
 }
