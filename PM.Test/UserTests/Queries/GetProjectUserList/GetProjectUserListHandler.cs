@@ -24,5 +24,20 @@ public class GetProjectUserListHandler
 
         //Assert
         Assert.NotEmpty(result.Value);
+        Assert.Equal(2, result.Value.Count);
+    }
+
+    [Fact]
+    public async Task Handler_Should_ReturnEmptyUserList_WhenProjectIsNotInDatabase()
+    {
+        //Arrange
+        var query = new GetProjectUserListQuery(100);
+        var handler = new GetProjectUserListQueryHandler(_userRepository);
+
+        //Act
+        var result = await handler.Handle(query, CancellationToken.None);
+
+        //Assert
+        Assert.Empty(result.Value);
     }
 }
