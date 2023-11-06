@@ -1,5 +1,8 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Identity;
+using PM.Domain.Common.Constants;
+using PM.Domain.Common.Errors;
+using System.Text.RegularExpressions;
 
 namespace PM.Domain.Entities;
 
@@ -90,6 +93,17 @@ public sealed class User : IdentityUser<int>
         string email,
         string? middleName = null)
     {
+        if (string.IsNullOrEmpty(firstName))
+            return Errors.User.FirstNameRequired;
+
+        if (string.IsNullOrEmpty(lastName))
+            return Errors.User.LastNameRequired;
+
+        var regex = new Regex(RegexConstants.Email, RegexOptions.IgnoreCase);
+
+        if (!regex.IsMatch(email))
+            return Errors.User.InvalidEmail;
+
         return new User(
             firstName,
             lastName,
@@ -104,15 +118,28 @@ public sealed class User : IdentityUser<int>
     /// <param name="lastName">The last name of the user.</param>
     /// <param name="middleName">The middle name of the user (optional).</param>
     /// <param name="email">The new email address for the user.</param>
-    public void Update(
+    public ErrorOr<User> Update(
         string firstName,
         string lastName,
         string? middleName,
         string email)
     {
+        if (string.IsNullOrEmpty(firstName))
+            return Errors.User.FirstNameRequired;
+
+        if (string.IsNullOrEmpty(lastName))
+            return Errors.User.LastNameRequired;
+
+        var regex = new Regex(RegexConstants.Email, RegexOptions.IgnoreCase);
+
+        if (!regex.IsMatch(email))
+            return Errors.User.InvalidEmail;
+
         FirstName = firstName;
         LastName = lastName;
         MiddleName = middleName;
         Email = email;
+
+        return this;
     }
 }

@@ -38,11 +38,14 @@ public sealed class UpdateUserCommandHandler
         UpdateUserCommand command,
         CancellationToken cancellationToken)
     {
-        command.User!.Update(
+        var userResult = command.User.Update(
             command.FirstName,
             command.LastName,
             command.MiddelName,
             command.Email);
+
+        if (userResult.IsError)
+            return userResult.Errors;
 
         var result = await _identityService
             .UpdateAsync(command.User, cancellationToken);

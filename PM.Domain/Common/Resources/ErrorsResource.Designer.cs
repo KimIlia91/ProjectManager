@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PM.Application.Common.Resources {
+namespace PM.Domain.Common.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PM.Application.Common.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PM.Application.Common.Resources.ErrorsResource", typeof(ErrorsResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PM.Domain.Common.Resources.ErrorsResource", typeof(ErrorsResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,16 @@ namespace PM.Application.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The start date must be less than or equal to the end date.
+        ///   Looks up a localized string similar to First name required.
+        /// </summary>
+        internal static string FirstNameRequired {
+            get {
+                return ResourceManager.GetString("FirstNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid date.
         /// </summary>
         internal static string InvalidDate {
             get {
@@ -70,7 +79,7 @@ namespace PM.Application.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid email.
+        ///   Looks up a localized string similar to The provided email address is not valid.
         /// </summary>
         internal static string InvalidEmail {
             get {
@@ -79,47 +88,11 @@ namespace PM.Application.Common.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid priorety.
+        ///   Looks up a localized string similar to Last name required.
         /// </summary>
-        internal static string InvalidPriority {
+        internal static string LastNameRequired {
             get {
-                return ResourceManager.GetString("InvalidPriority", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid task status.
-        /// </summary>
-        internal static string InvalidTaskStatus {
-            get {
-                return ResourceManager.GetString("InvalidTaskStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximum required length is {0}.
-        /// </summary>
-        internal static string MaxLength {
-            get {
-                return ResourceManager.GetString("MaxLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Minimum required length is {0}.
-        /// </summary>
-        internal static string MinLength {
-            get {
-                return ResourceManager.GetString("MinLength", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Not Found.
-        /// </summary>
-        internal static string NotFound {
-            get {
-                return ResourceManager.GetString("NotFound", resourceCulture);
+                return ResourceManager.GetString("LastNameRequired", resourceCulture);
             }
         }
         
@@ -129,24 +102,6 @@ namespace PM.Application.Common.Resources {
         internal static string PasswordInvalid {
             get {
                 return ResourceManager.GetString("PasswordInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Required field.
-        /// </summary>
-        internal static string Required {
-            get {
-                return ResourceManager.GetString("Required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The user is already in the project.
-        /// </summary>
-        internal static string UserInProject {
-            get {
-                return ResourceManager.GetString("UserInProject", resourceCulture);
             }
         }
     }

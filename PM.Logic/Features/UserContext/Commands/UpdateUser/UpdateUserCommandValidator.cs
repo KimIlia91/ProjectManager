@@ -12,7 +12,6 @@ public sealed class UpdateUserCommandValidator
     : AbstractValidator<UpdateUserCommand>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IRoleRepository _roleRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UpdateUserCommandValidator"/> class.
@@ -20,11 +19,9 @@ public sealed class UpdateUserCommandValidator
     /// <param name="userRepository">The repository for user data.</param>
     /// <param name="roleRepository">The repository for role data.</param>
     public UpdateUserCommandValidator(
-        IUserRepository userRepository,
-        IRoleRepository roleRepository)
+        IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _roleRepository = roleRepository;
 
         RuleFor(command => command.Id)
             .NotEmpty()

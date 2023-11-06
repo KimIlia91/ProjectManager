@@ -39,11 +39,11 @@ public interface IIdentityService
     /// <summary>
     /// Update user information.
     /// </summary>
-    /// <param name="employee">The user to update.</param>
+    /// <param name="user">The user to update.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>An error or the updated user object.</returns>
     Task<ErrorOr<User>> UpdateAsync(
-        User employee,
+        User user,
         CancellationToken cancellationToken);
 
     /// <summary>
