@@ -10,7 +10,7 @@ namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeTo
 /// <summary>
 /// Validator for the command to add an employee to a project.
 /// </summary>
-public sealed class AddEmployeeToProjectCommandValidator
+public sealed class AddUserToProjectCommandValidator
     : AbstractValidator<AddEmployeeToProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
@@ -18,11 +18,11 @@ public sealed class AddEmployeeToProjectCommandValidator
     private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AddEmployeeToProjectCommandValidator"/> class.
+    /// Initializes a new instance of the <see cref="AddUserToProjectCommandValidator"/> class.
     /// </summary>
     /// <param name="projectRepository">The project repository used for database operations.</param>
     /// <param name="userRepository">The user repository used for database operations.</param>
-    public AddEmployeeToProjectCommandValidator(
+    public AddUserToProjectCommandValidator(
         IProjectRepository projectRepository,
         IUserRepository userRepository,
         ICurrentUserService currentUserService)
@@ -31,7 +31,7 @@ public sealed class AddEmployeeToProjectCommandValidator
         _userRepository = userRepository;
         _projectRepository = projectRepository;
 
-        RuleFor(command => command.EmployeeId)
+        RuleFor(command => command.UserId)
             .Cascade(CascadeMode.StopOnFirstFailure)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
@@ -56,7 +56,7 @@ public sealed class AddEmployeeToProjectCommandValidator
         command.Employee = await _userRepository
             .GetOrDeafaultAsync(u => u.Id == userId, cancellationToken);
 
-        return command.Employee is null;
+        return command.Employee is not null;
     }
 
     private async Task<bool> ManagerProjectMustBeInDatabase(

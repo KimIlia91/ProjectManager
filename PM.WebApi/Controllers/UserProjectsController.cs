@@ -55,10 +55,10 @@ public class UserProjectsController : ApiBaseController
         int employeeId,
         CancellationToken cancellationToken)
     {
-        var command = new RemoveEmployeeFromProjectCommand()
+        var command = new RemoveUserFromProjectCommand()
         {
             ProjectId = projectId,
-            EmployeeId = employeeId
+            UserId = employeeId
         };
 
         var result = await Mediator.Send(command, cancellationToken);

@@ -6,19 +6,19 @@ using PM.Application.Features.EmployeeProjectsContext.Dtos;
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 
 /// <summary>
-/// Handles the execution of the <see cref="RemoveEmployeeFromProjectCommand"/>.
+/// Handles the execution of the <see cref="RemoveUserFromProjectCommand"/>.
 /// </summary>
-internal sealed class RemoveEmployeeFromProjectCommandHandler
-    : IRequestHandler<RemoveEmployeeFromProjectCommand, ErrorOr<RemoveEmployeeFromProjectResult>>
+internal sealed class RemoveUserFromProjectCommandHandler
+    : IRequestHandler<RemoveUserFromProjectCommand, ErrorOr<RemoveUserFromProjectResult>>
 {
     private readonly IProjectRepository _projectRepository;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RemoveEmployeeFromProjectCommandHandler"/> class.
+    /// Initializes a new instance of the <see cref="RemoveUserFromProjectCommandHandler"/> class.
     /// </summary>
     /// <param name="projectRepository">The project repository used for removing an employee 
     /// from a project.</param>
-    public RemoveEmployeeFromProjectCommandHandler(
+    public RemoveUserFromProjectCommandHandler(
         IProjectRepository projectRepository)
     {
         _projectRepository = projectRepository;
@@ -31,14 +31,14 @@ internal sealed class RemoveEmployeeFromProjectCommandHandler
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>An <see cref="ErrorOr{RemoveEmployeeFromProjectResult}"/> representing the 
     /// result of the operation.</returns>
-    public async Task<ErrorOr<RemoveEmployeeFromProjectResult>> Handle(
-        RemoveEmployeeFromProjectCommand command,
+    public async Task<ErrorOr<RemoveUserFromProjectResult>> Handle(
+        RemoveUserFromProjectCommand command,
         CancellationToken cancellationToken)
     {
-        command.Project!.RemoveEmployee(command.Employee!);
+        command.Project!.RemoveEmployee(command.User!);
 
         await _projectRepository.SaveChangesAsync(cancellationToken);
 
-        return new RemoveEmployeeFromProjectResult(command.EmployeeId);
+        return new RemoveUserFromProjectResult(command.UserId);
     }
 }

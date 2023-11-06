@@ -9,22 +9,22 @@ using PM.Domain.Entities;
 namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 
 /// <summary>
-/// Validates the <see cref="RemoveEmployeeFromProjectCommand"/> 
+/// Validates the <see cref="RemoveUserFromProjectCommand"/> 
 /// to ensure that it meets the specified criteria.
 /// </summary>
-public sealed class RemoveEmployeeFromProjectCommandValidator
-    : AbstractValidator<RemoveEmployeeFromProjectCommand>
+public sealed class RemoveUserFromProjectCommandValidator
+    : AbstractValidator<RemoveUserFromProjectCommand>
 {
     private readonly IProjectRepository _projectRepository;
     private readonly IUserRepository _userRepository;
     private readonly ICurrentUserService _currentUserService;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RemoveEmployeeFromProjectCommandValidator"/> class.
+    /// Initializes a new instance of the <see cref="RemoveUserFromProjectCommandValidator"/> class.
     /// </summary>
     /// <param name="projectRepository">The project repository used for project-related validation.</param>
     /// <param name="userRepository">The user repository used for user-related validation.</param>
-    public RemoveEmployeeFromProjectCommandValidator(
+    public RemoveUserFromProjectCommandValidator(
         IProjectRepository projectRepository,
         IUserRepository userRepository,
         ICurrentUserService currentUserService)
@@ -33,23 +33,24 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
         _projectRepository = projectRepository;
         _currentUserService = currentUserService;
 
-        RuleFor(command => command.EmployeeId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
-            .NotEmpty()
-            .WithMessage(ErrorsResource.Required)
-            .MustAsync(UserMustBeInProject)
-            .WithMessage(ErrorsResource.NotFound);
-
         RuleFor(command => command.ProjectId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(ManagerProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
+
+        RuleFor(command => command.UserId)
+            .Cascade(CascadeMode.Stop)
+            .NotEmpty()
+            .WithMessage(ErrorsResource.Required)
+            .MustAsync(UserMustBeInProject)
+            .WithMessage(ErrorsResource.NotFound)
+            .When(command => command.Project != null);
     }
 
     private async Task<bool> ManagerProjectMustBeInDatabase(
-         RemoveEmployeeFromProjectCommand command,
+         RemoveUserFromProjectCommand command,
          int id,
          CancellationToken cancellationToken)
     {
@@ -62,15 +63,15 @@ public sealed class RemoveEmployeeFromProjectCommandValidator
     }
 
     private async Task<bool> UserMustBeInProject(
-        RemoveEmployeeFromProjectCommand command,
+        RemoveUserFromProjectCommand command,
         int userId,
         CancellationToken cancellationToken)
     {
         var userProject = new GetUserOfRpojectSpec(userId, command.ProjectId);
 
-        command.Employee = await _userRepository
+        command.User = await _userRepository
             .GetOrDeafaultAsync(userProject.ToExpression(), cancellationToken);
 
-        return command.Employee is not null;
+        return command.User is not null;
     }
 }

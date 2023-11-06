@@ -36,6 +36,6 @@ internal sealed class AddEmployeeToProjectCommandHandler
         command.Project!.AddUser(command.Employee!);
         await _projectRepository.SaveChangesAsync(cancellationToken);
 
-        return new AddEmployeeToProjectResult(command.EmployeeId);
+        return new AddEmployeeToProjectResult(command.UserId);
     }
 }

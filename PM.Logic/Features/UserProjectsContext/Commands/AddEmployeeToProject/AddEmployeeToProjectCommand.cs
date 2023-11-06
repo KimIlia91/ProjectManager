@@ -25,7 +25,7 @@ public sealed class AddEmployeeToProjectCommand
     /// <summary>
     /// Gets or sets the ID of the employee to be added.
     /// </summary>
-    public int EmployeeId { get; set; }
+    public int UserId { get; set; }
 
     /// <summary>
     /// Gets or sets the ID of the project to which the employee will be added.

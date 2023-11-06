@@ -3,14 +3,9 @@ using PM.Test.Common.Constants;
 
 namespace PM.Test.Common.FakeServices;
 
-internal class FakeCurrentUserService : IDisposable, ICurrentUserService
+internal class FakeCurrentUserIsSupervisorService : ICurrentUserService
 {
     public int UserId => TestDataConstants.TestUserId;
 
-    public bool IsSupervisor => false;
-
-    public void Dispose()
-    {
-        this.Dispose();
-    }
+    public bool IsSupervisor => true;
 }
