@@ -23,7 +23,7 @@ internal class TasksOfProjectByUserSpec : ISpecification<Task>
     public Expression<Func<Task, bool>> ToExpression()
     {
         if (_currentUserService.IsSupervisor)
-            return t => t.Id == _projectId;
+            return t => t.ProjectId == _projectId;
 
         return t => t.ProjectId == _projectId &&
                   ((t.Project.Manager != null && t.Project.ManagerId == _userId) ||

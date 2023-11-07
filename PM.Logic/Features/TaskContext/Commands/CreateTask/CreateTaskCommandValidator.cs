@@ -37,7 +37,7 @@ public sealed class CreateTaskCommandValidator
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(ManagerProjectMustBeInDatabase)
+            .MustAsync(ProjectOfManagerMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Name)
@@ -71,7 +71,7 @@ public sealed class CreateTaskCommandValidator
             .WithMessage(ErrorsResource.InvalidPriority);
     }
 
-    private async Task<bool> ManagerProjectMustBeInDatabase(
+    private async Task<bool> ProjectOfManagerMustBeInDatabase(
         CreateTaskCommand command,
         int projectId,
         CancellationToken cancellationToken)

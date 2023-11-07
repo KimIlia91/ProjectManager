@@ -30,7 +30,7 @@ public sealed class Project : BaseEntity
     /// <summary>
     ///  Gets or sets the ID of the manager.
     /// </summary>
-    public int ManagerId { get; private set; }
+    public int? ManagerId { get; private set; }
 
     /// <summary>
     /// Gets or sets the manager of the project.

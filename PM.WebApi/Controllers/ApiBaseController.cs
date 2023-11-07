@@ -14,8 +14,6 @@ namespace PM.WebApi.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-[ProducesResponseType(StatusCodes.Status403Forbidden)]
 public class ApiBaseController : ControllerBase
 {
     

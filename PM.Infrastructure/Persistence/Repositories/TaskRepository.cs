@@ -66,7 +66,7 @@ public sealed class TaskRepository
             .Where(t => t.Id == taskId &&
                        ((t.Author != null && t.Author.Id == userId) ||
                        (t.Executor != null && t.Executor.Id == userId) ||
-                       (t.Project.Manager != null && t.Project.Manager.Id == userId)))
+                       (t.Project.ManagerId == userId)))
             .ProjectToType<TaskResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
