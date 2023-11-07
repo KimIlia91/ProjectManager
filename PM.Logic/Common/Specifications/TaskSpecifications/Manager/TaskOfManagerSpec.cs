@@ -3,15 +3,15 @@ using PM.Application.Common.Specifications.ISpecifications;
 using System.Linq.Expressions;
 using Task = PM.Domain.Entities.Task;
 
-namespace PM.Application.Common.Specifications.TaskSpecifications;
+namespace PM.Application.Common.Specifications.TaskSpecifications.Manager;
 
-internal class GetTaskByManagerSpec : ISpecification<Task>
+internal class TaskOfManagerSpec : ISpecification<Task>
 {
     private readonly int _taskId;
     private readonly int _managerId;
     private readonly ICurrentUserService _currentUserService;
 
-    public GetTaskByManagerSpec(
+    public TaskOfManagerSpec(
         int taskId,
         ICurrentUserService currentUserService)
     {

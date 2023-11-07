@@ -1,6 +1,6 @@
 ﻿using PM.Application.Common.Enums;
 using PM.Application.Common.Models.Task;
-using PM.Application.Common.Specifications.TaskSpecifications;
+using PM.Application.Common.Specifications.TaskSpecifications.Filter;
 using Task = PM.Domain.Entities.Task;
 
 namespace PM.Application.Common.Extensions;
@@ -21,10 +21,10 @@ internal static class TaskQueryExtensions
       TaskFilter filter)
     {
         return tasks
-            .Where(new TaskPrioritySpecification(filter.Priority).ToExpression())
-            .Where(new TaskExecutorSpecification(filter.ExecutorId).ToExpression())
-            .Where(new TaskAuthorSpecification(filter.AuthorId).ToExpression())
-            .Where(new TaskStatusSpecification(filter.Status).ToExpression());
+            .Where(new TaskPrioritySpec(filter.Priority).ToExpression())
+            .Where(new TaskExecutorSpec(filter.ExecutorId).ToExpression())
+            .Where(new TaskAuthorSpec(filter.AuthorId).ToExpression())
+            .Where(new TaskStatusSpec(filter.Status).ToExpression());
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ internal static class TaskQueryExtensions
                 sortOrder = SortStates.Descending;
             }
 
-            switch (property)
+            switch (property.ToLower())
             {
                 case "priority":
                     sortedTaskQuery = sortOrder == SortStates.Descending
@@ -74,25 +74,25 @@ internal static class TaskQueryExtensions
                        : sortedTaskQuery.ThenBy(p => p.Status);
                     break;
 
-                case "author.LastName":
+                case "author.lastname":
                     sortedTaskQuery = sortOrder == SortStates.Descending
                        ? sortedTaskQuery.ThenByDescending(p => p.Author.LastName)
                        : sortedTaskQuery.ThenBy(p => p.Author.LastName);
                     break;
 
-                case "author.FirstName":
+                case "author.firstname":
                     sortedTaskQuery = sortOrder == SortStates.Descending
                        ? sortedTaskQuery.ThenByDescending(p => p.Author.FirstName)
                        : sortedTaskQuery.ThenBy(p => p.Author.FirstName);
                     break;
 
-                case "executor.FirstName":
+                case "executor.firstname":
                     sortedTaskQuery = sortOrder == SortStates.Descending
                        ? sortedTaskQuery.ThenByDescending(p => p.Executor.FirstName)
                        : sortedTaskQuery.ThenBy(p => p.Executor.FirstName);
                     break;
 
-                case "executor.LastName":
+                case "executor.lastname":
                     sortedTaskQuery = sortOrder == SortStates.Descending
                        ? sortedTaskQuery.ThenByDescending(p => p.Executor.LastName)
                        : sortedTaskQuery.ThenBy(p => p.Executor.LastName);

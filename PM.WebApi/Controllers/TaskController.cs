@@ -8,10 +8,9 @@ using PM.Application.Features.TaskContext.Commands.UpdateTask;
 using PM.Application.Features.TaskContext.Dtos;
 using PM.Application.Features.TaskContext.Queries.GetTask;
 using PM.Application.Features.TaskContext.Queries.GetTaskList;
-using PM.Application.Features.TaskContext.Queries.GetTaskListOfCurrentUser;
-using PM.Application.Features.TaskContext.Queries.GetTaskListOfProject;
-using PM.Application.Features.TaskContext.Queries.GetTaskListOfProjectByUser;
 using PM.Application.Features.TaskContext.Queries.GetTaskOfCurrentUser;
+using PM.Application.Features.TaskContext.Queries.GetTasksOfCurrentUser;
+using PM.Application.Features.TaskContext.Queries.GetTasksOfProjectByUser;
 using PM.Domain.Common.Constants;
 
 namespace PM.WebApi.Controllers;
@@ -154,7 +153,7 @@ public class TaskController : ApiBaseController
         [FromQuery] GetProjectTasksRequest request,
         CancellationToken cancellationToken)
     {
-        var query = new GetTaskListOfProjectQuery(
+        var query = new GetTasksOfProjectByUserQuery(
             id,
             request.Filter,
             request.SortBy);
@@ -184,7 +183,7 @@ public class TaskController : ApiBaseController
         [FromQuery] GetProjectTasksRequest request,
         CancellationToken cancellationToken)
     {
-        var query = new GetTaskListOfProjectByUserQuery(
+        var query = new GetTasksOfProjectByUserQuery(
             id,
             request.Filter,
             request.SortBy);
@@ -205,7 +204,7 @@ public class TaskController : ApiBaseController
     [HttpGet("User")]
     [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskListOfCurrentUserAsync(
-        [FromQuery] GetTaskListOfCurrentUserQuery query,
+        [FromQuery] GetTasksOfCurrentUserQuery query,
         CancellationToken cancellationToken)
     {
         var result = await Mediator.Send(query, cancellationToken);

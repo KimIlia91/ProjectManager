@@ -76,7 +76,7 @@ public sealed class CreateTaskCommandValidator
         int projectId,
         CancellationToken cancellationToken)
     {
-        var getManagerProject = new GetProjectOfManagerSpec(
+        var getManagerProject = new ProjectOfManagerSpec(
             projectId,
             _currentUserService);
 
@@ -91,7 +91,7 @@ public sealed class CreateTaskCommandValidator
         int userId,
         CancellationToken cancellationToken)
     {
-        var getUserInProject = new GetUserOfRpojectSpec(userId, command.ProjectId);
+        var getUserInProject = new UserOfRpojectSpec(userId, command.ProjectId);
 
         command.Executor = await _userRepository
            .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);

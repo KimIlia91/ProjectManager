@@ -1,7 +1,7 @@
-﻿using PM.Application.Common.Enums;
+﻿using PM.Domain.Entities;
+using PM.Application.Common.Enums;
 using PM.Application.Common.Models.Project;
-using PM.Application.Common.Specifications.ProjectSpecifications;
-using PM.Domain.Entities;
+using PM.Application.Common.Specifications.ProjectSpecifications.Filter;
 
 namespace PM.Application.Common.Extensions;
 
@@ -21,8 +21,8 @@ public static class ProjectQueryExtensions
        ProjectFilter filter)
     {
         return projects
-            .Where(new ProjectDateSpecification(filter.StartDate, filter.EndDate).ToExpression())
-            .Where(new ProjectPrioritySpecification(filter.Priority).ToExpression());
+            .Where(new ProjectDateSpec(filter.StartDate, filter.EndDate).ToExpression())
+            .Where(new ProjectPrioritySpec(filter.Priority).ToExpression());
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public static class ProjectQueryExtensions
                 sortOrder = SortStates.Descending;
             }
 
-            switch (property)
+            switch (property.ToLower())
             {
                 case "priority":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
@@ -90,13 +90,13 @@ public static class ProjectQueryExtensions
                        : sortedProjectsQuery.ThenBy(p => p.Manager.FirstName);
                     break;
 
-                case "executorCompany":
+                case "executorcompany":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                        ? sortedProjectsQuery.ThenByDescending(p => p.ExecutorCompany)
                        : sortedProjectsQuery.ThenBy(p => p.ExecutorCompany);
                     break;
 
-                case "customerCompany":
+                case "customercompany":
                     sortedProjectsQuery = sortOrder == SortStates.Descending
                        ? sortedProjectsQuery.ThenByDescending(p => p.CustomerCompany)
                        : sortedProjectsQuery.ThenBy(p => p.CustomerCompany);

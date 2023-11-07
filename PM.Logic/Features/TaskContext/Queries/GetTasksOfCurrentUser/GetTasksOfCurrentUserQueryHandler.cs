@@ -5,16 +5,17 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
 using PM.Application.Common.Specifications.TaskSpecifications;
+using PM.Application.Common.Specifications.TaskSpecifications.User;
 
-namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfCurrentUser;
+namespace PM.Application.Features.TaskContext.Queries.GetTasksOfCurrentUser;
 
-internal sealed class GetTaskListOfCurrentUserQueryHandler
-    : IRequestHandler<GetTaskListOfCurrentUserQuery, ErrorOr<List<TaskResult>>>
+internal sealed class GetTasksOfCurrentUserQueryHandler
+    : IRequestHandler<GetTasksOfCurrentUserQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly ICurrentUserService _currentUser;
 
-    public GetTaskListOfCurrentUserQueryHandler(
+    public GetTasksOfCurrentUserQueryHandler(
         ITaskRepository taskRepository,
         ICurrentUserService currentUser)
     {
@@ -23,10 +24,10 @@ internal sealed class GetTaskListOfCurrentUserQueryHandler
     }
 
     public async Task<ErrorOr<List<TaskResult>>> Handle(
-        GetTaskListOfCurrentUserQuery query,
+        GetTasksOfCurrentUserQuery query,
         CancellationToken cancellationToken)
     {
-        var getCurrentUserTasks = new GetTasksOfUserSpec(_currentUser);
+        var getCurrentUserTasks = new TasksOfUserSpec(_currentUser);
 
         var taskQuery = _taskRepository
             .GetQuery()

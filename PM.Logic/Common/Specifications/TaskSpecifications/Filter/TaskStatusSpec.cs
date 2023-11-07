@@ -3,20 +3,20 @@ using PM.Domain.Common.Enums;
 using System.Linq.Expressions;
 using Task = PM.Domain.Entities.Task;
 
-namespace PM.Application.Common.Specifications.TaskSpecifications;
+namespace PM.Application.Common.Specifications.TaskSpecifications.Filter;
 
 /// <summary>
 /// Represents a specification for filtering tasks by status.
 /// </summary>
-internal sealed class TaskStatusSpecification : ISpecification<Task>
+internal sealed class TaskStatusSpec : ISpecification<Task>
 {
     private readonly Status? _status;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TaskStatusSpecification"/> class.
+    /// Initializes a new instance of the <see cref="TaskStatusSpec"/> class.
     /// </summary>
     /// <param name="status">The status to filter by.</param>
-    public TaskStatusSpecification(Status? status)
+    public TaskStatusSpec(Status? status)
     {
         _status = status;
     }
@@ -27,6 +27,6 @@ internal sealed class TaskStatusSpecification : ISpecification<Task>
     /// <returns>An expression representing the filtering condition for tasks based on the status.</returns>
     public Expression<Func<Task, bool>> ToExpression()
     {
-        return p => (!_status.HasValue || p.Status == _status);
+        return p => !_status.HasValue || p.Status == _status;
     }
 }

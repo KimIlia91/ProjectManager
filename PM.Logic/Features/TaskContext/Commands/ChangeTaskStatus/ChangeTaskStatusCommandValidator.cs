@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
-using PM.Application.Common.Specifications.TaskSpecifications;
+using PM.Application.Common.Interfaces.ISercices;
+using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Specifications.TaskSpecifications.User;
 
 namespace PM.Application.Features.TaskContext.Commands.ChangeTaskStatus;
 
@@ -46,7 +46,7 @@ public sealed class ChangeTaskStatusCommandValidator
         int taskId,
         CancellationToken cancellationToken)
     {
-        var taskByUserSpec = new GetTaskByUserSpec(taskId, _currentUser);
+        var taskByUserSpec = new TaskByUserSpec(taskId, _currentUser);
 
         command.Task = await _taskRepository
             .GetOrDeafaultAsync(taskByUserSpec.ToExpression(), cancellationToken);

@@ -2,7 +2,7 @@
 using MediatR;
 using PM.Application.Common.Models.Task;
 
-namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfProjectByUser;
+namespace PM.Application.Features.TaskContext.Queries.GetTasksOfProjectByUser;
 
 /// <summary>
 /// Represents a query to retrieve tasks associated with a project.
@@ -10,7 +10,7 @@ namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfProjectByUser
 /// <param name="ProjectId">The unique identifier of the project for which tasks are requested.</param>
 /// <param name="Filter">The filter criteria to apply when retrieving tasks.</param>
 /// <param name="SortBy">The sorting criteria for the retrieved tasks (optional).</param>
-public sealed record GetTaskListOfProjectByUserQuery(
+public sealed record GetTasksOfProjectByUserQuery(
     int ProjectId,
     TaskFilter Filter,
     string? SortBy) : IRequest<ErrorOr<List<TaskResult>>>;

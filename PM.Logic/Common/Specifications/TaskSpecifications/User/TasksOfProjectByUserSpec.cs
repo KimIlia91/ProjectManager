@@ -3,15 +3,15 @@ using PM.Application.Common.Specifications.ISpecifications;
 using System.Linq.Expressions;
 using Task = PM.Domain.Entities.Task;
 
-namespace PM.Application.Common.Specifications.TaskSpecifications;
+namespace PM.Application.Common.Specifications.TaskSpecifications.User;
 
-internal class GetTaskListOfProjectByUserSpec : ISpecification<Task>
+internal class TasksOfProjectByUserSpec : ISpecification<Task>
 {
     private readonly int _projectId;
     private readonly int _userId;
     private readonly ICurrentUserService _currentUserService;
 
-    public GetTaskListOfProjectByUserSpec(
+    public TasksOfProjectByUserSpec(
         int projectId,
         ICurrentUserService currentUserService)
     {
@@ -26,7 +26,7 @@ internal class GetTaskListOfProjectByUserSpec : ISpecification<Task>
             return t => t.Id == _projectId;
 
         return t => t.ProjectId == _projectId &&
-                  ((t.Executor != null && t.Executor.Id == _userId) ||
-                   (t.Author != null && t.Author.Id == _userId));
+                  (t.Executor != null && t.Executor.Id == _userId ||
+                   t.Author != null && t.Author.Id == _userId);
     }
 }

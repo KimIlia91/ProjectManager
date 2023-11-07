@@ -1,15 +1,15 @@
 ﻿using FluentValidation;
-using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
-using PM.Application.Common.Specifications.TaskSpecifications;
+using PM.Application.Common.Interfaces.ISercices;
+using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Specifications.TaskSpecifications.Manager;
 
 namespace PM.Application.Features.TaskContext.Commands.DeleteTask;
 
 /// <summary>
 /// Validates the command to delete a task.
 /// </summary>
-public sealed class DeleteTaskCommandValidator 
+public sealed class DeleteTaskCommandValidator
     : AbstractValidator<DeleteTaskCommand>
 {
     private readonly ITaskRepository _taskRepository;
@@ -44,10 +44,10 @@ public sealed class DeleteTaskCommandValidator
     /// <returns>True if the task exists in the database, otherwise false.</returns>
     private async Task<bool> MustBeInDatabase(
         DeleteTaskCommand command,
-        int taskId, 
+        int taskId,
         CancellationToken cancellationToken)
     {
-        var getTaskByManager = new GetTaskByManagerSpec(taskId, _currentUserService);
+        var getTaskByManager = new TaskOfManagerSpec(taskId, _currentUserService);
 
         command.Task = await _taskRepository
              .GetOrDeafaultAsync(getTaskByManager.ToExpression(), cancellationToken);

@@ -9,6 +9,11 @@ namespace PM.Test.Common.FakeRepositories;
 public sealed class FakeProjectRepository
     : FakeBaseRepository<Project>, IProjectRepository
 {
+    public Task<GetProjectResult?> GetProjectOfUserAsync(int projectId, int userId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<GetProjectResult?> GetProjectResultByIdAsync(
         int id, 
         CancellationToken cancellationToken)

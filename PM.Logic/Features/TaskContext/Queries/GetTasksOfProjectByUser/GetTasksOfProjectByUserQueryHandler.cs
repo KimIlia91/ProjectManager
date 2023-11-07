@@ -1,27 +1,27 @@
 ﻿using ErrorOr;
 using MediatR;
 using PM.Application.Common.Extensions;
-using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
-using PM.Application.Common.Specifications.TaskSpecifications;
+using PM.Application.Common.Interfaces.ISercices;
+using PM.Application.Common.Interfaces.IRepositories;
+using PM.Application.Common.Specifications.TaskSpecifications.User;
 
-namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfProjectByUser;
+namespace PM.Application.Features.TaskContext.Queries.GetTasksOfProjectByUser;
 
 /// <summary>
 /// Handles the retrieval of tasks associated with a project based on the specified query.
 /// </summary>
-internal sealed class GetTaskListOfProjectByUserQueryHandler
-    : IRequestHandler<GetTaskListOfProjectByUserQuery, ErrorOr<List<TaskResult>>>
+internal sealed class GetTasksOfProjectByUserQueryHandler
+    : IRequestHandler<GetTasksOfProjectByUserQuery, ErrorOr<List<TaskResult>>>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly ICurrentUserService _currentUser;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GetTaskListOfProjectByUserQueryHandler"/> class.
+    /// Initializes a new instance of the <see cref="GetTasksOfProjectByUserQueryHandler"/> class.
     /// </summary>
     /// <param name="taskRepository">The repository for tasks.</param>
-    public GetTaskListOfProjectByUserQueryHandler(
+    public GetTasksOfProjectByUserQueryHandler(
         ITaskRepository taskRepository,
         ICurrentUserService currentUserService)
     {
@@ -36,10 +36,10 @@ internal sealed class GetTaskListOfProjectByUserQueryHandler
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A list of task results or an error result.</returns>
     public async Task<ErrorOr<List<TaskResult>>> Handle(
-        GetTaskListOfProjectByUserQuery query,
+        GetTasksOfProjectByUserQuery query,
         CancellationToken cancellationToken)
     {
-        var taskListOfProjectByUser = new GetTaskListOfProjectByUserSpec(
+        var taskListOfProjectByUser = new TasksOfProjectByUserSpec(
             query.ProjectId,
             _currentUser);
 

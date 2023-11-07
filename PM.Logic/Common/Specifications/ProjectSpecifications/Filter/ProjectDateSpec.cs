@@ -2,22 +2,22 @@
 using PM.Domain.Entities;
 using System.Linq.Expressions;
 
-namespace PM.Application.Common.Specifications.ProjectSpecifications;
+namespace PM.Application.Common.Specifications.ProjectSpecifications.Filter;
 
 /// <summary>
 /// Represents a specification for filtering projects by date range.
 /// </summary>
-internal sealed class ProjectDateSpecification : ISpecification<Project>
+internal sealed class ProjectDateSpec : ISpecification<Project>
 {
     private readonly DateTime? _startDate;
     private readonly DateTime? _endDate;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProjectDateSpecification"/> class.
+    /// Initializes a new instance of the <see cref="ProjectDateSpec"/> class.
     /// </summary>
     /// <param name="startDate">The start date of the date range to filter by.</param>
     /// <param name="endDate">The end date of the date range to filter by.</param>
-    public ProjectDateSpecification(DateTime? startDate, DateTime? endDate)
+    public ProjectDateSpec(DateTime? startDate, DateTime? endDate)
     {
         _startDate = startDate;
         _endDate = endDate;

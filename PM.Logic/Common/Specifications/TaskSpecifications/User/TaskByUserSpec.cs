@@ -3,15 +3,15 @@ using PM.Application.Common.Specifications.ISpecifications;
 using System.Linq.Expressions;
 using Task = PM.Domain.Entities.Task;
 
-namespace PM.Application.Common.Specifications.TaskSpecifications;
+namespace PM.Application.Common.Specifications.TaskSpecifications.User;
 
-internal class GetTaskByUserSpec : ISpecification<Task>
+internal class TaskByUserSpec : ISpecification<Task>
 {
     private readonly int _userId;
     private readonly int _taskId;
     private readonly ICurrentUserService _currentUserService;
 
-    public GetTaskByUserSpec(
+    public TaskByUserSpec(
         int taskId,
         ICurrentUserService currentUserService)
     {
@@ -23,7 +23,7 @@ internal class GetTaskByUserSpec : ISpecification<Task>
     public Expression<Func<Task, bool>> ToExpression()
     {
         return t => t.Id == _taskId &&
-                    ((t.Author != null && t.Author.Id == _userId) ||
-                    (t.Executor != null && t.Executor.Id == _userId));
+                    (t.Author != null && t.Author.Id == _userId ||
+                    t.Executor != null && t.Executor.Id == _userId);
     }
 }

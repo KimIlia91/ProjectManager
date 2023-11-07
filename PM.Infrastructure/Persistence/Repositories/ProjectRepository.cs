@@ -45,7 +45,7 @@ public sealed class ProjectRepository
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public Task<GetProjectResult?> GetProjectOfUserByIdAsync(
+    public Task<GetProjectResult?> GetProjectOfUserAsync(
         int projectId, 
         int userId, 
         CancellationToken cancellationToken)

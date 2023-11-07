@@ -2,9 +2,9 @@
 using MediatR;
 using PM.Application.Common.Models.Task;
 
-namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfCurrentUser;
+namespace PM.Application.Features.TaskContext.Queries.GetTasksOfCurrentUser;
 
-public sealed class GetTaskListOfCurrentUserQuery : IRequest<ErrorOr<List<TaskResult>>>
+public sealed class GetTasksOfCurrentUserQuery : IRequest<ErrorOr<List<TaskResult>>>
 {
     public TaskFilter Filter { get; set; } = new();
 
