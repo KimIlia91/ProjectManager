@@ -7,6 +7,7 @@
 /// <param name="AccessToken">The access token issued upon successful authentication.</param>
 /// <param name="RefreshToken">The refresh token used to obtain new access tokens.</param>
 public sealed record AuthResult(
+    int UserId,
     string UserName,
     string AccessToken,
     string RefreshToken,

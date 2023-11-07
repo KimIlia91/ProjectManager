@@ -99,7 +99,7 @@ public class IdentityService : IIdentityService
         var roleList = roles.ToList();
         var accessToken = _jwtTokenService.GenerateToken(user, roleList);
         var refreshToken = await _refreshTokenService.GenerateAsync(user);
-        return new AuthResult(user.Email!, accessToken, refreshToken, roleList);
+        return new AuthResult(user.Id, user.Email!, accessToken, refreshToken, roleList);
     }
 
     /// <inheritdoc />
@@ -122,6 +122,6 @@ public class IdentityService : IIdentityService
         var roleList = roles.ToList();
         var accessToken = _jwtTokenService.GenerateToken(user, roles.ToList());
         var newRefreshToken = await _refreshTokenService.GenerateAsync(user);
-        return new AuthResult(user.Email!, accessToken, newRefreshToken, roleList);
+        return new AuthResult(user.Id, user.Email!, accessToken, newRefreshToken, roleList);
     }
 }
