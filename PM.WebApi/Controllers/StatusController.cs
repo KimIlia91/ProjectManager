@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PM.Application.Features.StatusContext.Dtos;
 using PM.Application.Features.StatusContext.Queries.GetStatusList;
 using PM.Domain.Common.Constants;
+using PM.Domain.Common.Extensions;
 
 namespace PM.WebApi.Controllers;
 
@@ -21,8 +22,7 @@ public class StatusController : ApiBaseController
     /// - A problem response with errors if there are issues.
     /// </returns>
     [HttpGet]
-    [Authorize(Roles = RoleConstants.Supervisor)]
-    [ProducesResponseType(typeof(List<GetStatusListResult>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<EnumResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetStatusListAsync(CancellationToken cancellationToken)
     {
         var query = new GetStatusListQuery();
