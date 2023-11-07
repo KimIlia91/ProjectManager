@@ -119,8 +119,9 @@ public class IdentityService : IIdentityService
 
         var user = validationResult.Value;
         var roles = await _userManager.GetRolesAsync(user);
+        var roleList = roles.ToList();
         var accessToken = _jwtTokenService.GenerateToken(user, roles.ToList());
         var newRefreshToken = await _refreshTokenService.GenerateAsync(user);
-        return new AuthResult(user.Email!, accessToken, newRefreshToken);
+        return new AuthResult(user.Email!, accessToken, newRefreshToken, roleList);
     }
 }

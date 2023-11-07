@@ -28,7 +28,6 @@ public static class PesistenceDi
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<ITaskRepository, TaskRepository>();
-        services.AddScoped<IRoleRepository, RoleRepository>();
 
         return services;
     }
