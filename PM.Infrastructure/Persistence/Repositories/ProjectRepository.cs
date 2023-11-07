@@ -53,7 +53,7 @@ public sealed class ProjectRepository
         return DbSet
             .Where(p => p.Id == projectId &&
                         (p.Users.Any(u => u.Id == userId) ||
-                        (p.Manager != null && p.Manager.Id == userId)))
+                        (p.Manager != null && p.ManagerId == userId)))
             .ProjectToType<GetProjectResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }

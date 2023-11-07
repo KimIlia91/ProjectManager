@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PM.Application.Common.Models.Employee;
 using PM.Application.Features.EmployeeContext.Dtos;
 using PM.Application.Features.EmployeeContext.Queries.GetEmployee;
-using PM.Application.Features.EmployeeContext.Queries.GetManagers;
 using PM.Application.Features.UserContext.Commands.CreateUser;
 using PM.Application.Features.UserContext.Commands.DeleteUser;
 using PM.Application.Features.UserContext.Commands.UpdateUser;
@@ -156,52 +154,6 @@ public class UserController : ApiBaseController
        CancellationToken cancellationToken)
     {
         var query = new GetUsersOfProjectQuery(projectId);
-        var result = await Mediator.Send(query, cancellationToken);
-
-        return result.Match(
-          result => Ok(result),
-          errors => Problem(errors));
-    }
-
-    /// <summary>
-    /// Retrieve a list of manager users.
-    /// </summary>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>
-    /// An IActionResult representing the list of manager users if successful.
-    /// - 200 OK with the list of manager users if successful.
-    /// - A problem response with errors if there are issues.
-    /// </returns>
-    [HttpGet("Managers")]
-    [Authorize(Roles = RoleConstants.Supervisor)]
-    [ProducesResponseType(typeof(List<UserResult>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetManagerListAsync(
-        CancellationToken cancellationToken)
-    {
-        var query = new GetManagerListQuery();
-        var result = await Mediator.Send(query, cancellationToken);
-
-        return result.Match(
-          result => Ok(result),
-          errors => Problem(errors));
-    }
-
-    /// <summary>
-    /// Retrieve a list of employee users.
-    /// </summary>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>
-    /// An IActionResult representing the list of employee users if successful.
-    /// - 200 OK with the list of employee users if successful.
-    /// - A problem response with errors if there are issues.
-    /// </returns>
-    [HttpGet("Employees")]
-    [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
-    [ProducesResponseType(typeof(List<UserResult>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetEmployeeListAsync(
-        CancellationToken cancellationToken)
-    {
-        var query = new GetEmployeeListQuery();
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(
