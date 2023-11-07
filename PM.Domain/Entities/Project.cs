@@ -28,6 +28,11 @@ public sealed class Project : BaseEntity
     public string ExecutorCompany { get; private set; }
 
     /// <summary>
+    ///  Gets or sets the ID of the manager.
+    /// </summary>
+    public int ManagerId { get; private set; }
+
+    /// <summary>
     /// Gets or sets the manager of the project.
     /// </summary>
     public User? Manager { get; private set; }

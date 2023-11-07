@@ -37,6 +37,6 @@ internal class ProjectOfManagerSpec : ISpecification<Project>
         if (_currentUserService.IsSupervisor)
             return p => p.Id == _projectId;
 
-        return p => p.Id == _projectId && p.Manager != null && p.Manager.Id == _userId;
+        return p => p.Id == _projectId && p.Manager != null && p.ManagerId == _userId;
     }
 }

@@ -49,7 +49,7 @@ internal sealed class CreateTaskCommandHandler
             .GetOrDeafaultAsync(u => u.Id == _currentUser.UserId, cancellationToken);
 
         if (author is null)
-            return Error.Conflict(ErrorsResource.NotFound, nameof(author));
+            return Error.NotFound(ErrorsResource.NotFound, nameof(author));
 
         var result = Task.Create(
             command.Name,

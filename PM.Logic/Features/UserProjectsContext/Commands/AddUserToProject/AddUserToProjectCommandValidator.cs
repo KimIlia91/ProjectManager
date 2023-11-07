@@ -32,16 +32,17 @@ public sealed class AddUserToProjectCommandValidator
         _projectRepository = projectRepository;
 
         RuleFor(command => command.UserId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(UserMustBeInDatebase)
             .WithMessage(ErrorsResource.NotFound)
             .MustAsync(UserMustNotBeInProject)
-            .WithMessage(ErrorsResource.UserInProject);
+            .WithMessage(ErrorsResource.UserInProject)
+            .When(command => command.ProjectId > 0);
 
         RuleFor(command => command.ProjectId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(ManagerProjectMustBeInDatabase)

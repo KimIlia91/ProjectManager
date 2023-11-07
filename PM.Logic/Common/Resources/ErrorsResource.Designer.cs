@@ -61,6 +61,15 @@ namespace PM.Application.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access denied.
+        /// </summary>
+        public static string AccessDenied {
+            get {
+                return ResourceManager.GetString("AccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The start date must be less than or equal to the end date.
         /// </summary>
         public static string InvalidDate {

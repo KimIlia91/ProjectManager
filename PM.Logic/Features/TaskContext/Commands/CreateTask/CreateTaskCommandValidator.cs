@@ -34,14 +34,14 @@ public sealed class CreateTaskCommandValidator
         _currentUserService = currentUserService;
 
         RuleFor(command => command.ProjectId)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(ManagerProjectMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Name)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MaximumLength(EntityConstants.TaskName);
@@ -57,14 +57,14 @@ public sealed class CreateTaskCommandValidator
             .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.Comment));
 
         RuleFor(command => command.Status)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .IsInEnum()
             .WithMessage(ErrorsResource.InvalidTaskStatus);
 
         RuleFor(command => command.Priority)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .IsInEnum()

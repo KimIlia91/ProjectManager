@@ -102,7 +102,7 @@ public class ApplicationDbContextFactory
         project1.Value.AddTask(task1.Value);
         project1.Value.AddTask(task2.Value);
         project2.Value.AddTask(task3.Value);
-
+        project2.Value.AddUser(user2.Value);
         project1.Value.AddUser(user2.Value);
 
         projects.Add(project1.Value);

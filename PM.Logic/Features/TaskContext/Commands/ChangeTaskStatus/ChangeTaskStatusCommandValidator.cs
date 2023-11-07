@@ -30,7 +30,7 @@ public sealed class ChangeTaskStatusCommandValidator
             .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
-            .MustAsync(TaskMustBeInDatabase)
+            .MustAsync(TaskMustBeOfUser)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Status)
@@ -41,7 +41,7 @@ public sealed class ChangeTaskStatusCommandValidator
             .WithMessage(ErrorsResource.InvalidTaskStatus);
     }
 
-    private async Task<bool> TaskMustBeInDatabase(
+    private async Task<bool> TaskMustBeOfUser(
         ChangeTaskStatusCommand command,
         int taskId,
         CancellationToken cancellationToken)
