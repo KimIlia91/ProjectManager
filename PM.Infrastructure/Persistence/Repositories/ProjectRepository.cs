@@ -44,4 +44,17 @@ public sealed class ProjectRepository
             .ProjectToType<GetProjectResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }
+
+    public Task<GetProjectResult?> GetProjectOfUserByIdAsync(
+        int projectId, 
+        int userId, 
+        CancellationToken cancellationToken)
+    {
+        return DbSet
+            .Where(p => p.Id == projectId &&
+                        (p.Users.Any(u => u.Id == userId) ||
+                        (p.Manager != null && p.Manager.Id == userId)))
+            .ProjectToType<GetProjectResult>(Mapper.Config)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
 }

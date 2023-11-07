@@ -72,6 +72,37 @@ public class ApplicationDbContextFactory
             TestDataConstants.EndDate.AddMonths(2).AddDays(2),
             Priority.Low);
 
+        var task1 = PM.Domain.Entities.Task.Create(
+            "Title1", 
+            user1.Value, 
+            user2.Value, 
+            project1.Value, 
+            "Comment", 
+            Status.ToDo, 
+            Priority.High);
+
+        var task2 = PM.Domain.Entities.Task.Create(
+            "Title2",
+            user2.Value,
+            user2.Value,
+            project1.Value,
+            "Comment",
+            Status.ToDo,
+            Priority.High);
+
+        var task3 = PM.Domain.Entities.Task.Create(
+            "Title3",
+            user2.Value,
+            user2.Value,
+            project2.Value,
+            "Comment",
+            Status.ToDo,
+            Priority.High);
+
+        project1.Value.AddTask(task1.Value);
+        project1.Value.AddTask(task2.Value);
+        project2.Value.AddTask(task3.Value);
+
         project1.Value.AddUser(user2.Value);
 
         projects.Add(project1.Value);

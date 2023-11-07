@@ -27,7 +27,8 @@ public sealed class DeleteTaskCommandValidator
         _taskRepository = taskRepository;
         _currentUserService = currentUserService;
 
-        RuleFor(command => command.Id)
+        RuleFor(command => command.TaskId)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(MustBeInDatabase)

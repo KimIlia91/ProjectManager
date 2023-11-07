@@ -185,7 +185,7 @@ public sealed class RemoveUserFromProjectValidator
         var command = new RemoveUserFromProjectCommand()
         {
             UserId = 2,
-            ProjectId = 2
+            ProjectId = 1
         };
 
         var validator = new RemoveUserFromProjectCommandValidator(

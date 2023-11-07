@@ -13,9 +13,9 @@ namespace PM.Application.Features.ProjectContext.Commands.UpdateProject;
 public sealed class UpdateProjectCommand 
     : IRequest<ErrorOr<UpdateProjectResult>>
 {
-    [JsonIgnore] public Project Project { get; set; } = null!;
+    [JsonIgnore] public Project? Project { get; set; } 
 
-    [JsonIgnore] public User Manager { get; set; } = null!;
+    [JsonIgnore] public User? Manager { get; set; }
 
     public int Id { get; set; }
 

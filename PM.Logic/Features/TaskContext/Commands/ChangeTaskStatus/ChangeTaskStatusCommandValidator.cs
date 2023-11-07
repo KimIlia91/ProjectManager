@@ -27,13 +27,14 @@ public sealed class ChangeTaskStatusCommandValidator
         _taskRepository = taskRepository;
 
         RuleFor(command => command.TaskId)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .MustAsync(TaskMustBeInDatabase)
             .WithMessage(ErrorsResource.NotFound);
 
         RuleFor(command => command.Status)
-            .Cascade(CascadeMode.StopOnFirstFailure)
+            .Cascade(CascadeMode.Stop)
             .NotEmpty()
             .WithMessage(ErrorsResource.Required)
             .IsInEnum()

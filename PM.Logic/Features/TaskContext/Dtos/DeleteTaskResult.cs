@@ -3,4 +3,4 @@
 /// <summary>
 /// Represents the result of a task deletion operation.
 /// </summary>
-public sealed record DeleteTaskResult;
+public sealed record DeleteTaskResult(int TaskId);

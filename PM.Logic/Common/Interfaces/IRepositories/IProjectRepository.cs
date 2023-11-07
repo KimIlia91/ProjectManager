@@ -27,4 +27,15 @@ public interface IProjectRepository : IBaseRepository<Project>
     Task<GetProjectResult?> GetProjectResultByIdAsync(
         int id, 
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Gets project information by its identifier.
+    /// </summary>
+    /// <param name="id">Project identifier.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>Project information.</returns>
+    Task<GetProjectResult?> GetProjectOfUserByIdAsync(
+        int projectId,
+        int userId,
+        CancellationToken cancellationToken);
 }

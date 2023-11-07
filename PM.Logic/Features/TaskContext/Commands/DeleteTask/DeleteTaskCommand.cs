@@ -19,5 +19,5 @@ public sealed class DeleteTaskCommand : IRequest<ErrorOr<DeleteTaskResult>>
     /// <summary>
     /// Gets or sets the identifier of the task to be deleted.
     /// </summary>
-    public int Id { get; set; }
+    public int TaskId { get; set; }
 }

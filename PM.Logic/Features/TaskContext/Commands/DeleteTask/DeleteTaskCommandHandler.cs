@@ -35,6 +35,6 @@ internal sealed class DeleteTaskCommandHandler
     {
         await _taskRepository.RemoveAsync(command.Task!, cancellationToken);
 
-        return new DeleteTaskResult();
+        return new DeleteTaskResult(command.TaskId);
     }
 }

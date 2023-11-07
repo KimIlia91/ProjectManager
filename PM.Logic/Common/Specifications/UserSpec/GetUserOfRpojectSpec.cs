@@ -22,6 +22,8 @@ public sealed class GetUserOfRpojectSpec : ISpecification<User>
     public Expression<Func<User, bool>> ToExpression()
     {
         return u => u.Id == _userId &&
-            u.Projects.Any(p => p.Id == _projectId);
+            u.Projects.Any(p => p.Id == _projectId &&  
+                           p.Manager != null &&
+                           p.Manager.Id == _userId);
     }
 }

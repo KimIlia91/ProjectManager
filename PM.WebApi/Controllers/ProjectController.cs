@@ -4,6 +4,7 @@ using PM.Application.Features.ProjectContext.Commands.CreateProject;
 using PM.Application.Features.ProjectContext.Commands.DeleteProject;
 using PM.Application.Features.ProjectContext.Commands.UpdateProject;
 using PM.Application.Features.ProjectContext.Dtos;
+using PM.Application.Features.ProjectContext.Queries.GetCurrentUserProject;
 using PM.Application.Features.ProjectContext.Queries.GetCurrentUserProjectList;
 using PM.Application.Features.ProjectContext.Queries.GetProject;
 using PM.Application.Features.ProjectContext.Queries.GetProjectList;
@@ -75,6 +76,7 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if the project is not found or if there are issues.
     /// </returns>
     [HttpGet("{id}")]
+    [Authorize(Roles = RoleConstants.Supervisor)]
     [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetProjectAsync(
         int id,
@@ -138,7 +140,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Retrieve a list of projects associated with the authenticated user.
+    /// Get project list of current user.
     /// </summary>
     /// <param name="query">The query parameters for filtering and sorting user-specific projects.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -147,13 +149,34 @@ public class ProjectController : ApiBaseController
     /// - 200 OK with the list of projects if successful.
     /// - A problem response with errors if there are issues.
     /// </returns>
-    [HttpGet("User")]
+    [HttpGet("CurrentUser")]
     [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Employee}")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUserProjectListAsync(
         [FromQuery] GetCurrentUserProjectListQuery query,
         CancellationToken cancellationToken)
     {
+        var result = await Mediator.Send(query, cancellationToken);
+
+        return result.Match(
+            result => Ok(result),
+            errors => Problem(errors));
+    }
+
+    /// <summary>
+    /// Get project of current user by ID.
+    /// </summary>
+    /// <param name="id">ID of project.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns></returns>
+    [HttpGet("{id}/CurrentUser")]
+    [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Employee}")]
+    [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCurrentUserProjectAsync(
+        int id,
+        CancellationToken cancellationToken)
+    {
+        var query = new GetCurrentUserProjectQuery(id);
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(

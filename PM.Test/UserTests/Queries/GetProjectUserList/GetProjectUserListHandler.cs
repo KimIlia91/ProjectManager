@@ -24,7 +24,7 @@ public class GetProjectUserListHandler
 
         //Assert
         Assert.NotEmpty(result.Value);
-        Assert.Equal(2, result.Value.Count);
+        Assert.Single(result.Value);
     }
 
     [Fact]

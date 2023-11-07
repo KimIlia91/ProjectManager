@@ -85,7 +85,6 @@ public sealed class Project : BaseEntity
         StartDate = startDate;
         EndDate = endDate;
         Priority = priority;
-        _users.Add(manager);
     }
 
     /// <summary>
@@ -171,5 +170,14 @@ public sealed class Project : BaseEntity
     public void RemoveEmployee(User employee)
     {
         _users.Remove(employee);
+    }
+
+    /// <summary>
+    /// Add task to the project.
+    /// </summary>
+    /// <param name="task">The task to add to the project's tasks.</param>
+    public void AddTask(Task task)
+    {
+        _tasks.Add(task);
     }
 }

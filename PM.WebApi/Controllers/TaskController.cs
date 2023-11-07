@@ -108,7 +108,7 @@ public class TaskController : ApiBaseController
         int id,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteTaskCommand { Id = id };
+        var command = new DeleteTaskCommand { TaskId = id };
         var result = await Mediator.Send(command, cancellationToken);
 
         return result.Match(
@@ -117,7 +117,7 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// Retrieve a list of tasks based on query parameters.
+    /// Get task list.
     /// </summary>
     /// <param name="query">The query parameters for filtering and sorting tasks.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -140,6 +140,13 @@ public class TaskController : ApiBaseController
            errors => Problem(errors));
     }
 
+    /// <summary>
+    /// Get task list of project.
+    /// </summary>
+    /// <param name="id">Project ID.</param>
+    /// <param name="request">Query parameters for filtering and sorting tasks.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>Task list or error.</returns>
     [HttpGet("Project/{id}")]
     [ProducesResponseType(typeof(List<TaskResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskListOfProjectAsync(
@@ -189,6 +196,12 @@ public class TaskController : ApiBaseController
            errors => Problem(errors));
     }
 
+    /// <summary>
+    /// Get task list of current user.
+    /// </summary>
+    /// <param name="query">Query parameters for filtering and sorting tasks.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>Task list of current user.</returns>
     [HttpGet("User")]
     [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskListOfCurrentUserAsync(
@@ -202,6 +215,12 @@ public class TaskController : ApiBaseController
            errors => Problem(errors));
     }
 
+    /// <summary>
+    /// Get task of current user.
+    /// </summary>
+    /// <param name="id">ID of task.</param>
+    /// <param name="cancellationToken">A token to cancel the operation.</param>
+    /// <returns>Task of current user.</returns>
     [HttpGet("{id}/user")]
     [ProducesResponseType(typeof(ChangeTaskStatusResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskOfCurrentUserAsync(
