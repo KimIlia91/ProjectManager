@@ -29,7 +29,7 @@ public class FakeTaskRepository : FakeBaseRepository<Task>, ITaskRepository
         throw new NotImplementedException();
     }
 
-    public Task<TaskResult?> GetTaskResultOfUserAsync(
+    public Task<TaskResult?> GetTaskOfUserByIdAsync(
         int taskId, int userId, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();

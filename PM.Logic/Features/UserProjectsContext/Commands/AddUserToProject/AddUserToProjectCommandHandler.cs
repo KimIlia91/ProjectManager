@@ -3,7 +3,7 @@ using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.EmployeeProjectsContext.Dtos;
 
-namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
+namespace PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 
 /// <summary>
 /// Handles the command to add an employee to a project.

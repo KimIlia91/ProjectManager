@@ -33,7 +33,7 @@ public class FakeUserRepository : FakeBaseRepository<User>, IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<UserResult>> GetUsersResultListByProjectIdAsync(
+    public Task<List<UserResult>> GetUserListByProjectIdAsync(
         int projectId,
         CancellationToken cancellationToken)
     {

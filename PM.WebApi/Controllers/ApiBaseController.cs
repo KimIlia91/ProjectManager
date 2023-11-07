@@ -16,10 +16,6 @@ namespace PM.WebApi.Controllers;
 [Authorize]
 [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 [ProducesResponseType(StatusCodes.Status403Forbidden)]
-[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status409Conflict)]
-[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-[ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
 public class ApiBaseController : ControllerBase
 {
     

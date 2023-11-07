@@ -16,8 +16,8 @@ public class GetProjectUserListHandler
     public async Task Handler_Should_ReturnUserResultListOfProject_WhenUserInDatabase()
     {
         //Arrange
-        var query = new GetProjectUserListQuery(1);
-        var handler = new GetProjectUserListQueryHandler(_userRepository);
+        var query = new GetUsersOfProjectQuery(1);
+        var handler = new GetUsersOfProjectQueryHandler(_userRepository);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);
@@ -31,8 +31,8 @@ public class GetProjectUserListHandler
     public async Task Handler_Should_ReturnEmptyUserList_WhenProjectIsNotInDatabase()
     {
         //Arrange
-        var query = new GetProjectUserListQuery(100);
-        var handler = new GetProjectUserListQueryHandler(_userRepository);
+        var query = new GetUsersOfProjectQuery(100);
+        var handler = new GetUsersOfProjectQueryHandler(_userRepository);
 
         //Act
         var result = await handler.Handle(query, CancellationToken.None);

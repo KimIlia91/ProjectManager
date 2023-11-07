@@ -5,7 +5,6 @@ using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Models.Task;
 using PM.Application.Common.Specifications.TaskSpecifications;
-using System.Linq;
 
 namespace PM.Application.Features.TaskContext.Queries.GetTaskListOfProjectByUser;
 
@@ -41,7 +40,7 @@ internal sealed class GetTaskListOfProjectByUserQueryHandler
         CancellationToken cancellationToken)
     {
         var taskListOfProjectByUser = new GetTaskListOfProjectByUserSpec(
-            query.ProjectId, 
+            query.ProjectId,
             _currentUser);
 
         var taskQuery = _taskRepository

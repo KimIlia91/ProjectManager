@@ -155,7 +155,7 @@ public class UserController : ApiBaseController
        int projectId,
        CancellationToken cancellationToken)
     {
-        var query = new GetProjectUserListQuery(projectId);
+        var query = new GetUsersOfProjectQuery(projectId);
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(

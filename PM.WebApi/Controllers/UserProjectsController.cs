@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
 using PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
 using PM.Application.Features.EmployeeProjectsContext.Dtos;
+using PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 using PM.Domain.Common.Constants;
 
 namespace PM.WebApi.Controllers;

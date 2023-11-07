@@ -6,7 +6,7 @@ using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 using PM.Domain.Entities;
 
-namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
+namespace PM.Application.Features.UserProjectsContext.Commands.RemoveUserFromProject;
 
 /// <summary>
 /// Validates the <see cref="RemoveUserFromProjectCommand"/> 

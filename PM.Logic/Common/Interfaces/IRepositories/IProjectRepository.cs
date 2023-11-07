@@ -19,7 +19,7 @@ public interface IProjectRepository : IBaseRepository<Project>
         CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets project information by its identifier.
+    /// Gets project information by its ID.
     /// </summary>
     /// <param name="id">Project identifier.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
@@ -29,7 +29,7 @@ public interface IProjectRepository : IBaseRepository<Project>
         CancellationToken cancellationToken);
 
     /// <summary>
-    /// Gets project information by its identifier.
+    /// Gets project of user information by its ID.
     /// </summary>
     /// <param name="id">Project identifier.</param>
     /// <param name="cancellationToken">Cancellation token.</param>

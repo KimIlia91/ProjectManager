@@ -171,7 +171,7 @@ public class ProjectController : ApiBaseController
     /// <returns></returns>
     [HttpGet("{id}/CurrentUser")]
     [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Employee}")]
-    [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUserProjectAsync(
         int id,
         CancellationToken cancellationToken)

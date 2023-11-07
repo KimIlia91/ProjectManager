@@ -57,7 +57,7 @@ public sealed class TaskRepository
             .FirstOrDefaultAsync(t => t.Id == taskId, cancellationToken);
     }
 
-    public async Task<TaskResult?> GetTaskResultOfUserAsync(
+    public async Task<TaskResult?> GetTaskOfUserByIdAsync(
         int taskId, 
         int userId, 
         CancellationToken cancellationToken)

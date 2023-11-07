@@ -5,7 +5,7 @@ using PM.Application.Common.Resources;
 using PM.Application.Common.Specifications.ProjectSpecifications;
 using PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 
-namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
+namespace PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 
 /// <summary>
 /// Validator for the command to add an employee to a project.

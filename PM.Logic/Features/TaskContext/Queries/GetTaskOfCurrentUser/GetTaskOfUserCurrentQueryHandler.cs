@@ -26,7 +26,7 @@ internal sealed class GetTaskOfUserCurrentQueryHandler
         CancellationToken cancellationToken)
     {
         var task = await _taskRepository
-            .GetTaskResultOfUserAsync(query.TaskId, _currentUser.UserId, cancellationToken);
+            .GetTaskOfUserByIdAsync(query.TaskId, _currentUser.UserId, cancellationToken);
 
         if (task is null)
             return Error.NotFound(ErrorsResource.NotFound, nameof(query.TaskId));

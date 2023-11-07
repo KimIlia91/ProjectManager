@@ -39,7 +39,14 @@ public interface ITaskRepository : IBaseRepository<Task>
        int taskId,
        CancellationToken cancellationToken);
 
-    Task<TaskResult?> GetTaskResultOfUserAsync(
+    /// <summary>
+    /// Get task of user by task ID.
+    /// </summary>
+    /// <param name="taskId">ID of task.</param>
+    /// <param name="userId">ID of user.</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    Task<TaskResult?> GetTaskOfUserByIdAsync(
         int taskId,
         int userId,
         CancellationToken cancellationToken);

@@ -3,7 +3,7 @@ using MediatR;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Features.EmployeeProjectsContext.Dtos;
 
-namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
+namespace PM.Application.Features.UserProjectsContext.Commands.RemoveUserFromProject;
 
 /// <summary>
 /// Handles the execution of the <see cref="RemoveUserFromProjectCommand"/>.

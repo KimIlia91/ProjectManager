@@ -57,7 +57,7 @@ public sealed class UserRepository
     }
 
     /// <inheritdoc />
-    public async Task<List<UserResult>> GetUsersResultListByProjectIdAsync(
+    public async Task<List<UserResult>> GetUserListByProjectIdAsync(
         int projectId, 
         CancellationToken cancellationToken)
     {
