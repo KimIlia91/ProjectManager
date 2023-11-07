@@ -79,7 +79,7 @@ public class IdentityService : IIdentityService
         var resultUser = await _userManager.UpdateAsync(user);
 
         if (!resultUser.Succeeded)
-            return Error.Failure("Employee could not be created");
+            return Error.Failure("User could not be created");
 
         return user;
     }
@@ -96,9 +96,10 @@ public class IdentityService : IIdentityService
             return Error.Unauthorized("Login or password incorrect");
 
         var roles = await _userManager.GetRolesAsync(user);
-        var accessToken = _jwtTokenService.GenerateToken(user, roles.ToList());
+        var roleList = roles.ToList();
+        var accessToken = _jwtTokenService.GenerateToken(user, roleList);
         var refreshToken = await _refreshTokenService.GenerateAsync(user);
-        return new AuthResult(user.Email!, accessToken, refreshToken);
+        return new AuthResult(user.Email!, accessToken, refreshToken, roleList);
     }
 
     /// <inheritdoc />

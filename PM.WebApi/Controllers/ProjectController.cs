@@ -66,7 +66,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Retrieve a project by its ID.
+    /// Get project by ID.
     /// </summary>
     /// <param name="id">The ID of the project to retrieve.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -91,7 +91,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Delete a project by its ID.
+    /// Delete a project by ID.
     /// </summary>
     /// <param name="id">The ID of the project to delete.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -116,7 +116,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Retrieve a list of projects based on query parameters.
+    /// Get all projects.
     /// </summary>
     /// <param name="query">The query parameters for filtering and sorting projects.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>

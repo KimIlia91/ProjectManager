@@ -9,4 +9,5 @@
 public sealed record AuthResult(
     string UserName,
     string AccessToken,
-    string RefreshToken);
+    string RefreshToken,
+    List<string> Roles);
