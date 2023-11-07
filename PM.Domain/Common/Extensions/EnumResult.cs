@@ -14,9 +14,4 @@ public class EnumResult
     /// Gets or sets the name of the enumeration value.
     /// </summary>
     public string Name { get; set; } = null!;
-
-    /// <summary>
-    /// Gets or sets the description of the enumeration value.
-    /// </summary>
-    public string Description { get; set; } = null!;
 }

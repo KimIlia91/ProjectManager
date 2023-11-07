@@ -7,8 +7,8 @@ using PM.Application.Features.EmployeeContext.Queries.GetManagers;
 using PM.Application.Features.UserContext.Commands.CreateUser;
 using PM.Application.Features.UserContext.Commands.DeleteUser;
 using PM.Application.Features.UserContext.Commands.UpdateUser;
-using PM.Application.Features.UserContext.Queries.GetProjectUserList;
 using PM.Application.Features.UserContext.Queries.GetUserList;
+using PM.Application.Features.UserContext.Queries.GetUsersOfProject;
 using PM.Domain.Common.Constants;
 
 namespace PM.WebApi.Controllers;

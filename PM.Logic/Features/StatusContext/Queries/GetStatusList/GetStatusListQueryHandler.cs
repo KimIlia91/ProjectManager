@@ -11,7 +11,7 @@ namespace PM.Application.Features.StatusContext.Queries.GetStatusList;
 /// Handler for retrieving a list of statuses.
 /// </summary>
 internal sealed class GetStatusListQueryHandler
-    : IRequestHandler<GetStatusListQuery, ErrorOr<List<GetStatusListResult>>>
+    : IRequestHandler<GetStatusListQuery, ErrorOr<List<EnumResult>>>
 {
     private readonly IMapper _mapper;
 
@@ -31,12 +31,10 @@ internal sealed class GetStatusListQueryHandler
     /// <param name="query">The GetStatusListQuery to be handled.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     /// <returns>A list of GetStatusListResult or an error result.</returns>
-    public async Task<ErrorOr<List<GetStatusListResult>>> Handle(
+    public async Task<ErrorOr<List<EnumResult>>> Handle(
         GetStatusListQuery query, 
         CancellationToken cancellationToken)
     {
-        var statusList = EnumExtensions.GetAllAsEnumerable<Status>();
-
-        return await Task.FromResult(_mapper.Map<List<GetStatusListResult>>(statusList));
+        return EnumExtensions.ToEnumResults<Status>().ToList();
     }
 }

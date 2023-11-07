@@ -24,4 +24,6 @@ public class GetProjectResult
     public DateTime EndDate { get; set; }
 
     public Priority Priority { get; set; }
+
+    public List<TaskResult> Tasks { get; set; } = new();
 }

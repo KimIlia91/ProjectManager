@@ -19,13 +19,13 @@ public static class RoleSeed
     /// <returns>A task representing the asynchronous operation.</returns>
     public static async Task SeedAsync(RoleManager<Role> roleManager)
     {
-        var roles = EnumExtensions.ToEnumResults<RoleEnum>();
+        var roles = EnumExtensions.GetAllAsEnumerable<RoleEnum>();
 
         foreach (var role in roles)
         {
-            if (!await roleManager.RoleExistsAsync(role.Description))
+            if (!await roleManager.RoleExistsAsync(role.GetDescription()))
             {
-                await roleManager.CreateAsync(new Role { Name = role.Description });
+                await roleManager.CreateAsync(new Role { Name = role.GetDescription() });
             }
         }
     }

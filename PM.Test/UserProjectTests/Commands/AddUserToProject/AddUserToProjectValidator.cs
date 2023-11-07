@@ -1,8 +1,7 @@
 ﻿using PM.Application.Common.Resources;
-using PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
+using PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 using PM.Test.Common.FakeRepositories;
 using PM.Test.Common.FakeServices;
-using System;
 
 namespace PM.Test.UserProjectTests.Commands.AddUserToProject;
 

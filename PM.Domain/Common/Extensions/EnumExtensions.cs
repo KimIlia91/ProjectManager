@@ -75,8 +75,7 @@ public static class EnumExtensions
             .Select(t => new EnumResult
             {
                 Id = (int)(object)t,
-                Name = t.ToString(),
-                Description = t.GetDescription()
+                Name = t.ToString()
             });
     }
 }

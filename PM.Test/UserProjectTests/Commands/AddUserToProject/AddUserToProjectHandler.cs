@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
+using PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 using PM.Test.Common.FakeRepositories;
 
 namespace PM.Test.UserProjectTests.Commands.AddUserToProject;

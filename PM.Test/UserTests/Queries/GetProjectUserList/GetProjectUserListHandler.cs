@@ -1,4 +1,4 @@
-﻿using PM.Application.Features.UserContext.Queries.GetProjectUserList;
+﻿using PM.Application.Features.UserContext.Queries.GetUsersOfProject;
 using PM.Test.Common.FakeRepositories;
 
 namespace PM.Test.UserTests.Queries.GetProjectUserList;
