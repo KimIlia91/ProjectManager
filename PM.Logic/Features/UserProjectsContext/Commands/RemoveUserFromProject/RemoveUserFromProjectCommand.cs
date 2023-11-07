@@ -4,7 +4,7 @@ using PM.Application.Features.EmployeeProjectsContext.Dtos;
 using PM.Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace PM.Application.Features.EmployeeProjectsContext.Commands.RemoveEmployeeFromProject;
+namespace PM.Application.Features.UserProjectsContext.Commands.RemoveUserFromProject;
 
 /// <summary>
 /// Command to remove an employee from a project.

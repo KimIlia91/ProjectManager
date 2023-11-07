@@ -4,12 +4,12 @@ using PM.Application.Features.EmployeeProjectsContext.Dtos;
 using PM.Domain.Entities;
 using System.Text.Json.Serialization;
 
-namespace PM.Application.Features.EmployeeProjectsContext.Commands.AddEmployeeToProject;
+namespace PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 
 /// <summary>
 /// Represents a command to add an employee to a project.
 /// </summary>
-public sealed class AddUserToProjectCommand 
+public sealed class AddUserToProjectCommand
     : IRequest<ErrorOr<AddUserToProjectResult>>
 {
     /// <summary>
