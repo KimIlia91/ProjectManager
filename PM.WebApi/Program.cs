@@ -6,9 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.ConfigureServices();
 
-var app = builder
-    .Build()
-    .UseAppConfiguration();
+var app = builder.Build();
+app.UseAppConfiguration();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
