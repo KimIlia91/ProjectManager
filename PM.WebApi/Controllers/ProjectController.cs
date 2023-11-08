@@ -18,7 +18,7 @@ namespace PM.WebApi.Controllers;
 public class ProjectController : ApiBaseController
 {
     /// <summary>
-    /// Create a new project.
+    /// Create a new project for supervisor role.
     /// </summary>
     /// <param name="command">The command for creating the project.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -42,7 +42,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Update an existing project.
+    /// Update an existing project for supervisor role.
     /// </summary>
     /// <param name="command">The command for updating the project.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -66,7 +66,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Get project by ID.
+    /// Get project by ID for supervisor role.
     /// </summary>
     /// <param name="id">The ID of the project to retrieve.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -91,7 +91,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Delete a project by ID.
+    /// Delete a project by ID for supervisor role.
     /// </summary>
     /// <param name="id">The ID of the project to delete.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -116,7 +116,7 @@ public class ProjectController : ApiBaseController
     }
 
     /// <summary>
-    /// Get all projects.
+    /// Get all projects for supervisor role.
     /// </summary>
     /// <param name="query">The query parameters for filtering and sorting projects.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -150,7 +150,6 @@ public class ProjectController : ApiBaseController
     /// - A problem response with errors if there are issues.
     /// </returns>
     [HttpGet("CurrentUser")]
-    [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Employee}")]
     [ProducesResponseType(typeof(List<GetProjectListResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUserProjectListAsync(
         [FromQuery] GetCurrentUserProjectListQuery query,
@@ -170,7 +169,6 @@ public class ProjectController : ApiBaseController
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns></returns>
     [HttpGet("{id}/CurrentUser")]
-    [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Employee}")]
     [ProducesResponseType(typeof(GetProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetCurrentUserProjectAsync(
         int id,

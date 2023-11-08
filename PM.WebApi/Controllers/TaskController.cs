@@ -67,7 +67,7 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// Retrieve a task by its ID.
+    /// Retrieve a task by its ID for supervisor role.
     /// </summary>
     /// <param name="id">The ID of the task to retrieve.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -116,7 +116,7 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// Get task list.
+    /// Get all task list for supervisor role.
     /// </summary>
     /// <param name="query">The query parameters for filtering and sorting tasks.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -140,32 +140,6 @@ public class TaskController : ApiBaseController
     }
 
     /// <summary>
-    /// Get task list of project.
-    /// </summary>
-    /// <param name="id">Project ID.</param>
-    /// <param name="request">Query parameters for filtering and sorting tasks.</param>
-    /// <param name="cancellationToken">A token to cancel the operation.</param>
-    /// <returns>Task list or error.</returns>
-    [HttpGet("Project/{id}")]
-    [ProducesResponseType(typeof(List<TaskResult>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetTaskListOfProjectAsync(
-        int id,
-        [FromQuery] GetProjectTasksRequest request,
-        CancellationToken cancellationToken)
-    {
-        var query = new GetTasksOfProjectByUserQuery(
-            id,
-            request.Filter,
-            request.SortBy);
-
-        var result = await Mediator.Send(query, cancellationToken);
-
-        return result.Match(
-           result => Ok(result),
-           errors => Problem(errors));
-    }
-
-    /// <summary>
     /// Retrieve a list of tasks associated with a specific project.
     /// </summary>
     /// <param name="id">The ID of the project to retrieve tasks for.</param>
@@ -176,7 +150,7 @@ public class TaskController : ApiBaseController
     /// - 200 OK with the list of tasks if successful.
     /// - A problem response with errors if there are issues.
     /// </returns>
-    [HttpGet("Project/{id}/User")]
+    [HttpGet("Project/{id}")]
     [ProducesResponseType(typeof(List<TaskResult>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetTaskListOfProjectByUserAsync(
         int id,

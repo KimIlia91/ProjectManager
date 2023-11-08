@@ -17,7 +17,7 @@ namespace PM.WebApi.Controllers;
 public class UserController : ApiBaseController
 {
     /// <summary>
-    /// Create a new user.
+    /// Create a new user for supervisor role.
     /// </summary>
     /// <param name="command">The command for creating the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -65,7 +65,7 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// Update an existing user.
+    /// Update an existing user for supervisor role.
     /// </summary>
     /// <param name="command">The command for updating the user.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -89,7 +89,7 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// Delete a user by their ID.
+    /// Delete a user by their ID for supervisor role.
     /// </summary>
     /// <param name="id">The ID of the user to delete.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
@@ -114,9 +114,8 @@ public class UserController : ApiBaseController
     }
 
     /// <summary>
-    /// Retrieve a list of users based on query parameters.
+    /// Retrieve a list of users for supervisor role.
     /// </summary>
-    /// <param name="query">The query parameters for filtering and sorting users.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>
     /// An IActionResult representing the list of users matching the query.
@@ -140,20 +139,20 @@ public class UserController : ApiBaseController
     /// <summary>
     /// Retrieve a list of users assigned to a specific project.
     /// </summary>
-    /// <param name="projectId">The ID of the project to retrieve users for.</param>
+    /// <param name="id">The ID of the project to retrieve users for.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>
     /// An IActionResult representing the list of users assigned to the project.
     /// - 200 OK with the list of users if successful.
     /// - A problem response with errors if there are issues.
     /// </returns>
-    [HttpGet("projectEmployees/{projectId}")]
+    [HttpGet("project/{id}")]
     [ProducesResponseType(typeof(UpdateUserResult), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetProjectUserListAsync(
-       int projectId,
+    public async Task<IActionResult> GetUserListOfProjectAsync(
+       int id,
        CancellationToken cancellationToken)
     {
-        var query = new GetUsersOfProjectQuery(projectId);
+        var query = new GetUsersOfProjectQuery(id);
         var result = await Mediator.Send(query, cancellationToken);
 
         return result.Match(
