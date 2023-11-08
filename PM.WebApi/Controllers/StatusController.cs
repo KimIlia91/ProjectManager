@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using PM.Application.Features.StatusContext.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
 using PM.Application.Features.StatusContext.Queries.GetStatusList;
-using PM.Domain.Common.Constants;
 using PM.Domain.Common.Extensions;
 
 namespace PM.WebApi.Controllers;

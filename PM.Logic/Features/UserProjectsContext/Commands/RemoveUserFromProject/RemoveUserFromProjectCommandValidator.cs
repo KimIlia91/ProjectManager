@@ -67,7 +67,7 @@ public sealed class RemoveUserFromProjectCommandValidator
         int userId,
         CancellationToken cancellationToken)
     {
-        var userProject = new UserOfRpojectSpec(userId, command.ProjectId);
+        var userProject = new UserProjectMembershipSpec(userId, command.ProjectId);
 
         command.User = await _userRepository
             .GetOrDeafaultAsync(userProject.ToExpression(), cancellationToken);

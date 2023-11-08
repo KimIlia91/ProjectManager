@@ -9,7 +9,7 @@ namespace PM.Infrastructure.Persistence;
 /// <summary>
 /// Represents a class for configuring and adding persistence-related services to the application.
 /// </summary>
-public static class PesistenceDi
+public static class PersistenceExtensions
 {
     /// <summary>
     /// Configures and adds persistence-related services to the specified service collection.

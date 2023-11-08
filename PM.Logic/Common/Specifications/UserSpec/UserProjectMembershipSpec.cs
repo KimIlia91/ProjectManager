@@ -4,12 +4,12 @@ using System.Linq.Expressions;
 
 namespace PM.Application.Features.TaskContext.Commands.CreateTask.UserSpec;
 
-public sealed class UserOfRpojectSpec : ISpecification<User>
+public sealed class UserProjectMembershipSpec : ISpecification<User>
 {
     private readonly int _userId;
     private readonly int _projectId;
 
-    public UserOfRpojectSpec(int userId, int projectId)
+    public UserProjectMembershipSpec(int userId, int projectId)
     {
         _userId = userId;
         _projectId = projectId;
@@ -22,6 +22,7 @@ public sealed class UserOfRpojectSpec : ISpecification<User>
     public Expression<Func<User, bool>> ToExpression()
     {
         return u => u.Id == _userId &&
-            u.Projects.Any(p => p.Id == _projectId || p.ManagerId == _userId);
+            (u.Projects.Any(p => p.Id == _projectId) || 
+                u.ManageProjects.Any(p => p.Id == _projectId));
     }
 }

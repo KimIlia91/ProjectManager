@@ -18,7 +18,7 @@ namespace PM.Infrastructure.Auth;
 /// <summary>
 /// A static class for configuring authentication services.
 /// </summary>
-public static class AuthConfig
+public static class AuthExtensions
 {
     /// <summary>
     /// Configures and adds authentication services to the specified service collection.

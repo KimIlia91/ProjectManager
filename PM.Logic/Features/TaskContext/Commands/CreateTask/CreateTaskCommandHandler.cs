@@ -32,7 +32,6 @@ internal sealed class CreateTaskCommandHandler
         _currentUser = currentUser;
         _taskRepository = taskRepository;
         _userRepository = userRepository;
-
     }
 
     /// <summary>

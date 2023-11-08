@@ -14,4 +14,6 @@ internal static class TestDataConstants
     public const string TestExecutorCompany = "Test Executor Company";
     public static DateTime StartDate = DateTime.UtcNow;
     public static DateTime EndDate = DateTime.UtcNow.AddDays(1);
+
+    public const string TestTaskName = "UserTest@User.com";
 }

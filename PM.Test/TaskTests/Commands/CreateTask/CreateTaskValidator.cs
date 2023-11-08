@@ -45,7 +45,7 @@ public sealed class CreateTaskValidator
     }
 
     [Fact]
-    public async Task Validator_Should_ReturnNotFoundError_WhenCurrentUserNotManagerOfProject()
+    public async Task Validator_Should_ReturnNotFoundProjectId_WhenCurrentUserNotManagerOfProject()
     {
         //Arrange
         var command = new CreateTaskCommand()
@@ -96,7 +96,7 @@ public sealed class CreateTaskValidator
     }
 
     [Fact]
-    public async Task Validator_Should_ReturnNotFound_WhenExecutorMustBeInProject()
+    public async Task Validator_Should_ReturnNotFoundExecutorId_WhenExecutorIsNotInProject()
     {
         //Arrange
         var command = new CreateTaskCommand()

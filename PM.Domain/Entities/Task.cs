@@ -14,9 +14,19 @@ public sealed class Task : BaseEntity
     public string Name { get; private set; } = null!;
 
     /// <summary>
+    /// Gets or private sets the author id of the task.
+    /// </summary>
+    public int? AuthorId { get; private set; }
+
+    /// <summary>
     /// Gets or private sets the author of the task.
     /// </summary>
     public User? Author { get; private set; }
+
+    /// <summary>
+    /// Gets or private sets the executor ID of the task.
+    /// </summary>
+    public int? ExecutorId { get; private set; }
 
     /// <summary>
     /// Gets or private sets the executor of the task.

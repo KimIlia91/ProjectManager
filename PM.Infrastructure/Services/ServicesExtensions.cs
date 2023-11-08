@@ -6,7 +6,7 @@ namespace PM.Infrastructure.Services;
 /// <summary>
 /// Dependency injection extension for registering application services.
 /// </summary>
-public static class ServicesDi
+public static class ServicesExtensions
 {
     /// <summary>
     /// Adds application-specific services to the provided service collection.

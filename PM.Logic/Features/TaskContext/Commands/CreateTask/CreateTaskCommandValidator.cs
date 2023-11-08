@@ -91,10 +91,10 @@ public sealed class CreateTaskCommandValidator
         int userId,
         CancellationToken cancellationToken)
     {
-        var getUserInProject = new UserOfRpojectSpec(userId, command.ProjectId);
+        var userMembership = new UserProjectMembershipSpec(userId, command.ProjectId);
 
         command.Executor = await _userRepository
-           .GetOrDeafaultAsync(getUserInProject.ToExpression(), cancellationToken);
+           .GetOrDeafaultAsync(userMembership.ToExpression(), cancellationToken);
 
         return command.Executor is not null;
     }
