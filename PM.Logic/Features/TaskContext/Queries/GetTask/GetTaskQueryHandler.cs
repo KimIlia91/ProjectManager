@@ -1,12 +1,8 @@
 ﻿using ErrorOr;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
-using PM.Application.Common.Auth;
 using PM.Application.Common.Interfaces.IRepositories;
-using PM.Application.Common.Interfaces.ISercices;
 using PM.Application.Common.Resources;
 using PM.Application.Features.TaskContext.Dtos;
-using PM.Domain.Entities;
 
 namespace PM.Application.Features.TaskContext.Queries.GetTask;
 
