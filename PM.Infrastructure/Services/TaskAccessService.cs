@@ -5,6 +5,7 @@ using Task = PM.Domain.Entities.Task;
 
 namespace PM.Infrastructure.Services;
 
+//TODO: Надо внедрить для бизнесовой логики авторизации
 /// <summary>
 /// A service for checking access to tasks.
 /// </summary>
@@ -20,7 +21,6 @@ public class TaskAccessService : AccessService<Task>, ITaskAccessService
         ApplicationDbContext context)
     {
         _context = context;
-
     }
 
     /// <inheritdoc />
