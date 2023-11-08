@@ -7,8 +7,16 @@ using System.Reflection;
 
 namespace PM.WebApi.Common.Extensions;
 
-public static class WebApplicationExtensions
+/// <summary>
+/// A static class containing extension methods for configuring a WebApplicationBuilder.
+/// </summary>
+public static class WebApplicationBuilderExtensions
 {
+    /// <summary>
+    /// Configures services for a WebApplicationBuilder.
+    /// </summary>
+    /// <param name="builder">The WebApplicationBuilder instance to configure services for.</param>
+    /// <returns>The configured WebApplicationBuilder instance.</returns>
     public static WebApplicationBuilder ConfigureServices(
         this WebApplicationBuilder builder)
     {
