@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  ms-sql-server:
+    container_name: ms-sql-server-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Admin123!"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+  
+  pm-web-api:
+    build: 
+      context: .
+      dockerfile: PM.WebApi/Dockerfile
+    image: pm-web-api
+    container_name: pm-web-api
+    ports:
+      - "8080:80"
