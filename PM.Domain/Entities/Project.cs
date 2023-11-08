@@ -160,21 +160,21 @@ public sealed class Project : BaseEntity
     }
 
     /// <summary>
-    /// Adds an employee to the project.
+    /// Adds an user to the project.
     /// </summary>
-    /// <param name="employee">The user to add as an employee to the project.</param>
-    public void AddUser(User employee)
+    /// <param name="user">The user to add as an employee to the project.</param>
+    public void AddUser(User user)
     {
-        _users.Add(employee);
+        _users.Add(user);
     }
 
     /// <summary>
-    /// Removes an employee from the project.
+    /// Removes an user from the project.
     /// </summary>
-    /// <param name="employee">The user to remove from the project's employees.</param>
-    public void RemoveEmployee(User employee)
+    /// <param name="user">The user to remove from the project's employees.</param>
+    public void RemoveUser(User user)
     {
-        _users.Remove(employee);
+        _users.Remove(user);
     }
 
     /// <summary>

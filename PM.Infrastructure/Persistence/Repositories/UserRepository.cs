@@ -46,17 +46,6 @@ public sealed class UserRepository
     }
 
     /// <inheritdoc />
-    public async Task<List<UserResult>> GetUserResultListByRoleAsync(
-        string roleName,
-        CancellationToken cancellationToken)
-    {
-        return await DbSet
-            .Where(u => u.UserRoles.Any(ur => ur.Role.Name == roleName))
-            .ProjectToType<UserResult>(Mapper.Config)
-            .ToListAsync(cancellationToken);
-    }
-
-    /// <inheritdoc />
     public async Task<List<UserResult>> GetUserListByProjectIdAsync(
         int projectId, 
         CancellationToken cancellationToken)

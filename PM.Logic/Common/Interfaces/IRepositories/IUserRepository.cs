@@ -36,14 +36,4 @@ public interface IUserRepository : IBaseRepository<User>
     Task<List<UserResult>> GetUserListByProjectIdAsync(
         int projectId,
         CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Retrieves a list of user information with a specific role.
-    /// </summary>
-    /// <param name="roleName">The name of the role to filter by.</param>
-    /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
-    /// <returns>A list of user information with the specified role.</returns>
-    Task<List<UserResult>> GetUserResultListByRoleAsync(
-        string roleName,
-        CancellationToken cancellationToken);
 }

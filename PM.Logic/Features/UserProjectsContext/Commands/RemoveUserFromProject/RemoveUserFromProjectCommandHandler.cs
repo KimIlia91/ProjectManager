@@ -35,7 +35,7 @@ internal sealed class RemoveUserFromProjectCommandHandler
         RemoveUserFromProjectCommand command,
         CancellationToken cancellationToken)
     {
-        command.Project!.RemoveEmployee(command.User!);
+        command.Project!.RemoveUser(command.User!);
 
         await _projectRepository.SaveChangesAsync(cancellationToken);
 
