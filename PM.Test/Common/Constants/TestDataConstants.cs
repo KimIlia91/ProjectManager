@@ -1,4 +1,6 @@
-﻿namespace PM.Test.Common.Constants;
+﻿using PM.Domain.Common.Enums;
+
+namespace PM.Test.Common.Constants;
 
 internal static class TestDataConstants
 {
@@ -15,5 +17,7 @@ internal static class TestDataConstants
     public static DateTime StartDate = DateTime.UtcNow;
     public static DateTime EndDate = DateTime.UtcNow.AddDays(1);
 
-    public const string TestTaskName = "UserTest@User.com";
+    public const string TestTaskName = "1Title";
+    public const Status TestTaskStatus = Status.Done;
+    public const Priority TestTaskPriority = Priority.Medium;
 }

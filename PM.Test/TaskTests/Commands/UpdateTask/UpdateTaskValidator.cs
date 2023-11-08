@@ -162,12 +162,12 @@ public sealed class UpdateTaskValidator
     }
 
     [Fact]
-    public async Task Validator_Should_ReturnIdNotFound_When()
+    public async Task Validator_Should_ReturnIdNotFound_WhenProjectIsNotInDatabase()
     {
         //Arrange
         var command = new UpdateTaskCommand()
         {
-            Id = 1,
+            Id = 100,
             Name = "Task update",
             Comment = "Comment update",
             ExecutorId = 3500,

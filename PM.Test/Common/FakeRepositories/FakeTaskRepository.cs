@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using PM.Application.Common.Interfaces.IRepositories;
 using PM.Application.Common.Models.Task;
 using PM.Application.Features.TaskContext.Dtos;
@@ -26,7 +27,9 @@ public class FakeTaskRepository : FakeBaseRepository<Task>, ITaskRepository
     public Task<GetTaskResult?> GetTaskResultByIdAsync(
         int id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Context.Tasks
+            .ProjectToType<GetTaskResult>(Mapper.Config)
+            .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
     }
 
     public Task<TaskResult?> GetTaskOfUserByIdAsync(

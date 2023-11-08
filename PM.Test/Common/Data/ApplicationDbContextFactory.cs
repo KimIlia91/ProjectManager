@@ -73,16 +73,16 @@ public class ApplicationDbContextFactory
             Priority.Low);
 
         var task1 = PM.Domain.Entities.Task.Create(
-            "Title1", 
+            TestDataConstants.TestTaskName, 
             user1.Value, 
             user2.Value, 
             project1.Value, 
-            "Comment", 
-            Status.ToDo, 
-            Priority.High);
+            "Comment",
+            TestDataConstants.TestTaskStatus,
+            TestDataConstants.TestTaskPriority);
 
         var task2 = PM.Domain.Entities.Task.Create(
-            "Title2",
+            "1Title",
             user2.Value,
             user2.Value,
             project1.Value,
@@ -91,7 +91,7 @@ public class ApplicationDbContextFactory
             Priority.High);
 
         var task3 = PM.Domain.Entities.Task.Create(
-            "Title3",
+            "3Title",
             user2.Value,
             user2.Value,
             project2.Value,
