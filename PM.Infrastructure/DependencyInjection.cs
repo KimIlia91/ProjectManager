@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddPesistence(configuration);
         services.AddServices();
         services.AddAuth(configuration);
+
         return services;
     }
 }

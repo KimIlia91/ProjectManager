@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using PM.Application;
 using PM.Infrastructure;
+using PM.Infrastructure.Persistence;
 using PM.Infrastructure.Persistence.Seeds;
 using PM.WebApi.Common.Congifuratuions.Swagger;
 using PM.WebApi.Common.Errors;
@@ -33,6 +34,7 @@ app.MapControllers();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-await DataBaseSeeds.AddSeeds(services);
+await DatabaseMigrations.MigrateAsync(services);
+await DatabaseSeeds.AddSeeds(services);
 
 app.Run();
