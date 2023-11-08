@@ -26,8 +26,8 @@ internal class TasksOfProjectByUserSpec : ISpecification<Task>
             return t => t.ProjectId == _projectId;
 
         return t => t.ProjectId == _projectId &&
-                  ((t.Project.Manager != null && t.Project.ManagerId == _userId) ||
-                   (t.Executor != null && t.Executor.Id == _userId) ||
-                   (t.Author != null && t.Author.Id == _userId));
+                   (t.Project.ManagerId == _userId ||
+                    t.ExecutorId == _userId ||
+                    t.AuthorId == _userId);
     }
 }

@@ -30,7 +30,7 @@ internal sealed class GetTasksOfCurrentUserQueryHandler
         var getCurrentUserTasks = new TasksOfUserSpec(_currentUser);
 
         var taskQuery = _taskRepository
-            .GetQuery()
+            .GetQuery(asNoTracking: true)
             .Where(getCurrentUserTasks.ToExpression())
             .Filter(query.Filter)
             .Sort(query.Sort);
