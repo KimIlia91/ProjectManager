@@ -1,36 +1,13 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using PM.Application;
-using PM.Infrastructure;
 using PM.Infrastructure.Persistence;
 using PM.Infrastructure.Persistence.Seeds;
-using PM.WebApi.Common.Congifuratuions.Swagger;
-using PM.WebApi.Common.Errors;
-using System.Reflection;
+using PM.WebApi.Common.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddControllers();
-builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddSingleton<ProblemDetailsFactory, PmErrorProblemDitailsFactory>();
-builder.Services.AddApplication();
 
-builder.Services.AddCustomSwaggerGen(Assembly.GetExecutingAssembly());
+builder.ConfigureServices();
 
 var app = builder.Build();
-
-
-if (app.Environment.IsDevelopment())
-{
-    
-}
-app.UseCustomSwaggerConfiguration();
-app.UseExceptionHandler("/error");
-//app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseAppConfiguration();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

@@ -13,7 +13,7 @@ namespace PM.WebApi.Controllers;
 public class AuthController : ApiBaseController
 {
     /// <summary>
-    /// Creates a new project.
+    /// Login to get access token.
     /// </summary>
     /// <param name="command">The command for creating the project.</param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>

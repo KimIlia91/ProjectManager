@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using PM.Domain.Common.Constants;
 using PM.Application.Features.EmployeeProjectsContext.Dtos;
 using PM.Application.Features.UserProjectsContext.Commands.AddUserToProject;
 using PM.Application.Features.UserProjectsContext.Commands.RemoveUserFromProject;
@@ -23,7 +21,6 @@ public class UserProjectsController : ApiBaseController
     /// - A problem response with errors if the operation encounters issues.
     /// </returns>
     [HttpPost]
-    [Authorize(Roles = $"{RoleConstants.Manager}, {RoleConstants.Supervisor}")]
     [ProducesResponseType(typeof(AddUserToProjectResult), StatusCodes.Status200OK)]
     public async Task<IActionResult> AddEmployeeToProjectAsync(
         AddUserToProjectCommand command,
@@ -48,7 +45,6 @@ public class UserProjectsController : ApiBaseController
     /// - A problem response with errors if there are issues.
     /// </returns>
     [HttpDelete("{projectId}/{employeeId}")]
-    [Authorize(Roles = $"{RoleConstants.Supervisor}, {RoleConstants.Manager}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> RemoveEmployeeFromProjectAsync(
         int projectId,
