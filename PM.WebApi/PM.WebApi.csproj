@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PM.Infrastructure\PM.Infrastructure.csproj" />
     <ProjectReference Include="..\PM.Logic\PM.Application.csproj" />
+    <ProjectReference Include="..\PM.Test\PM.Test.csproj" />
   </ItemGroup>
 
 </Project>
