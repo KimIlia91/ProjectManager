@@ -26,7 +26,7 @@ public class GetTaskHandler
 
         //Assert
         Assert.False(result.IsError);
-        Assert.Equal(TestDataConstants.TestTaskName, result.Value.Name);
+        Assert.Equal(TestDataConstants.TestTaskName1, result.Value.Name);
         Assert.Equal(TestDataConstants.TestTaskStatus.ToString(), result.Value.Status);
         Assert.Equal(TestDataConstants.TestTaskPriority, result.Value.Priority);
     }

@@ -57,6 +57,7 @@ public sealed class TaskRepository
             .FirstOrDefaultAsync(t => t.Id == taskId, cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task<TaskResult?> GetTaskOfUserByIdAsync(
         int taskId, 
         int userId, 
@@ -64,9 +65,9 @@ public sealed class TaskRepository
     {
         return await DbSet
             .Where(t => t.Id == taskId &&
-                       ((t.Author != null && t.Author.Id == userId) ||
-                       (t.Executor != null && t.Executor.Id == userId) ||
-                       (t.Project.ManagerId == userId)))
+                       (t.AuthorId == userId ||
+                       t.ExecutorId == userId ||
+                       t.Project.ManagerId == userId))
             .ProjectToType<TaskResult>(Mapper.Config)
             .FirstOrDefaultAsync(cancellationToken);
     }

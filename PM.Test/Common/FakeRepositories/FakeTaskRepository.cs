@@ -32,9 +32,15 @@ public class FakeTaskRepository : FakeBaseRepository<Task>, ITaskRepository
             .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
     }
 
-    public Task<TaskResult?> GetTaskOfUserByIdAsync(
+    public async Task<TaskResult?> GetTaskOfUserByIdAsync(
         int taskId, int userId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await Context.Tasks
+            .Where(t => t.Id == taskId &&
+                       (t.AuthorId == userId ||
+                       t.ExecutorId == userId ||
+                       t.Project.ManagerId == userId))
+            .ProjectToType<TaskResult>(Mapper.Config)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

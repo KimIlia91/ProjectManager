@@ -17,7 +17,9 @@ internal static class TestDataConstants
     public static DateTime StartDate = DateTime.UtcNow;
     public static DateTime EndDate = DateTime.UtcNow.AddDays(1);
 
-    public const string TestTaskName = "1Title";
+    public const string TestTaskName1 = "1Title";
+    public const string TestTaskName2 = "2Title";
+    public const string TestTaskName3 = "3Title";
     public const Status TestTaskStatus = Status.Done;
     public const Priority TestTaskPriority = Priority.Medium;
 }
