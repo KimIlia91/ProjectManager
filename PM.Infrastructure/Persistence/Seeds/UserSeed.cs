@@ -23,9 +23,9 @@ internal class UserSeed
         RoleManager<Role> roleManager)
     {
         var userResult = User.Create(
-            "Leader FirstName",
-            "Leader LantName",
-            "Leader@Leader.com");
+            "Supervisor FirstName",
+            "Supervisor LantName",
+            "Supervisor@Supervisor.com");
 
         var user = userResult.Value;
 
@@ -33,7 +33,7 @@ internal class UserSeed
         var userExists = userManager.Users.Any(u => u.Email == user.Email);
         if (!userExists && userRole is not null)
         {
-            await userManager.CreateAsync(user, "TestLeader123!");
+            await userManager.CreateAsync(user, "Test123!");
             await userManager.AddToRoleAsync(user, userRole.Name);
         }
     }

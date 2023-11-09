@@ -37,7 +37,7 @@ public class AuthController : ApiBaseController
     }
 
     /// <summary>
-    /// Logs out the currently authenticated user.
+    /// Logs out the currently authenticated user. Delete refresh token of current user.
     /// </summary>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>

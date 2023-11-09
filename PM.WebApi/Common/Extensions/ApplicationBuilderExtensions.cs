@@ -14,11 +14,7 @@ public static class ApplicationBuilderExtensions
     /// <returns>The configured WebApplication instance.</returns>
     public static WebApplication UseAppConfiguration(this WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseCustomSwaggerConfiguration();
-        }
-
+        app.UseCustomSwaggerConfiguration();
         app.UseExceptionHandler("/error");
         // app.UseHttpsRedirection();
         app.UseAuthentication();
