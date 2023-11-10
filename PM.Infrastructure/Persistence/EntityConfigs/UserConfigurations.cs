@@ -13,21 +13,17 @@ public sealed class UserConfigurations : IEntityTypeConfiguration<User>
 
         builder.HasKey(e => e.Id);
 
-        builder.Property(e => e.Id)
-            .HasColumnName("Id");
+        builder.Property(e => e.Id);
 
         builder.Property(e => e.FirstName)
-            .HasColumnName("FirstName")
             .IsRequired()
             .HasMaxLength(EntityConstants.FirstName);
 
         builder.Property(e => e.LastName)
-            .HasColumnName("LastName")
             .IsRequired()
             .HasMaxLength(EntityConstants.LastName);
 
         builder.Property(e => e.MiddleName)
-            .HasColumnName("MiddelName")
             .IsRequired(false)
             .HasMaxLength(EntityConstants.MiddelName);
 

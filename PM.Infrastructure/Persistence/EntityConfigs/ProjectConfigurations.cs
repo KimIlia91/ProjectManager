@@ -15,34 +15,27 @@ public sealed class ProjectConfigurations : IEntityTypeConfiguration<Project>
 
         builder.HasKey(t => t.Id);
 
-        builder.Property(p => p.Id)
-            .HasColumnName("Id");
+        builder.Property(p => p.Id);
 
         builder.Property(p => p.Name)
-            .HasColumnName("Name")
             .IsRequired()
             .HasMaxLength(EntityConstants.ProjectName);
 
         builder.Property(p => p.CustomerCompany)
-            .HasColumnName("CustomerCompany")
             .IsRequired()
             .HasMaxLength(EntityConstants.CompanyName);
 
         builder.Property(p => p.ExecutorCompany)
-            .HasColumnName("ExecutorCompany")
             .IsRequired()
             .HasMaxLength(EntityConstants.CompanyName);
 
         builder.Property(p => p.StartDate)
-            .HasColumnName("StartDate")
             .IsRequired();
 
         builder.Property(p => p.EndDate)
-            .HasColumnName("EndDate")
             .IsRequired();
 
         builder.Property(p => p.Priority)
-            .HasColumnName("Priority")
             .HasConversion(new EnumToNumberConverter<Priority, int>())
             .IsRequired();
 

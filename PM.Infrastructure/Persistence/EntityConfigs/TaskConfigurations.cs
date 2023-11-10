@@ -17,21 +17,17 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
 
         builder.HasKey(t => t.Id);
 
-        builder.Property(p => p.Id)
-            .HasColumnName("Id");
+        builder.Property(p => p.Id);
 
         builder.Property(x => x.Name)
-            .HasColumnName("Name")
             .IsRequired()
             .HasMaxLength(EntityConstants.TaskName);
 
         builder.Property(x => x.Comment)
-            .HasColumnName("Comment")
             .HasMaxLength(EntityConstants.Comment)
             .IsRequired(false);
 
         builder.Property(x => x.Status)
-            .HasColumnName("Status")
             .HasConversion(new EnumToStringConverter<Status>())
             .HasMaxLength(EntityConstants.EnumStatusLength)
             .IsRequired();
@@ -39,7 +35,6 @@ public sealed class TaskConfigurations : IEntityTypeConfiguration<Task>
         builder.HasIndex(x => x.Status);
 
         builder.Property(x => x.Priority)
-            .HasColumnName("Priority")
             .HasConversion(new EnumToNumberConverter<Priority, int>())
             .IsRequired();
 
