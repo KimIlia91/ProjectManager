@@ -39,7 +39,7 @@ public class UpdateUserHandler
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var handler = new UpdateUserCommandHandler(_mapper, _service);
@@ -108,7 +108,7 @@ public class UpdateUserHandler
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var handler = new UpdateUserCommandHandler(_mapper, _service);
@@ -141,7 +141,7 @@ public class UpdateUserHandler
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var handler = new UpdateUserCommandHandler(_mapper, _service);

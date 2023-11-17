@@ -41,9 +41,9 @@ public sealed class UpdateUserCommandValidator
             .MaximumLength(EntityConstants.LastName)
             .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.LastName));
 
-        RuleFor(command => command.MiddelName)
+        RuleFor(command => command.MiddleName)
             .MaximumLength(EntityConstants.MiddelName)
-            .When(command => command.MiddelName is not null)
+            .When(command => command.MiddleName is not null)
             .WithMessage(string.Format(ErrorsResource.MaxLength, EntityConstants.MiddelName));
 
         RuleFor(command => command.Email)

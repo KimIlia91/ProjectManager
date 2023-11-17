@@ -35,7 +35,7 @@ public sealed class UpdateUserCommand
     /// <summary>
     /// Gets or sets the middle name of the user.
     /// </summary>
-    public string? MiddelName { get; set; }
+    public string? MiddleName { get; set; }
 
     /// <summary>
     /// Gets or sets the email of the user. Cannot be null.

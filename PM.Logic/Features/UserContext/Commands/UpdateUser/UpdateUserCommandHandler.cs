@@ -41,7 +41,7 @@ internal sealed class UpdateUserCommandHandler
         var userResult = command.User.Update(
             command.FirstName,
             command.LastName,
-            command.MiddelName,
+            command.MiddleName,
             command.Email);
 
         if (userResult.IsError)

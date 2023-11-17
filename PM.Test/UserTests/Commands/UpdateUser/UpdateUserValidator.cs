@@ -36,7 +36,7 @@ public class UpdateUserValidator
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var validator = new UpdateUserCommandValidator(_userRepository);
@@ -61,7 +61,7 @@ public class UpdateUserValidator
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email,
-            MiddelName = user.MiddleName,
+            MiddleName = user.MiddleName,
         };
 
         var validator = new UpdateUserCommandValidator(_userRepository);
@@ -115,7 +115,7 @@ public class UpdateUserValidator
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var validator = new UpdateUserCommandValidator(_userRepository);
@@ -146,7 +146,7 @@ public class UpdateUserValidator
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var validator = new UpdateUserCommandValidator(_userRepository);
@@ -189,7 +189,7 @@ public class UpdateUserValidator
             FirstName = firstName,
             LastName = lastName,
             Email = email,
-            MiddelName = middleName,
+            MiddleName = middleName,
         };
 
         var validator = new UpdateUserCommandValidator(_userRepository);
